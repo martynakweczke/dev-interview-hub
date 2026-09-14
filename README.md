@@ -4,6 +4,8 @@ A quiz app for Junior Frontend / Full-Stack interview prep: four topics (CSS,
 HTML, JavaScript, TypeScript), ten single-choice questions each, scored results
 and per-topic best scores. Glassmorphic dark and light themes at full parity.
 
+**Live demo: [dev-interview-hub.vercel.app](https://dev-interview-hub.vercel.app/)**
+
 The design handoff (spec, prototype, work plan) lives in
 [`design_handoff_dev_interview_hub/`](design_handoff_dev_interview_hub/README.md).
 
@@ -12,15 +14,42 @@ The design handoff (spec, prototype, work plan) lives in
 Next.js (App Router) · TypeScript · Tailwind CSS v4 · shadcn/ui (Radix) ·
 Vitest + React Testing Library
 
+## Pages
+
+Work in progress: the routes, app shell and theming are in place; the pages
+below are currently placeholders.
+
+| Route                   | Will show                       |
+| ----------------------- | ------------------------------- |
+| `/`                     | Topic picker                    |
+| `/quiz/[topic]`         | Ten-question quiz for one topic |
+| `/quiz/[topic]/results` | Score for that attempt          |
+| `/progress`             | Best score per topic            |
+
+## Getting started
+
+```bash
+npm install
+npm run dev
+```
+
 ## Scripts
 
-| Command             | What it does                        |
-| ------------------- | ----------------------------------- |
-| `npm run dev`       | Dev server on http://localhost:3000 |
-| `npm run build`     | Production build                    |
-| `npm run typecheck` | `tsc --noEmit`                      |
-| `npm run lint`      | ESLint                              |
-| `npm test`          | Vitest (single run)                 |
+| Command              | What it does                        |
+| -------------------- | ----------------------------------- |
+| `npm run dev`        | Dev server on http://localhost:3000 |
+| `npm run build`      | Production build                    |
+| `npm start`          | Serve the production build          |
+| `npm run typecheck`  | `next typegen && tsc --noEmit`      |
+| `npm run lint`       | ESLint                              |
+| `npm test`           | Vitest (single run)                 |
+| `npm run test:watch` | Vitest in watch mode                |
+
+## Deployment
+
+The app is deployed on [Vercel](https://vercel.com) at
+<https://dev-interview-hub.vercel.app/>. No environment variables are needed —
+Vercel detects Next.js and runs `npm run build`.
 
 ## Design tokens & theming
 
@@ -42,4 +71,5 @@ Vitest + React Testing Library
 - One breakpoint: `sm` = 520px. Base styles are the phone layout.
 
 Visit **`/tokens`** in development for the reference sheet: every primitive in
-every state, rendered in both themes side by side.
+every state, rendered in both themes side by side. It returns 404 in production,
+so it isn't available on the Vercel deployment.
