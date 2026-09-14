@@ -18,15 +18,10 @@ const buttonVariants = cva(
         pill: "border-line-soft bg-glass-strong font-sans font-medium text-ink-tertiary enabled:hovered:bg-glass-hover disabled:text-ink-disabled",
       },
       size: {
-        /** Quiz "Next question" — 52px. */
         md: "min-h-13 rounded-control px-8.5 text-button",
-        /** Results actions — 56px. */
         lg: "min-h-14 rounded-control-lg px-7.5 text-button",
-        /** Bottom-pinned phone actions — 52px, tight padding. */
         compact: "min-h-13 rounded-control px-4.5 text-button-sm",
-        /** Text-only inline action (desktop "Skip"). */
         inline: "rounded-control-sm px-5.5 py-3.5 text-button-sm",
-        /** Header pill ("Exit round"); hit area extended to 44px+. */
         pill: "rounded-pill px-3.5 py-1.75 text-nav-compact after:absolute after:inset-x-0 after:-inset-y-2",
       },
     },
