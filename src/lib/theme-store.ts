@@ -56,10 +56,6 @@ export function setThemePreference(preference: ThemePreference) {
   sync()
 }
 
-/**
- * Subscribes to everything that can change the resolved theme: OS scheme
- * changes (which only matter while in "system") and edits from other tabs.
- */
 export function subscribeToTheme(listener: () => void) {
   if (listeners.size === 0) {
     window.matchMedia(DARK_SCHEME_QUERY).addEventListener("change", sync)

@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils"
 
-/** Brand-gradient tile with the `</>` glyph. Decorative. */
 export function LogoTile({ className }: { className?: string }) {
   return (
     <span
