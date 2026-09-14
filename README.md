@@ -6,9 +6,6 @@ and per-topic best scores. Glassmorphic dark and light themes at full parity.
 
 **Live demo: [dev-interview-hub.vercel.app](https://dev-interview-hub.vercel.app/)**
 
-The design handoff (spec, prototype, work plan) lives in
-[`design_handoff_dev_interview_hub/`](design_handoff_dev_interview_hub/README.md).
-
 ## Stack
 
 Next.js (App Router) · TypeScript · Tailwind CSS v4 · shadcn/ui (Radix) ·
