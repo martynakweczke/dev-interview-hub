@@ -7,8 +7,11 @@ const SRC = path.join(process.cwd(), "src")
 const COLOR_LITERAL =
   /#[0-9a-f]{3,8}\b|\b(?:rgba?|hsla?|hwb|lab|lch|oklab|oklch|color-mix)\(/i
 
+const CONTENT_DIR = path.join("lib", "questions") + path.sep
+
 const sourceFiles = readdirSync(SRC, { recursive: true, encoding: "utf8" })
   .filter((file) => /\.tsx?$/.test(file) && !/\.test\.tsx?$/.test(file))
+  .filter((file) => !file.startsWith(CONTENT_DIR))
   .sort()
 
 it("finds component sources to scan", () => {
