@@ -3,19 +3,16 @@ import * as React from "react"
 import { SiteHeader } from "@/components/shell/site-header"
 import { Surface } from "@/components/shell/surface"
 import { ThemeToggle } from "@/components/theme/theme-toggle"
+import { TopicCard } from "@/components/topics/topic-card"
+import { TopicIconTile } from "@/components/topics/topic-icon-tile"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Separator } from "@/components/ui/separator"
 import { toneClasses, type Tone } from "@/components/ui/tones"
+import type { TopicProgress } from "@/lib/progress"
+import { getTopic } from "@/lib/questions"
 import { cn } from "@/lib/utils"
 
 const surfaceSwatches = [
@@ -175,62 +172,17 @@ function Swatch({ name, className }: { name: string; className: string }) {
   )
 }
 
-function IconTile({ glyph }: { glyph: string }) {
-  return (
-    <span
-      aria-hidden="true"
-      className="grid size-12 shrink-0 place-items-center rounded-icon border border-tone-line bg-tone-fill font-mono text-glyph font-bold text-tone-ink"
-    >
-      {glyph}
-    </span>
-  )
+const SPECIMEN_PLAYED_AT = "2026-09-12T10:00:00.000Z"
+
+function playedProgress(bestScore: number, lastScore: number): TopicProgress {
+  return { bestScore, attempts: 3, lastScore, lastPlayedAt: SPECIMEN_PLAYED_AT }
 }
 
-function TopicCardSpecimen({
-  tone,
-  glyph,
-  name,
-  pill,
-  pillTone = tone,
-  status,
-  statusClassName = "text-ink-faintest",
-  value,
-  variant = "glass",
-  forceHover = false,
-}: {
-  tone: Tone
-  glyph: string
-  name: string
-  pill: string
-  pillTone?: Tone
-  status: string
-  statusClassName?: string
-  value: number
-  variant?: "glass" | "focus"
-  forceHover?: boolean
-}) {
-  return (
-    <Card
-      variant={variant}
-      tone={tone}
-      interactive
-      data-force-state={forceHover ? "hover" : undefined}
-      className="w-full"
-    >
-      <CardHeader>
-        <IconTile glyph={glyph} />
-        <CardAction>
-          <Badge tone={pillTone}>{pill}</Badge>
-        </CardAction>
-      </CardHeader>
-      <CardContent>
-        <CardTitle>{name}</CardTitle>
-        <CardDescription>10 questions</CardDescription>
-        <p className={cn("text-caption", statusClassName)}>{status}</p>
-      </CardContent>
-      <Progress value={value} aria-label={`${name} best score`} />
-    </Card>
-  )
+const untouchedProgress: TopicProgress = {
+  bestScore: 0,
+  attempts: 0,
+  lastScore: null,
+  lastPlayedAt: null,
 }
 
 export function TokenPanel({
@@ -295,7 +247,7 @@ export function TokenPanel({
                 key={tone}
                 className={cn("flex flex-wrap items-center gap-4", toneClasses[tone])}
               >
-                <IconTile glyph={glyph} />
+                <TopicIconTile glyph={glyph} />
                 <span className="h-1.5 w-20 rounded-pill bg-tone-solid" />
                 <Badge tone={tone}>{label}</Badge>
                 <span className="text-meta font-semibold text-tone-ink">{label} ink</span>
@@ -465,22 +417,22 @@ export function TokenPanel({
         <Section title="Glass cards">
           <div className="grid grid-cols-[repeat(auto-fill,minmax(14rem,1fr))] gap-5">
             <Specimen label="glass · rest" className="items-stretch">
-              <TopicCardSpecimen tone="css" glyph="{ }" name="CSS" pill="Best: 8/10" status="Last played 2 days ago" value={80} />
+              <TopicCard topic={getTopic("css")} progress={playedProgress(10, 10)} status={{ kind: "played", daysAgo: 2 }} />
             </Specimen>
             <Specimen label="glass · hover (css)" pinned className="items-stretch">
-              <TopicCardSpecimen tone="css" glyph="{ }" name="CSS" pill="Best: 8/10" status="Last played 2 days ago" value={80} forceHover />
+              <TopicCard topic={getTopic("css")} progress={playedProgress(10, 10)} status={{ kind: "played", daysAgo: 2 }} data-force-state="hover" />
             </Specimen>
-            <Specimen label="glass · hover (html)" pinned className="items-stretch">
-              <TopicCardSpecimen tone="html" glyph="</>" name="HTML" pill="Best: 9/10" status="Last played 5 days ago" value={90} forceHover />
+            <Specimen label="glass · hover (html, review)" pinned className="items-stretch">
+              <TopicCard topic={getTopic("html")} progress={playedProgress(9, 9)} status={{ kind: "review", count: 1 }} data-force-state="hover" />
             </Specimen>
             <Specimen label="focus · rest" className="items-stretch">
-              <TopicCardSpecimen tone="js" glyph="JS" name="JavaScript" pill="Best: 7/10" status="3 questions to review" statusClassName="text-tone-ink tone-js" value={70} variant="focus" />
+              <TopicCard topic={getTopic("js")} progress={playedProgress(7, 7)} status={{ kind: "review", count: 3 }} focus />
             </Specimen>
             <Specimen label="focus · hover" pinned className="items-stretch">
-              <TopicCardSpecimen tone="js" glyph="JS" name="JavaScript" pill="Best: 7/10" status="3 questions to review" statusClassName="text-tone-ink tone-js" value={70} variant="focus" forceHover />
+              <TopicCard topic={getTopic("js")} progress={playedProgress(7, 7)} status={{ kind: "review", count: 3 }} focus data-force-state="hover" />
             </Specimen>
             <Specimen label="glass · not attempted" className="items-stretch">
-              <TopicCardSpecimen tone="ts" glyph="TS" name="TypeScript" pill="Not attempted yet" pillTone="neutral" status="Start your first round" statusClassName="text-tone-ink tone-ts" value={0} />
+              <TopicCard topic={getTopic("ts")} progress={untouchedProgress} status={{ kind: "new" }} />
             </Specimen>
             <Specimen label="stat" className="items-stretch">
               <Card variant="stat">

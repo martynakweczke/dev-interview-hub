@@ -11,6 +11,7 @@ export const PROGRESS_SCHEMA_VERSION = 1
 export type TopicProgress = {
   bestScore: number
   attempts: number
+  lastScore: number | null
   lastPlayedAt: string | null
 }
 
@@ -36,7 +37,7 @@ function mapTopics<T>(fn: (id: TopicId) => T): Record<TopicId, T> {
 }
 
 function createEmptyTopicProgress(): TopicProgress {
-  return { bestScore: 0, attempts: 0, lastPlayedAt: null }
+  return { bestScore: 0, attempts: 0, lastScore: null, lastPlayedAt: null }
 }
 
 export function createEmptyProgress(): ProgressSnapshot {
@@ -66,7 +67,7 @@ function isTimestamp(value: unknown): value is string {
 function parseTopicProgress(value: unknown): TopicProgress {
   if (!isRecord(value)) return createEmptyTopicProgress()
 
-  const { bestScore, attempts, lastPlayedAt } = value
+  const { bestScore, attempts, lastScore, lastPlayedAt } = value
   if (
     !isCount(attempts) ||
     attempts === 0 ||
@@ -76,7 +77,12 @@ function parseTopicProgress(value: unknown): TopicProgress {
     return createEmptyTopicProgress()
   }
 
-  return { bestScore, attempts, lastPlayedAt }
+  return {
+    bestScore,
+    attempts,
+    lastScore: isValidScore(lastScore) ? lastScore : null,
+    lastPlayedAt,
+  }
 }
 
 export function parseProgress(raw: string | null): ProgressSnapshot {
@@ -111,7 +117,7 @@ function startOfLocalDay(date: Date): number {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime()
 }
 
-function calendarDaysBetween(from: Date, to: Date): number {
+export function calendarDaysBetween(from: Date, to: Date): number {
   return Math.round((startOfLocalDay(to) - startOfLocalDay(from)) / DAY_MS)
 }
 
@@ -157,6 +163,7 @@ export function recordAttempt(
       [topicId]: {
         bestScore: Math.max(previous.bestScore, score),
         attempts: previous.attempts + 1,
+        lastScore: score,
         lastPlayedAt: completedAt.toISOString(),
       },
     },

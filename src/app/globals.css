@@ -80,6 +80,8 @@
   --cta-line: rgba(251, 191, 36, 0.6);
   --focus-card-fill: rgba(251, 191, 36, 0.07);
   --focus-card-line: rgba(251, 191, 36, 0.26);
+  --focus-row-fill: rgba(251, 191, 36, 0.08);
+  --focus-row-line: rgba(251, 191, 36, 0.28);
   --code-fill: rgba(251, 191, 36, 0.12);
   --code-line: rgba(251, 191, 36, 0.26);
   --score-ring-track: rgba(255, 255, 255, 0.08);
@@ -98,6 +100,7 @@
   --selected-shadow: 0 18px 40px -22px rgba(251, 191, 36, 0.8);
   --focus-card-shadow: 0 26px 50px -26px rgba(251, 191, 36, 0.35);
   --focus-card-hover-shadow: 0 32px 64px -24px rgba(251, 191, 36, 0.5);
+  --focus-row-shadow: 0 18px 40px -26px rgba(251, 191, 36, 0.5);
   --score-ring-shadow: 0 0 50px -10px rgba(52, 211, 153, 0.5);
   --score-hero-shadow: 0 30px 70px -34px rgba(52, 211, 153, 0.45);
 
@@ -133,6 +136,8 @@
   --js-line: rgba(251, 191, 36, 0.34);
   --js-pill-fill: rgba(251, 191, 36, 0.16);
   --js-pill-line: rgba(251, 191, 36, 0.34);
+  --js-tile-fill: rgba(251, 191, 36, 0.18);
+  --js-tile-line: rgba(251, 191, 36, 0.36);
   --js-glow: rgba(251, 191, 36, 0.45);
   --js-ring: rgba(251, 191, 36, 0.4);
 
@@ -237,6 +242,8 @@
   --cta-line: rgba(217, 119, 6, 0.55);
   --focus-card-fill: rgba(245, 158, 11, 0.14);
   --focus-card-line: rgba(217, 119, 6, 0.36);
+  --focus-row-fill: rgba(245, 158, 11, 0.16);
+  --focus-row-line: rgba(217, 119, 6, 0.38);
   --code-fill: rgba(245, 158, 11, 0.2);
   --code-line: rgba(217, 119, 6, 0.36);
   --score-ring-track: rgba(15, 23, 42, 0.1);
@@ -255,6 +262,7 @@
   --selected-shadow: 0 18px 40px -22px rgba(217, 119, 6, 0.45);
   --focus-card-shadow: 0 26px 50px -26px rgba(217, 119, 6, 0.22);
   --focus-card-hover-shadow: 0 32px 64px -24px rgba(217, 119, 6, 0.3);
+  --focus-row-shadow: 0 18px 40px -26px rgba(217, 119, 6, 0.3);
   --score-ring-shadow: 0 0 50px -10px rgba(5, 150, 105, 0.3);
   --score-hero-shadow: 0 30px 70px -34px rgba(5, 150, 105, 0.28);
 
@@ -290,6 +298,8 @@
   --js-line: rgba(217, 119, 6, 0.38);
   --js-pill-fill: rgba(245, 158, 11, 0.22);
   --js-pill-line: rgba(217, 119, 6, 0.4);
+  --js-tile-fill: rgba(245, 158, 11, 0.24);
+  --js-tile-line: rgba(217, 119, 6, 0.42);
   --js-glow: rgba(217, 119, 6, 0.3);
   --js-ring: rgba(251, 191, 36, 0.55);
 
@@ -433,6 +443,8 @@
   --text-chip: 0.6875rem;
   --text-chip--letter-spacing: 0.08em;
   --text-glyph: 1rem;
+  --text-glyph-sm: 0.9375rem;
+  --text-glyph-xs: 0.875rem;
   --text-logo: 0.875rem;
   --text-logo-compact: 0.75rem;
   --text-avatar: 0.6875rem;
@@ -500,6 +512,8 @@
   --color-focus-card-fill: var(--focus-card-fill);
   --color-focus-card-line: var(--focus-card-line);
   --color-focus-card-hover-line: var(--focus-card-hover-line);
+  --color-focus-row-fill: var(--focus-row-fill);
+  --color-focus-row-line: var(--focus-row-line);
   --color-code-fill: var(--code-fill);
   --color-code-line: var(--code-line);
   --color-score-ring-track: var(--score-ring-track);
@@ -509,6 +523,8 @@
   --color-tone-solid: var(--tone-solid);
   --color-tone-fill: var(--tone-fill);
   --color-tone-line: var(--tone-line);
+  --color-tone-tile-fill: var(--tone-tile-fill);
+  --color-tone-tile-line: var(--tone-tile-line);
   --color-tone-pill-fill: var(--tone-pill-fill);
   --color-tone-pill-line: var(--tone-pill-line);
   --color-tone-glow: var(--tone-glow);
@@ -540,6 +556,7 @@
   --shadow-card-hover: 0 30px 60px -26px var(--tone-glow);
   --shadow-focus-card: var(--focus-card-shadow);
   --shadow-focus-card-hover: var(--focus-card-hover-shadow);
+  --shadow-focus-row: var(--focus-row-shadow);
   --shadow-logo: var(--logo-shadow);
   --shadow-cta: var(--cta-shadow);
   --shadow-cta-next: var(--cta-next-shadow);
@@ -584,6 +601,8 @@
   --tone-solid: var(--css-solid);
   --tone-fill: var(--css-fill);
   --tone-line: var(--css-line);
+  --tone-tile-fill: var(--css-fill);
+  --tone-tile-line: var(--css-line);
   --tone-pill-fill: var(--css-pill-fill);
   --tone-pill-line: var(--css-pill-line);
   --tone-glow: var(--css-glow);
@@ -594,6 +613,8 @@
   --tone-solid: var(--html-solid);
   --tone-fill: var(--html-fill);
   --tone-line: var(--html-line);
+  --tone-tile-fill: var(--html-fill);
+  --tone-tile-line: var(--html-line);
   --tone-pill-fill: var(--html-pill-fill);
   --tone-pill-line: var(--html-pill-line);
   --tone-glow: var(--html-glow);
@@ -604,6 +625,8 @@
   --tone-solid: var(--js-solid);
   --tone-fill: var(--js-fill);
   --tone-line: var(--js-line);
+  --tone-tile-fill: var(--js-tile-fill);
+  --tone-tile-line: var(--js-tile-line);
   --tone-pill-fill: var(--js-pill-fill);
   --tone-pill-line: var(--js-pill-line);
   --tone-glow: var(--js-glow);
@@ -614,6 +637,8 @@
   --tone-solid: var(--ts-solid);
   --tone-fill: var(--ts-fill);
   --tone-line: var(--ts-line);
+  --tone-tile-fill: var(--ts-fill);
+  --tone-tile-line: var(--ts-line);
   --tone-pill-fill: var(--ts-pill-fill);
   --tone-pill-line: var(--ts-pill-line);
   --tone-glow: var(--ts-glow);
@@ -624,6 +649,8 @@
   --tone-solid: var(--correct-solid);
   --tone-fill: var(--correct-fill);
   --tone-line: var(--correct-line);
+  --tone-tile-fill: var(--correct-fill);
+  --tone-tile-line: var(--correct-line);
   --tone-pill-fill: var(--correct-pill-fill);
   --tone-pill-line: var(--correct-pill-line);
   --tone-glow: var(--correct-glow);
@@ -634,6 +661,8 @@
   --tone-solid: var(--incorrect-solid);
   --tone-fill: var(--incorrect-fill);
   --tone-line: var(--incorrect-line);
+  --tone-tile-fill: var(--incorrect-fill);
+  --tone-tile-line: var(--incorrect-line);
   --tone-pill-fill: var(--incorrect-pill-fill);
   --tone-pill-line: var(--incorrect-pill-line);
   --tone-glow: var(--incorrect-glow);
@@ -644,6 +673,8 @@
   --tone-solid: var(--brand-solid);
   --tone-fill: var(--brand-fill);
   --tone-line: var(--brand-line);
+  --tone-tile-fill: var(--brand-fill);
+  --tone-tile-line: var(--brand-line);
   --tone-pill-fill: var(--brand-pill-fill);
   --tone-pill-line: var(--brand-pill-line);
   --tone-glow: var(--brand-glow);
@@ -654,6 +685,8 @@
   --tone-solid: var(--streak-solid);
   --tone-fill: var(--streak-fill);
   --tone-line: var(--streak-line);
+  --tone-tile-fill: var(--streak-fill);
+  --tone-tile-line: var(--streak-line);
   --tone-pill-fill: var(--streak-pill-fill);
   --tone-pill-line: var(--streak-pill-line);
   --tone-glow: var(--streak-glow);
@@ -664,6 +697,8 @@
   --tone-solid: var(--ink-muted);
   --tone-fill: var(--neutral-fill);
   --tone-line: var(--line-strong);
+  --tone-tile-fill: var(--neutral-fill);
+  --tone-tile-line: var(--line-strong);
   --tone-pill-fill: var(--neutral-fill);
   --tone-pill-line: var(--line-strong);
   --tone-glow: var(--shadow-tint);
@@ -674,6 +709,8 @@
   --tone-solid: var(--ink-muted);
   --tone-fill: var(--glass-strong);
   --tone-line: var(--line-soft);
+  --tone-tile-fill: var(--glass-strong);
+  --tone-tile-line: var(--line-soft);
   --tone-pill-fill: var(--glass-strong);
   --tone-pill-line: var(--line-soft);
   --tone-glow: var(--shadow-tint);

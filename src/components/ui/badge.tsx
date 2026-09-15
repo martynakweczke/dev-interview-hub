@@ -62,6 +62,7 @@ function Badge({
       {dot && (
         <span
           aria-hidden="true"
+          data-slot="badge-dot"
           className="size-1.75 shrink-0 rounded-pill bg-tone-solid shadow-dot"
         />
       )}

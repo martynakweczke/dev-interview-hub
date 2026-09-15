@@ -43,6 +43,7 @@ describe("progress store", () => {
     expect(saved.topics.js).toEqual({
       bestScore: 7,
       attempts: 1,
+      lastScore: 7,
       lastPlayedAt: completedAt.toISOString(),
     })
     expect(store.getProgressSnapshot()).toEqual(saved)
