@@ -17,6 +17,7 @@ const day = (date: number, hour = 10) => new Date(2026, 8, date, hour)
 const played: TopicProgress = {
   bestScore: 8,
   attempts: 3,
+  lastScore: 6,
   lastPlayedAt: day(12).toISOString(),
 }
 
@@ -36,6 +37,7 @@ describe("parseProgress", () => {
     expect(empty.topics.ts).toEqual({
       bestScore: 0,
       attempts: 0,
+      lastScore: null,
       lastPlayedAt: null,
     })
   })
@@ -110,6 +112,43 @@ describe("parseProgress", () => {
   })
 })
 
+describe("lastScore", () => {
+  it("reads progress saved before lastScore existed", () => {
+    const legacy = {
+      bestScore: 8,
+      attempts: 3,
+      lastPlayedAt: day(12).toISOString(),
+    }
+    const progress = parseProgress(stored({ topics: { css: legacy } }))
+    expect(progress.topics.css).toEqual({ ...legacy, lastScore: null })
+  })
+
+  it.each([11, -1, 2.5, "7"])(
+    "drops an invalid lastScore of %s but keeps the topic",
+    (lastScore) => {
+      const progress = parseProgress(
+        stored({ topics: { css: { ...played, lastScore } } })
+      )
+      expect(progress.topics.css).toEqual({ ...played, lastScore: null })
+    }
+  )
+
+  it("tracks the most recent score, not the best", () => {
+    let progress = recordAttempt(createEmptyProgress(), {
+      topicId: "html",
+      score: 9,
+      completedAt: day(13),
+    })
+    progress = recordAttempt(progress, {
+      topicId: "html",
+      score: 4,
+      completedAt: day(14),
+    })
+    expect(progress.topics.html.bestScore).toBe(9)
+    expect(progress.topics.html.lastScore).toBe(4)
+  })
+})
+
 describe("recordAttempt", () => {
   it("records a first attempt without mutating the input", () => {
     const empty = createEmptyProgress()
@@ -122,6 +161,7 @@ describe("recordAttempt", () => {
     expect(next.topics.js).toEqual({
       bestScore: 7,
       attempts: 1,
+      lastScore: 7,
       lastPlayedAt: day(14).toISOString(),
     })
     expect(next.streakDays).toBe(1)
@@ -143,6 +183,7 @@ describe("recordAttempt", () => {
     expect(second.topics.css).toEqual({
       bestScore: 8,
       attempts: 2,
+      lastScore: 5,
       lastPlayedAt: day(14, 11).toISOString(),
     })
   })
