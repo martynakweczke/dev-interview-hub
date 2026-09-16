@@ -4,8 +4,7 @@ import type { Option, OptionId, Question } from "@/lib/questions"
 import type { QuizAnswer } from "@/lib/quiz"
 import { cn } from "@/lib/utils"
 
-// Below `sm` each row stacks: number · question · chip, answers underneath.
-// Just above `sm` the columns keep a floor width and the table scrolls.
+
 const rowGrid =
   "grid grid-cols-[1.75rem_minmax(0,1fr)_1.75rem] items-center gap-x-3 gap-y-1.5 sm:min-w-144 sm:grid-cols-[2.75rem_minmax(0,1fr)_min(12.5rem,24%)_min(12.5rem,24%)_2.75rem] sm:gap-4"
 
