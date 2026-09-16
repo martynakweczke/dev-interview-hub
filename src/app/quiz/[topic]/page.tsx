@@ -1,22 +1,28 @@
 import type { Metadata } from "next"
+import { notFound } from "next/navigation"
 
-import { PageShell } from "@/components/shell/page-shell"
+import { QuizHeader } from "@/components/quiz/quiz-header"
+import { QuizView } from "@/components/quiz/quiz-view"
+import { Surface } from "@/components/shell/surface"
+import { getTopic, isTopicId } from "@/lib/questions"
 
-export const metadata: Metadata = {
-  title: "Quiz",
+export async function generateMetadata({
+  params,
+}: PageProps<"/quiz/[topic]">): Promise<Metadata> {
+  const { topic } = await params
+  return isTopicId(topic) ? { title: `${getTopic(topic).label} round` } : {}
 }
 
-export default function QuizPage() {
+export default async function QuizPage({ params }: PageProps<"/quiz/[topic]">) {
+  const { topic } = await params
+  if (!isTopicId(topic)) notFound()
+
   return (
-    <PageShell ambient="quiz" showThemeToggle={false}>
-      <main
-        id="main"
-        className="flex-1 px-gutter-compact py-6 sm:px-gutter sm:py-12"
-      >
-        <h1 className="font-display text-section font-semibold text-ink-heading-alt">
-          Quiz
-        </h1>
+    <Surface ambient="quiz" className="flex min-h-dvh flex-col">
+      <QuizHeader topic={getTopic(topic)} />
+      <main id="main" className="flex flex-1 flex-col">
+        <QuizView />
       </main>
-    </PageShell>
+    </Surface>
   )
 }
