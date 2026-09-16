@@ -11,13 +11,15 @@ const codeVariants = cva("tone-js font-mono", {
         "rounded-code-compact border border-code-line bg-code-fill px-1.75 py-px text-code-prompt-compact text-tone-ink box-decoration-clone sm:rounded-code sm:px-2.5 sm:py-0.5 sm:text-code-prompt",
       option:
         "text-code-option-compact sm:text-code-option sm:text-ink-tertiary group-data-[state=checked]/answer:text-tone-ink",
+      row: "text-code-row text-ink-tertiary",
+      cell: "text-code-cell",
     },
   },
 })
 
 type InlineCodeTextProps = {
   text: string
-  variant: "prompt" | "option"
+  variant: "prompt" | "option" | "row" | "cell"
 }
 
 export function InlineCodeText({ text, variant }: InlineCodeTextProps) {

@@ -41,6 +41,7 @@
   --glass-strong: rgba(255, 255, 255, 0.05);
   --glass-hover: rgba(255, 255, 255, 0.07);
   --table-header: rgba(255, 255, 255, 0.04);
+  --table-fill: rgba(255, 255, 255, 0.035);
   --track: rgba(255, 255, 255, 0.07);
   --track-strong: rgba(255, 255, 255, 0.08);
   --neutral-fill: rgba(255, 255, 255, 0.06);
@@ -205,6 +206,7 @@
   --glass-strong: rgba(255, 255, 255, 0.72);
   --glass-hover: #ffffff;
   --table-header: rgba(15, 23, 42, 0.035);
+  --table-fill: rgba(255, 255, 255, 0.72);
   --track: rgba(15, 23, 42, 0.1);
   --track-strong: rgba(15, 23, 42, 0.1);
   --neutral-fill: rgba(15, 23, 42, 0.05);
@@ -423,6 +425,8 @@
   --text-code-prompt-compact: 0.875em;
   --text-code-option: 0.895em;
   --text-code-option-compact: 0.9333em;
+  --text-code-row: 0.8667em;
+  --text-code-cell: 0.9286em;
   --text-progress-label: 0.9375rem;
   --text-progress-label--letter-spacing: 0.02em;
   --text-progress-label-compact: 0.8125rem;
@@ -435,8 +439,13 @@
   --text-results: 2.5rem;
   --text-results--line-height: 1.1;
   --text-results--letter-spacing: -0.025em;
+  --text-results-compact: 1.75rem;
+  --text-results-compact--line-height: 1.15;
+  --text-results-compact--letter-spacing: -0.02em;
+  --text-results-sub: 1rem;
   --text-figure: 1.25rem;
   --text-row: 0.9375rem;
+  --text-cell: 0.875rem;
   --text-meta: 0.8125rem;
   --text-caption: 0.75rem;
   --text-eyebrow: 0.75rem;
@@ -492,6 +501,7 @@
   --color-glass-strong: var(--glass-strong);
   --color-glass-hover: var(--glass-hover);
   --color-table-header: var(--table-header);
+  --color-table-fill: var(--table-fill);
   --color-track: var(--track);
   --color-track-strong: var(--track-strong);
   --color-neutral-fill: var(--neutral-fill);
@@ -610,6 +620,16 @@
 }
 @utility bg-score-hero {
   background-image: var(--score-hero-fill);
+}
+
+@property --score-ring-progress {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+@utility bg-score-ring {
+  --score-ring-fill: conic-gradient(var(--correct-solid) 0turn var(--score-ring-progress), var(--score-ring-track) var(--score-ring-progress) 1turn);
+  background-image: var(--score-ring-fill);
 }
 
 /*
@@ -737,10 +757,6 @@
   --tone-ring: var(--line-soft);
 }
 
-/*
- * App surface: panel gradient + per-screen ambient radials. Compact ambient
- * below the breakpoint; the wide layout adds the atmospheric glow layer.
- */
 @utility surface {
   position: relative;
   isolation: isolate;
@@ -779,7 +795,6 @@
   }
   html {
     @apply bg-root font-sans text-ink-primary antialiased;
-    /* The design is specced at the UA default, not Tailwind's 1.5. */
     line-height: normal;
   }
   body {
