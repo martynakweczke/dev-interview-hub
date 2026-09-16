@@ -49,6 +49,7 @@
   --disabled-fill: rgba(255, 255, 255, 0.05);
   --incorrect-row: rgba(251, 113, 133, 0.05);
   --scrim: linear-gradient(180deg, rgba(7, 10, 18, 0) 0%, rgba(7, 10, 18, 0.95) 40%);
+  --scrim-quiz: linear-gradient(180deg, rgba(7, 10, 18, 0) 0%, rgba(7, 10, 18, 0.96) 45%);
 
   /* Lines */
   --line: rgba(255, 255, 255, 0.09);
@@ -98,6 +99,7 @@
   --cta-next-shadow: 0 20px 42px -20px rgba(251, 191, 36, 0.85);
   --cta-compact-shadow: 0 18px 36px -18px rgba(251, 191, 36, 0.8);
   --selected-shadow: 0 18px 40px -22px rgba(251, 191, 36, 0.8);
+  --selected-compact-shadow: 0 14px 30px -18px rgba(251, 191, 36, 0.8);
   --focus-card-shadow: 0 26px 50px -26px rgba(251, 191, 36, 0.35);
   --focus-card-hover-shadow: 0 32px 64px -24px rgba(251, 191, 36, 0.5);
   --focus-row-shadow: 0 18px 40px -26px rgba(251, 191, 36, 0.5);
@@ -211,6 +213,7 @@
   --disabled-fill: rgba(15, 23, 42, 0.05);
   --incorrect-row: rgba(225, 29, 72, 0.05);
   --scrim: linear-gradient(180deg, rgba(244, 246, 251, 0) 0%, rgba(244, 246, 251, 0.96) 40%);
+  --scrim-quiz: linear-gradient(180deg, rgba(244, 246, 251, 0) 0%, rgba(244, 246, 251, 0.97) 45%);
 
   /* Lines */
   --line: rgba(15, 23, 42, 0.09);
@@ -260,6 +263,7 @@
   --cta-next-shadow: 0 18px 38px -20px rgba(217, 119, 6, 0.5);
   --cta-compact-shadow: 0 18px 36px -18px rgba(217, 119, 6, 0.45);
   --selected-shadow: 0 18px 40px -22px rgba(217, 119, 6, 0.45);
+  --selected-compact-shadow: 0 14px 30px -18px rgba(217, 119, 6, 0.45);
   --focus-card-shadow: 0 26px 50px -26px rgba(217, 119, 6, 0.22);
   --focus-card-hover-shadow: 0 32px 64px -24px rgba(217, 119, 6, 0.3);
   --focus-row-shadow: 0 18px 40px -26px rgba(217, 119, 6, 0.3);
@@ -372,6 +376,7 @@
   --radius-pill: 999px;
   --radius-chip: 8px;
   --radius-code: 9px;
+  --radius-code-compact: 7px;
   --radius-tile-sm: 10px;
   --radius-tile-md: 11px;
   --radius-tile: 12px;
@@ -413,6 +418,17 @@
   --text-question-compact--letter-spacing: -0.01em;
   --text-answer: 1.1875rem;
   --text-answer-compact: 0.9375rem;
+  /* Code spans scale with the text they sit in. */
+  --text-code-prompt: 0.86em;
+  --text-code-prompt-compact: 0.875em;
+  --text-code-option: 0.895em;
+  --text-code-option-compact: 0.9333em;
+  --text-progress-label: 0.9375rem;
+  --text-progress-label--letter-spacing: 0.02em;
+  --text-progress-label-compact: 0.8125rem;
+  --text-quiz-title: 1rem;
+  --text-quiz-title-compact: 0.9375rem;
+  --text-hint: 0.875rem;
   --text-score: 3.375rem;
   --text-score--line-height: 1;
   --text-score--letter-spacing: -0.03em;
@@ -562,6 +578,7 @@
   --shadow-cta-next: var(--cta-next-shadow);
   --shadow-cta-compact: var(--cta-compact-shadow);
   --shadow-selected: var(--selected-shadow);
+  --shadow-selected-compact: var(--selected-compact-shadow);
   --shadow-score-ring: var(--score-ring-shadow);
   --shadow-score-hero: var(--score-hero-shadow);
   --shadow-progress-glow: 0 0 18px var(--progress-quiz-glow);
@@ -587,6 +604,9 @@
 }
 @utility bg-scrim {
   background-image: var(--scrim);
+}
+@utility bg-scrim-quiz {
+  background-image: var(--scrim-quiz);
 }
 @utility bg-score-hero {
   background-image: var(--score-hero-fill);
