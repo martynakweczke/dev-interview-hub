@@ -36,7 +36,6 @@ export function QuizView() {
   const question = getCurrentQuestion(state)
   const topic = getTopic(state.topicId)
   const finished = state.result !== null
-  // Once finished, keep the last pick on screen while results load.
   const selection = finished
     ? (state.answers[question.id] ?? null)
     : state.selection
