@@ -97,13 +97,13 @@ export function QuizView() {
         aria-labelledby={headingId}
       />
 
-      <div className="sticky bottom-0 z-10 -mx-gutter-compact mt-auto flex items-center gap-3 bg-scrim-quiz px-gutter-compact pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:static sm:mx-0 sm:mt-8 sm:justify-between sm:gap-6 sm:bg-none sm:px-0 sm:pt-2 sm:pb-0">
+      <div className="sticky bottom-0 z-10 -mx-gutter-compact mt-auto flex items-center gap-3 bg-scrim-quiz px-gutter-compact pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:static sm:mx-0 sm:mt-8 sm:flex-wrap sm:justify-between sm:gap-x-6 sm:gap-y-3 sm:bg-none sm:px-0 sm:pt-2 sm:pb-0">
         <p id={hintId} className="text-hint text-ink-faint max-sm:sr-only">
           {selection === null
             ? "Pick one answer to continue"
             : `Option ${selection.toUpperCase()} selected · you can still change it`}
         </p>
-        <div className="flex flex-1 items-center gap-3 sm:flex-none sm:gap-3.5">
+        <div className="flex flex-1 items-center gap-3 sm:ml-auto sm:flex-none sm:gap-3.5">
           <Button
             variant="secondary"
             size="compact"

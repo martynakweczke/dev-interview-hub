@@ -41,7 +41,7 @@ export function ScoreRing({
           {score}
           <span className="text-ink-faint">/{total}</span>
         </p>
-        <p className="tone-correct text-figure font-semibold text-tone-solid">
+        <p className="text-figure font-semibold text-score-percent">
           {percentage}%
         </p>
       </div>

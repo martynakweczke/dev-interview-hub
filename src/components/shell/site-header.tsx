@@ -31,7 +31,7 @@ export function SiteHeader({
           className="flex items-center gap-2.5 rounded-tile sm:gap-3"
         >
           <LogoTile />
-          <span className="font-display text-brand-compact font-bold text-ink-primary sm:text-brand">
+          <span className="font-display text-brand-compact font-bold whitespace-nowrap text-ink-primary sm:text-brand">
             Dev Interview Hub
           </span>
         </Link>
@@ -39,7 +39,7 @@ export function SiteHeader({
         <div className="flex items-center gap-3.5 sm:gap-6.5">
           <nav aria-label="Primary">
             <ul className="flex items-center gap-6.5">
-              <li className="hidden sm:block">
+              <li className="hidden min-[42rem]:block">
                 <NavLink href="/">Topics</NavLink>
               </li>
               <li>
@@ -50,7 +50,7 @@ export function SiteHeader({
             </ul>
           </nav>
           {showThemeToggle && <ThemeToggle />}
-          <AvatarPill className="hidden sm:flex" />
+          <AvatarPill className="hidden min-[42rem]:flex" />
         </div>
       </div>
     </header>
