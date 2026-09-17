@@ -2,8 +2,8 @@ import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { Slot } from "radix-ui"
 
-import { toneClasses } from "@/components/ui/tones"
-import { cn } from "@/lib/utils"
+import { toneClasses } from "@/lib/tones/tones"
+import { cn } from "@/utils/cn/cn.utils"
 
 const badgeVariants = cva(
   "inline-flex w-fit shrink-0 items-center justify-center gap-2.5 border border-tone-pill-line bg-tone-pill-fill whitespace-nowrap text-tone-ink",

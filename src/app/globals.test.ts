@@ -3,7 +3,11 @@ import path from "node:path"
 
 import { describe, expect, it } from "vitest"
 
-import { radiusTokens, shadowTokens, textTokens } from "@/lib/utils"
+import {
+  radiusTokens,
+  shadowTokens,
+  textTokens,
+} from "@/lib/design-tokens/design-tokens"
 
 const css = readFileSync(path.join(process.cwd(), "src/app/globals.css"), "utf8")
 

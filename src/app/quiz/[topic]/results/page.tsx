@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-import { ResultsView } from "@/components/results/results-view"
-import { PageShell } from "@/components/shell/page-shell"
+import { ResultsView } from "@/features/quiz/components/results-view/results-view"
+import { PageShell } from "@/features/shell/components/page-shell/page-shell"
 import { getTopic, isTopicId } from "@/lib/questions"
 
 export async function generateMetadata({

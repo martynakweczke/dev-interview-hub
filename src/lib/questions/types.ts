@@ -1,4 +1,4 @@
-import type { Tone } from "@/components/ui/tones"
+import type { Tone } from "@/lib/tones/tones"
 
 export const TOPIC_IDS = ["css", "html", "js", "ts"] as const satisfies readonly Tone[]
 

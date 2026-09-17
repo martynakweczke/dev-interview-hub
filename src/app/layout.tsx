@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next"
 import { Inter, Space_Grotesk } from "next/font/google"
 
-import { InlineScript } from "@/components/theme/inline-script"
-import { ThemeSync } from "@/components/theme/theme-sync"
-import { themeInitScript } from "@/lib/theme"
-import { cn } from "@/lib/utils"
+import { InlineScript } from "@/features/theme/components/inline-script/inline-script"
+import { ThemeSync } from "@/features/theme/components/theme-sync/theme-sync"
+import { themeInitScript } from "@/features/theme/services/theme/theme"
+import { cn } from "@/utils/cn/cn.utils"
 
 import "./globals.css"
 
