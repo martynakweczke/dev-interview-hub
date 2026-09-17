@@ -1,21 +1,17 @@
 import type { Metadata } from "next"
 
+import { ProgressView } from "@/components/progress/progress-view"
 import { PageShell } from "@/components/shell/page-shell"
 
 export const metadata: Metadata = {
-  title: "Progress",
+  title: "Your progress",
 }
 
 export default function ProgressPage() {
   return (
     <PageShell ambient="home">
-      <main
-        id="main"
-        className="flex-1 px-gutter-compact py-6 sm:px-gutter sm:py-16"
-      >
-        <h1 className="font-display text-section font-semibold text-ink-heading-alt">
-          Progress
-        </h1>
+      <main id="main" className="page-enter flex flex-1 flex-col">
+        <ProgressView />
       </main>
     </PageShell>
   )

@@ -40,10 +40,43 @@ export function formatTopicStatus(status: TopicStatus): string {
     case "review":
       return `${status.count} ${status.count === 1 ? "question" : "questions"} to review`
     case "played":
-      if (status.daysAgo === 0) return "Last played today"
-      if (status.daysAgo === 1) return "Last played yesterday"
-      return `Last played ${status.daysAgo} days ago`
+      return `Last played ${formatDaysAgo(status.daysAgo)}`
   }
+}
+
+function formatDaysAgo(daysAgo: number): string {
+  if (daysAgo === 0) return "today"
+  if (daysAgo === 1) return "yesterday"
+  return `${daysAgo} days ago`
+}
+
+export type TopicHistoryItem = {
+  label: string
+  value: string
+}
+
+export function getTopicHistory(
+  progress: TopicProgress,
+  now: Date
+): TopicHistoryItem[] {
+  const { attempts, lastScore, lastPlayedAt } = progress
+  const played = attempts > 0 && lastPlayedAt !== null
+  const daysAgo = played
+    ? Math.max(0, calendarDaysBetween(new Date(lastPlayedAt), now))
+    : null
+
+  return [
+    { label: "Rounds", value: String(played ? attempts : 0) },
+    {
+      label: "Last score",
+      value:
+        played && lastScore !== null ? `${lastScore}/${QUESTIONS_PER_ROUND}` : "—",
+    },
+    {
+      label: "Last played",
+      value: daysAgo === null ? "—" : formatDaysAgo(daysAgo),
+    },
+  ]
 }
 
 export function getOverallAccuracy(progress: ProgressSnapshot): OverallAccuracy {

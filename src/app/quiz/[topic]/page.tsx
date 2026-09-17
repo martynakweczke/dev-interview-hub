@@ -20,7 +20,7 @@ export default async function QuizPage({ params }: PageProps<"/quiz/[topic]">) {
   return (
     <Surface ambient="quiz" className="flex min-h-dvh flex-col">
       <QuizHeader topic={getTopic(topic)} />
-      <main id="main" className="flex flex-1 flex-col">
+      <main id="main" className="page-enter flex flex-1 flex-col">
         <QuizView />
       </main>
     </Surface>
