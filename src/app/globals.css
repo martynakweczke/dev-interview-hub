@@ -87,6 +87,7 @@
   --code-fill: rgba(251, 191, 36, 0.12);
   --code-line: rgba(251, 191, 36, 0.26);
   --score-ring-track: rgba(255, 255, 255, 0.08);
+  --score-percent: #34d399;
   --score-hero-line: rgba(52, 211, 153, 0.28);
   --score-hero-fill: linear-gradient(120deg, rgba(52, 211, 153, 0.14) 0%, rgba(251, 191, 36, 0.12) 55%, rgba(255, 255, 255, 0.04) 100%);
   --progress-sweep: linear-gradient(90deg, #38bdf8, #fbbf24);
@@ -232,12 +233,12 @@
   --ink-secondary: #1f2937;
   --ink-tertiary: #334155;
   --ink-muted: #5b6577;
-  --ink-faint: #64748b;
+  --ink-faint: #5d6c81;
   --ink-faintest: #6b7488;
   --ink-disabled: #6b7488;
 
   /* Interaction */
-  --accent-link: #b45309;
+  --accent-link: #a54c09;
   --accent-link-hover: #92400e;
   --focus-ring: #b45309;
   --selected-line: #d97706;
@@ -252,6 +253,7 @@
   --code-fill: rgba(245, 158, 11, 0.2);
   --code-line: rgba(217, 119, 6, 0.36);
   --score-ring-track: rgba(15, 23, 42, 0.1);
+  --score-percent: #04865d;
   --score-hero-line: rgba(5, 150, 105, 0.35);
   --score-hero-fill: linear-gradient(120deg, rgba(16, 185, 129, 0.16) 0%, rgba(245, 158, 11, 0.16) 55%, rgba(255, 255, 255, 0.85) 100%);
   --progress-sweep: linear-gradient(90deg, #0ea5e9, #d97706);
@@ -289,7 +291,7 @@
   --css-glow: rgba(14, 165, 233, 0.3);
   --css-ring: rgba(14, 165, 233, 0.55);
 
-  --html-ink: #c2410c;
+  --html-ink: #bc3f0c;
   --html-solid: #ea580c;
   --html-fill: rgba(234, 88, 12, 0.12);
   --html-line: rgba(234, 88, 12, 0.4);
@@ -298,7 +300,7 @@
   --html-glow: rgba(234, 88, 12, 0.3);
   --html-ring: rgba(234, 88, 12, 0.55);
 
-  --js-ink: #a16207;
+  --js-ink: #8a5406;
   --js-solid: #d97706;
   --js-fill: rgba(245, 158, 11, 0.18);
   --js-line: rgba(217, 119, 6, 0.38);
@@ -318,7 +320,7 @@
   --ts-glow: rgba(37, 99, 235, 0.3);
   --ts-ring: rgba(37, 99, 235, 0.55);
 
-  --correct-ink: #047857;
+  --correct-ink: #04694c;
   --correct-solid: #059669;
   --correct-fill: rgba(5, 150, 105, 0.14);
   --correct-line: rgba(5, 150, 105, 0.45);
@@ -336,7 +338,7 @@
   --incorrect-glow: rgba(225, 29, 72, 0.3);
   --incorrect-ring: rgba(225, 29, 72, 0.55);
 
-  --brand-ink: #a16207;
+  --brand-ink: #8a5406;
   --brand-solid: #d97706;
   --brand-fill: rgba(245, 158, 11, 0.2);
   --brand-line: rgba(217, 119, 6, 0.4);
@@ -345,7 +347,7 @@
   --brand-glow: rgba(217, 119, 6, 0.3);
   --brand-ring: rgba(217, 119, 6, 0.55);
 
-  --streak-ink: #a16207;
+  --streak-ink: #8a5406;
   --streak-solid: #d97706;
   --streak-fill: rgba(245, 158, 11, 0.18);
   --streak-line: rgba(217, 119, 6, 0.38);
@@ -543,6 +545,7 @@
   --color-code-fill: var(--code-fill);
   --color-code-line: var(--code-line);
   --color-score-ring-track: var(--score-ring-track);
+  --color-score-percent: var(--score-percent);
   --color-score-hero-line: var(--score-hero-line);
 
   --color-tone-ink: var(--tone-ink);
@@ -784,6 +787,17 @@
   --surface-ambient: var(--ambient-quiz);
   --surface-ambient-compact: var(--ambient-quiz-compact);
 }
+@keyframes page-enter {
+  from {
+    opacity: 0;
+  }
+}
+@utility page-enter {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: page-enter 0.18s var(--ease-ui);
+  }
+}
+
 @utility ambient-results {
   --surface-ambient: var(--ambient-results);
   --surface-ambient-compact: var(--ambient-results);

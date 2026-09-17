@@ -4,7 +4,7 @@ import { PageShell } from "@/components/shell/page-shell"
 export default function HomePage() {
   return (
     <PageShell ambient="home">
-      <main id="main" className="flex flex-1 flex-col">
+      <main id="main" className="page-enter flex flex-1 flex-col">
         <HomeView />
       </main>
     </PageShell>

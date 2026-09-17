@@ -20,7 +20,7 @@ export default async function ResultsPage({
 
   return (
     <PageShell ambient="results">
-      <main id="main" className="flex-1">
+      <main id="main" className="page-enter flex-1">
         <ResultsView />
       </main>
     </PageShell>
