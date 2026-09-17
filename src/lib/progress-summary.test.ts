@@ -12,6 +12,7 @@ import {
   getFocusTopicId,
   getOverallAccuracy,
   getResumeTopicId,
+  getTopicHistory,
   getTopicStatus,
   sortTopicsByWeakest,
 } from "@/lib/progress-summary"
@@ -96,6 +97,28 @@ describe("formatTopicStatus", () => {
     [{ kind: "played", daysAgo: 5 } as const, "Last played 5 days ago"],
   ])("formats %o as %s", (status, label) => {
     expect(formatTopicStatus(status)).toBe(label)
+  })
+})
+
+describe("getTopicHistory", () => {
+  it("shows placeholders for an untouched topic", () => {
+    expect(getTopicHistory(createEmptyProgress().topics.ts, today)).toEqual([
+      { label: "Rounds", value: "0" },
+      { label: "Last score", value: "—" },
+      { label: "Last played", value: "—" },
+    ])
+  })
+
+  it.each([
+    [day(14, 8), "today"],
+    [day(13, 23), "yesterday"],
+    [day(9), "5 days ago"],
+  ])("reports attempts, last score and when it was played (%s)", (on, when) => {
+    expect(getTopicHistory(played(9, 6, on), today)).toEqual([
+      { label: "Rounds", value: "2" },
+      { label: "Last score", value: "6/10" },
+      { label: "Last played", value: when },
+    ])
   })
 })
 
