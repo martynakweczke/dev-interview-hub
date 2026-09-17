@@ -2,8 +2,8 @@ import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { Slot } from "radix-ui"
 
-import { toneClasses } from "@/components/ui/tones"
-import { cn } from "@/lib/utils"
+import { toneClasses } from "@/lib/tones/tones"
+import { cn } from "@/utils/cn/cn.utils"
 
 const cardVariants = cva(
   "group/card relative flex flex-col gap-4.5 rounded-card border p-4 text-ink-secondary backdrop-blur-glass sm:p-6",

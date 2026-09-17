@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 
-import { ProgressView } from "@/components/progress/progress-view"
-import { PageShell } from "@/components/shell/page-shell"
+import { ProgressView } from "@/features/progress/components/progress-view/progress-view"
+import { PageShell } from "@/features/shell/components/page-shell/page-shell"
 
 export const metadata: Metadata = {
   title: "Your progress",

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 
-import { toneClasses } from "@/components/ui/tones"
+import { toneClasses } from "@/lib/tones/tones"
 import {
   getQuestionsForTopic,
   getTopic,

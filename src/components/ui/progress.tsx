@@ -4,7 +4,7 @@ import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { Progress as ProgressPrimitive } from "radix-ui"
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/utils/cn/cn.utils"
 
 const progressVariants = cva("relative w-full overflow-hidden rounded-pill", {
   variants: {

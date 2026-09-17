@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 
-import { QuizProvider } from "@/components/quiz/quiz-provider"
+import { QuizProvider } from "@/features/quiz/components/quiz-provider/quiz-provider"
 import { isTopicId } from "@/lib/questions"
 
 

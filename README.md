@@ -65,12 +65,69 @@ npm run dev
 
 ## Project structure
 
+The app follows a [feature-driven
+architecture](https://dev.to/rufatalv/feature-driven-architecture-with-nextjs-a-better-way-to-structure-your-application-1lph):
+code is grouped by what it does, not by what it is. Each domain is one
+self-contained module under `src/features/` that owns its components, hooks and
+services.
+
 ```
 src/
-  app/          Routes (home, quiz, results, progress) + globals.css
-  components/   home · quiz · results · progress · topics · shell · theme · ui
-  lib/          questions/ (content + types) · quiz · results · progress · theme
+  app/                     Routes (page.tsx / layout.tsx), globals.css + its
+                           test, and the app icon
+  components/              Domain-agnostic UI shared across features
+    ui/                    shadcn/ui primitives — kept flat for `shadcn add`
+    inline-code-text/
+    surface/
+    topic-icon-tile/
+  features/                One self-contained module per domain
+    home/
+      components/          home-view
+    progress/
+      components/          progress-view · topic-card
+      hooks/               use-progress
+      services/            progress (model + streak math) ·
+                           progress-store (localStorage) ·
+                           progress-summary (accuracy, status copy, ordering)
+    quiz/
+      components/          quiz-view · results-view · quiz-provider ·
+                           quiz-header · answer-options · breakdown-table ·
+                           score-ring
+      services/            quiz (round reducer) · results (scoring + copy)
+    shell/
+      components/          page-shell · site-header · nav-link · logo-tile ·
+                           avatar-pill
+    theme/
+      components/          theme-toggle · theme-sync · inline-script
+      hooks/               use-theme
+      services/            theme · theme-store
+    tokens/
+      components/          token-panel (the dev-only /tokens sheet)
+  hooks/                   App-wide hooks — use-today
+  lib/                     Feature-agnostic core — questions/ (content + types) ·
+                           inline-code · tones · design-tokens · profile
+  test/                    Shared test helpers and repo-wide checks
+  utils/                   cn.utils.ts · date.utils.ts
 ```
+
+### Conventions
+
+- **A domain lives in exactly one place.** Everything named for `progress` — the
+  view, the hook, the store, the summary logic — sits under
+  `features/progress/`, never scattered between `lib/`, `hooks/` and
+  `features/`.
+- **One directory per module**, named after it, holding the module and its test:
+  `lib/inline-code/{inline-code.ts, inline-code.test.ts}`. Tests live beside the
+  code they cover. `components/ui/` is the one exception — it stays flat so the
+  shadcn CLI keeps writing into it unchanged.
+- **`components/` holds only domain-agnostic UI.** A file there never imports
+  from another `components/` subdirectory (`components/ui/*` is the sole
+  exception), and never from `features/` or `hooks/`.
+- **Dependencies point one way:** `app/ → features/ → components/, lib/,
+  utils/`. Features may depend on each other (`home` uses `progress`, `shell`
+  uses `theme`); `lib/` depends on nothing above it.
+- **`app/` holds routes only** — no `_components/` folders; a route composes
+  pieces from `features/`.
 
 ## Deployment
 
