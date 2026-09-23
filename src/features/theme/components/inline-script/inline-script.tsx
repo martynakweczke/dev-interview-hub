@@ -1,4 +1,3 @@
-
 export function InlineScript({ html }: { html: string }) {
   return (
     <script
@@ -6,5 +5,5 @@ export function InlineScript({ html }: { html: string }) {
       suppressHydrationWarning
       dangerouslySetInnerHTML={{ __html: html }}
     />
-  )
+  );
 }

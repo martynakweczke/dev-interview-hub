@@ -1,17 +1,19 @@
-import type { Metadata } from "next"
-import { notFound } from "next/navigation"
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-import { PageShell } from "@/features/shell/components/page-shell/page-shell"
+import { PageShell } from "@/features/shell/components/page-shell/page-shell";
 
-import { TokenPanel } from "@/features/tokens/components/token-panel/token-panel"
+import { TokenPanel } from "@/features/tokens/components/token-panel/token-panel";
 
 export const metadata: Metadata = {
   title: "Design tokens",
   robots: { index: false },
-}
+};
 
 export default function TokensPage() {
-  if (process.env.NODE_ENV === "production") notFound()
+  if (process.env.NODE_ENV === "production") {
+    notFound();
+  }
 
   return (
     <PageShell ambient="home">
@@ -35,5 +37,5 @@ export default function TokensPage() {
         </div>
       </main>
     </PageShell>
-  )
+  );
 }

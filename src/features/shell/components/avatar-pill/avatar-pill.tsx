@@ -1,5 +1,5 @@
-import { learner } from "@/lib/profile/profile"
-import { cn } from "@/utils/cn/cn.utils"
+import { learner } from "@/lib/profile/profile";
+import { cn } from "@/utils/cn/cn.utils";
 
 export function AvatarPill({ className }: { className?: string }) {
   return (
@@ -19,5 +19,5 @@ export function AvatarPill({ className }: { className?: string }) {
         {learner.name}
       </span>
     </div>
-  )
+  );
 }

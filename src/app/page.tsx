@@ -1,5 +1,5 @@
-import { HomeView } from "@/features/home/components/home-view/home-view"
-import { PageShell } from "@/features/shell/components/page-shell/page-shell"
+import { HomeView } from "@/features/home/components/home-view/home-view";
+import { PageShell } from "@/features/shell/components/page-shell/page-shell";
 
 export default function HomePage() {
   return (
@@ -8,5 +8,5 @@ export default function HomePage() {
         <HomeView />
       </main>
     </PageShell>
-  )
+  );
 }

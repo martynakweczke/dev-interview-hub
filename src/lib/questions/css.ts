@@ -1,4 +1,4 @@
-import type { Question } from "@/lib/questions/types"
+import type { Question } from "@/lib/questions/types";
 
 export const cssQuestions: readonly Question[] = [
   {
@@ -143,4 +143,4 @@ export const cssQuestions: readonly Question[] = [
     explanation:
       "`min-width` applies once the viewport is at least that wide, which makes it the usual mobile-first breakpoint.",
   },
-]
+];

@@ -1,4 +1,4 @@
-import type { Topic, TopicId } from "@/lib/questions/types"
+import type { Topic, TopicId } from "@/lib/questions/types";
 
 export const topicsById: Record<TopicId, Topic> = {
   css: {
@@ -29,4 +29,4 @@ export const topicsById: Record<TopicId, Topic> = {
     description: "Types vs interfaces, narrowing, generics and utility types.",
     tone: "ts",
   },
-}
+};

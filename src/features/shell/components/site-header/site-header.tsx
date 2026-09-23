@@ -1,16 +1,16 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import { AvatarPill } from "@/features/shell/components/avatar-pill/avatar-pill"
-import { LogoTile } from "@/features/shell/components/logo-tile/logo-tile"
-import { NavLink } from "@/features/shell/components/nav-link/nav-link"
-import { ThemeToggle } from "@/features/theme/components/theme-toggle/theme-toggle"
-import { cn } from "@/utils/cn/cn.utils"
+import { AvatarPill } from "@/features/shell/components/avatar-pill/avatar-pill";
+import { LogoTile } from "@/features/shell/components/logo-tile/logo-tile";
+import { NavLink } from "@/features/shell/components/nav-link/nav-link";
+import { ThemeToggle } from "@/features/theme/components/theme-toggle/theme-toggle";
+import { cn } from "@/utils/cn/cn.utils";
 
 type SiteHeaderProps = {
-  showThemeToggle?: boolean
-  sticky?: boolean
-  className?: string
-}
+  showThemeToggle?: boolean;
+  sticky?: boolean;
+  className?: string;
+};
 
 export function SiteHeader({
   showThemeToggle = true,
@@ -54,5 +54,5 @@ export function SiteHeader({
         </div>
       </div>
     </header>
-  )
+  );
 }

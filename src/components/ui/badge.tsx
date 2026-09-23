@@ -1,9 +1,9 @@
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
-import { Slot } from "radix-ui"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { Slot } from "radix-ui";
 
-import { toneClasses } from "@/lib/tones/tones"
-import { cn } from "@/utils/cn/cn.utils"
+import { toneClasses } from "@/lib/tones/tones";
+import { cn } from "@/utils/cn/cn.utils";
 
 const badgeVariants = cva(
   "inline-flex w-fit shrink-0 items-center justify-center gap-2.5 border border-tone-pill-line bg-tone-pill-fill whitespace-nowrap text-tone-ink",
@@ -35,7 +35,7 @@ const badgeVariants = cva(
       emphasis: "default",
     },
   }
-)
+);
 
 function Badge({
   className,
@@ -48,10 +48,10 @@ function Badge({
   ...props
 }: React.ComponentProps<"span"> &
   VariantProps<typeof badgeVariants> & {
-    dot?: boolean
-    asChild?: boolean
+    dot?: boolean;
+    asChild?: boolean;
   }) {
-  const Comp = asChild ? Slot.Root : "span"
+  const Comp = asChild ? Slot.Root : "span";
 
   return (
     <Comp
@@ -68,7 +68,7 @@ function Badge({
       )}
       {asChild ? <Slot.Slottable>{children}</Slot.Slottable> : children}
     </Comp>
-  )
+  );
 }
 
-export { Badge, badgeVariants }
+export { Badge, badgeVariants };

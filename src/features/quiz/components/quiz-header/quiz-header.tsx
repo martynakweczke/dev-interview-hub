@@ -1,8 +1,8 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import { TopicIconTile } from "@/components/topic-icon-tile/topic-icon-tile"
-import { Button } from "@/components/ui/button"
-import type { Topic } from "@/lib/questions"
+import { TopicIconTile } from "@/components/topic-icon-tile/topic-icon-tile";
+import { Button } from "@/components/ui/button";
+import type { Topic } from "@/lib/questions";
 
 export function QuizHeader({ topic }: { topic: Topic }) {
   return (
@@ -24,5 +24,5 @@ export function QuizHeader({ topic }: { topic: Topic }) {
         </Button>
       </div>
     </header>
-  )
+  );
 }

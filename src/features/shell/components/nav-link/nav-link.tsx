@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { cva, type VariantProps } from "class-variance-authority"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/utils/cn/cn.utils"
+import { cn } from "@/utils/cn/cn.utils";
 
 const navLinkVariants = cva(
   "relative rounded-chip text-nav-compact transition-colors duration-160 ease-ui after:absolute after:-inset-x-2 after:-inset-y-3.5 sm:text-nav",
@@ -19,14 +19,14 @@ const navLinkVariants = cva(
       emphasis: "default",
     },
   }
-)
+);
 
 type NavLinkProps = React.ComponentProps<typeof Link> &
-  VariantProps<typeof navLinkVariants>
+  VariantProps<typeof navLinkVariants>;
 
 export function NavLink({ href, emphasis, className, ...props }: NavLinkProps) {
-  const pathname = usePathname()
-  const isCurrent = typeof href === "string" && pathname === href
+  const pathname = usePathname();
+  const isCurrent = typeof href === "string" && pathname === href;
 
   return (
     <Link
@@ -35,5 +35,5 @@ export function NavLink({ href, emphasis, className, ...props }: NavLinkProps) {
       className={cn(navLinkVariants({ emphasis }), className)}
       {...props}
     />
-  )
+  );
 }

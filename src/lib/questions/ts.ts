@@ -1,4 +1,4 @@
-import type { Question } from "@/lib/questions/types"
+import type { Question } from "@/lib/questions/types";
 
 export const tsQuestions: readonly Question[] = [
   {
@@ -69,7 +69,7 @@ export const tsQuestions: readonly Question[] = [
     ],
     correctOptionId: "c",
     explanation:
-      "`T` is inferred from the argument, so `first([1, 2])` returns `number` and `first([\"a\"])` returns `string`.",
+      '`T` is inferred from the argument, so `first([1, 2])` returns `number` and `first(["a"])` returns `string`.',
   },
   {
     id: "ts-readonly",
@@ -89,7 +89,7 @@ export const tsQuestions: readonly Question[] = [
     id: "ts-typeof-narrowing",
     topicId: "ts",
     prompt:
-      "Inside `if (typeof value === \"string\") { … }`, what is the type of `value`?",
+      'Inside `if (typeof value === "string") { … }`, what is the type of `value`?',
     options: [
       { id: "a", label: "`unknown`" },
       { id: "b", label: "`any`" },
@@ -117,12 +117,12 @@ export const tsQuestions: readonly Question[] = [
   {
     id: "ts-as-const",
     topicId: "ts",
-    prompt: "What type does `[\"a\", \"b\"] as const` have?",
+    prompt: 'What type does `["a", "b"] as const` have?',
     options: [
       { id: "a", label: "`string[]`" },
       { id: "b", label: "`const string[]`" },
-      { id: "c", label: "`readonly [\"a\", \"b\"]`" },
-      { id: "d", label: "`Array<\"a\" | \"b\">`" },
+      { id: "c", label: '`readonly ["a", "b"]`' },
+      { id: "d", label: '`Array<"a" | "b">`' },
     ],
     correctOptionId: "c",
     explanation:
@@ -142,4 +142,4 @@ export const tsQuestions: readonly Question[] = [
     explanation:
       "`Partial` adds `?` to every property; `Required` removes it and `Pick` selects a subset of keys.",
   },
-]
+];

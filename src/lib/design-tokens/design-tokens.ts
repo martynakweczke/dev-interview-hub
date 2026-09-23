@@ -53,7 +53,7 @@ export const textTokens = [
   "logo-compact",
   "avatar",
   "toggle",
-]
+];
 
 export const radiusTokens = [
   "pill",
@@ -74,7 +74,7 @@ export const radiusTokens = [
   "hero",
   "artboard",
   "phone",
-]
+];
 
 export const shadowTokens = [
   "card",
@@ -95,4 +95,4 @@ export const shadowTokens = [
   "progress-glow",
   "progress-glow-compact",
   "dot",
-]
+];

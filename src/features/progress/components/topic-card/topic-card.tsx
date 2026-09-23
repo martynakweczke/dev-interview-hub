@@ -1,15 +1,18 @@
-import * as React from "react"
-import Link from "next/link"
-import { cva } from "class-variance-authority"
+import * as React from "react";
+import Link from "next/link";
+import { cva } from "class-variance-authority";
 
-import { TopicIconTile } from "@/components/topic-icon-tile/topic-icon-tile"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardDescription, CardTitle } from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
-import type { TopicProgress } from "@/features/progress/services/progress/progress"
-import { formatTopicStatus, type TopicStatus } from "@/features/progress/services/progress-summary/progress-summary"
-import { QUESTIONS_PER_ROUND, type Topic } from "@/lib/questions"
-import { cn } from "@/utils/cn/cn.utils"
+import { TopicIconTile } from "@/components/topic-icon-tile/topic-icon-tile";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import type { TopicProgress } from "@/features/progress/services/progress/progress";
+import {
+  formatTopicStatus,
+  type TopicStatus,
+} from "@/features/progress/services/progress-summary/progress-summary";
+import { QUESTIONS_PER_ROUND, type Topic } from "@/lib/questions";
+import { cn } from "@/utils/cn/cn.utils";
 
 const topicCardVariants = cva(
   [
@@ -25,7 +28,7 @@ const topicCardVariants = cva(
       },
     },
   }
-)
+);
 
 const statusVariants = cva("text-caption [grid-area:status] max-sm:hidden", {
   variants: {
@@ -35,19 +38,20 @@ const statusVariants = cva("text-caption [grid-area:status] max-sm:hidden", {
       played: "text-ink-faintest",
     },
   },
-})
+});
 
-const pillClassName = "self-center [grid-area:pill] sm:self-start sm:px-2.75 sm:text-pill"
+const pillClassName =
+  "self-center [grid-area:pill] sm:self-start sm:px-2.75 sm:text-pill";
 
 type TopicCardProps = Omit<
   React.ComponentProps<typeof Link>,
   "href" | "children"
 > & {
-  topic: Topic
-  progress: TopicProgress
-  status: TopicStatus
-  focus?: boolean
-}
+  topic: Topic;
+  progress: TopicProgress;
+  status: TopicStatus;
+  focus?: boolean;
+};
 
 export function TopicCard({
   topic,
@@ -57,8 +61,8 @@ export function TopicCard({
   className,
   ...props
 }: TopicCardProps) {
-  const variant = focus ? "focus" : "glass"
-  const attempted = progress.attempts > 0
+  const variant = focus ? "focus" : "glass";
+  const attempted = progress.attempts > 0;
 
   return (
     <Card
@@ -70,7 +74,9 @@ export function TopicCard({
     >
       <Link href={`/quiz/${topic.id}`} {...props}>
         <TopicIconTile glyph={topic.glyph} className="[grid-area:tile]" />
-        <CardTitle className="[grid-area:name] sm:mt-3.25">{topic.label}</CardTitle>
+        <CardTitle className="[grid-area:name] sm:mt-3.25">
+          {topic.label}
+        </CardTitle>
         <CardDescription className="[grid-area:meta]">
           {QUESTIONS_PER_ROUND} questions
         </CardDescription>
@@ -97,5 +103,5 @@ export function TopicCard({
         )}
       </Link>
     </Card>
-  )
+  );
 }

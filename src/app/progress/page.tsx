@@ -1,11 +1,11 @@
-import type { Metadata } from "next"
+import type { Metadata } from "next";
 
-import { ProgressView } from "@/features/progress/components/progress-view/progress-view"
-import { PageShell } from "@/features/shell/components/page-shell/page-shell"
+import { ProgressView } from "@/features/progress/components/progress-view/progress-view";
+import { PageShell } from "@/features/shell/components/page-shell/page-shell";
 
 export const metadata: Metadata = {
   title: "Your progress",
-}
+};
 
 export default function ProgressPage() {
   return (
@@ -14,5 +14,5 @@ export default function ProgressPage() {
         <ProgressView />
       </main>
     </PageShell>
-  )
+  );
 }

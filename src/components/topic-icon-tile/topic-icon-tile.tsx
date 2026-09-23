@@ -1,7 +1,7 @@
-import { cva } from "class-variance-authority"
+import { cva } from "class-variance-authority";
 
-import { toneClasses, type Tone } from "@/lib/tones/tones"
-import { cn } from "@/utils/cn/cn.utils"
+import { toneClasses, type Tone } from "@/lib/tones/tones";
+import { cn } from "@/utils/cn/cn.utils";
 
 const topicIconTileVariants = cva(
   "grid size-12 shrink-0 place-items-center rounded-control-sm border border-tone-tile-line bg-tone-tile-fill font-mono font-bold text-tone-ink sm:size-12.5 sm:rounded-icon",
@@ -13,16 +13,16 @@ const topicIconTileVariants = cva(
       },
     },
   }
-)
+);
 
 type TopicIconTileProps = {
-  glyph: string
-  tone?: Tone
-  className?: string
-}
+  glyph: string;
+  tone?: Tone;
+  className?: string;
+};
 
 export function TopicIconTile({ glyph, tone, className }: TopicIconTileProps) {
-  const glyphWidth = glyph.replace(/\s/g, "").length > 2 ? "wide" : "narrow"
+  const glyphWidth = glyph.replace(/\s/g, "").length > 2 ? "wide" : "narrow";
 
   return (
     <span
@@ -35,5 +35,5 @@ export function TopicIconTile({ glyph, tone, className }: TopicIconTileProps) {
     >
       {glyph}
     </span>
-  )
+  );
 }

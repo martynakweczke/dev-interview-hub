@@ -1,7 +1,7 @@
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/utils/cn/cn.utils"
+import { cn } from "@/utils/cn/cn.utils";
 
 const surfaceVariants = cva("surface", {
   variants: {
@@ -14,7 +14,7 @@ const surfaceVariants = cva("surface", {
   defaultVariants: {
     ambient: "home",
   },
-})
+});
 
 function Surface({
   className,
@@ -27,7 +27,7 @@ function Surface({
       className={cn(surfaceVariants({ ambient }), className)}
       {...props}
     />
-  )
+  );
 }
 
-export { Surface, surfaceVariants }
+export { Surface, surfaceVariants };

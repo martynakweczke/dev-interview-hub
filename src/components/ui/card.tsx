@@ -1,9 +1,9 @@
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
-import { Slot } from "radix-ui"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { Slot } from "radix-ui";
 
-import { toneClasses } from "@/lib/tones/tones"
-import { cn } from "@/utils/cn/cn.utils"
+import { toneClasses } from "@/lib/tones/tones";
+import { cn } from "@/utils/cn/cn.utils";
 
 const cardVariants = cva(
   "group/card relative flex flex-col gap-4.5 rounded-card border p-4 text-ink-secondary backdrop-blur-glass sm:p-6",
@@ -33,7 +33,7 @@ const cardVariants = cva(
       interactive: false,
     },
   }
-)
+);
 
 function Card({
   className,
@@ -44,7 +44,7 @@ function Card({
   ...props
 }: React.ComponentProps<"div"> &
   VariantProps<typeof cardVariants> & { asChild?: boolean }) {
-  const Comp = asChild ? Slot.Root : "div"
+  const Comp = asChild ? Slot.Root : "div";
 
   return (
     <Comp
@@ -53,7 +53,7 @@ function Card({
       className={cn(cardVariants({ variant, tone, interactive }), className)}
       {...props}
     />
-  )
+  );
 }
 
 function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
@@ -63,7 +63,7 @@ function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("flex items-start justify-between gap-3", className)}
       {...props}
     />
-  )
+  );
 }
 
 function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
@@ -76,7 +76,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
       )}
       {...props}
     />
-  )
+  );
 }
 
 function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
@@ -86,7 +86,7 @@ function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("text-caption text-ink-muted sm:text-meta", className)}
       {...props}
     />
-  )
+  );
 }
 
 function CardAction({ className, ...props }: React.ComponentProps<"div">) {
@@ -96,7 +96,7 @@ function CardAction({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("shrink-0 self-start", className)}
       {...props}
     />
-  )
+  );
 }
 
 function CardContent({ className, ...props }: React.ComponentProps<"div">) {
@@ -106,7 +106,7 @@ function CardContent({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("flex flex-col gap-1.25", className)}
       {...props}
     />
-  )
+  );
 }
 
 function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
@@ -116,7 +116,7 @@ function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("flex items-center gap-3", className)}
       {...props}
     />
-  )
+  );
 }
 
 export {
@@ -128,4 +128,4 @@ export {
   CardDescription,
   CardContent,
   cardVariants,
-}
+};

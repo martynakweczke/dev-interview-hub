@@ -1,11 +1,11 @@
-import * as React from "react"
+import * as React from "react";
 
-import { SiteHeader } from "@/features/shell/components/site-header/site-header"
-import { Surface } from "@/components/surface/surface"
+import { SiteHeader } from "@/features/shell/components/site-header/site-header";
+import { Surface } from "@/components/surface/surface";
 
 type PageShellProps = React.ComponentProps<typeof Surface> & {
-  showThemeToggle?: boolean
-}
+  showThemeToggle?: boolean;
+};
 
 export function PageShell({
   ambient,
@@ -18,5 +18,5 @@ export function PageShell({
       <SiteHeader showThemeToggle={showThemeToggle} />
       {children}
     </Surface>
-  )
+  );
 }
