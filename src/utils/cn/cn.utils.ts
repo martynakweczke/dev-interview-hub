@@ -1,10 +1,10 @@
-import { createCn } from "cn/config"
+import { createCn } from "cn/config";
 
 import {
   radiusTokens,
   shadowTokens,
   textTokens,
-} from "@/lib/design-tokens/design-tokens"
+} from "@/lib/design-tokens/design-tokens";
 
 export const cn = createCn({
   extend: {
@@ -17,4 +17,4 @@ export const cn = createCn({
       spacing: ["gutter", "gutter-compact"],
     },
   },
-})
+});

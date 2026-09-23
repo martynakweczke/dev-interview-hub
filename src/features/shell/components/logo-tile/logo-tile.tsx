@@ -1,4 +1,4 @@
-import { cn } from "@/utils/cn/cn.utils"
+import { cn } from "@/utils/cn/cn.utils";
 
 export function LogoTile({ className }: { className?: string }) {
   return (
@@ -11,5 +11,5 @@ export function LogoTile({ className }: { className?: string }) {
     >
       {"</>"}
     </span>
-  )
+  );
 }

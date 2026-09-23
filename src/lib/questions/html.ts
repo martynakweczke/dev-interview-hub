@@ -1,4 +1,4 @@
-import type { Question } from "@/lib/questions/types"
+import type { Question } from "@/lib/questions/types";
 
 export const htmlQuestions: readonly Question[] = [
   {
@@ -9,7 +9,7 @@ export const htmlQuestions: readonly Question[] = [
       { id: "a", label: "`<section>`" },
       { id: "b", label: "`<nav>`" },
       { id: "c", label: "`<aside>`" },
-      { id: "d", label: "`<div class=\"nav\">`" },
+      { id: "d", label: '`<div class="nav">`' },
     ],
     correctOptionId: "b",
     explanation:
@@ -27,14 +27,17 @@ export const htmlQuestions: readonly Question[] = [
     ],
     correctOptionId: "d",
     explanation:
-      "Screen readers announce `alt` text and browsers show it if the image fails; decorative images use `alt=\"\"`.",
+      'Screen readers announce `alt` text and browsers show it if the image fails; decorative images use `alt=""`.',
   },
   {
     id: "html-button-vs-link",
     topicId: "html",
     prompt: "When should you use `<button>` instead of `<a>`?",
     options: [
-      { id: "a", label: "For actions on the page, like submitting or toggling" },
+      {
+        id: "a",
+        label: "For actions on the page, like submitting or toggling",
+      },
       { id: "b", label: "For going to another URL" },
       { id: "c", label: "Whenever it's styled to look like a button" },
       { id: "d", label: "Only inside a `<form>`" },
@@ -105,7 +108,7 @@ export const htmlQuestions: readonly Question[] = [
   {
     id: "html-form-post",
     topicId: "html",
-    prompt: "What does `method=\"post\"` on a `<form>` do?",
+    prompt: 'What does `method="post"` on a `<form>` do?',
     options: [
       { id: "a", label: "Puts the data in the URL's query string" },
       { id: "b", label: "Encrypts the submitted data" },
@@ -121,7 +124,7 @@ export const htmlQuestions: readonly Question[] = [
     topicId: "html",
     prompt: "How do you read a `data-user-id` attribute in JavaScript?",
     options: [
-      { id: "a", label: "`element.data(\"user-id\")`" },
+      { id: "a", label: '`element.data("user-id")`' },
       { id: "b", label: "`element.dataset.userId`" },
       { id: "c", label: "`element.dataUserId`" },
       { id: "d", label: "`element.attributes.userId`" },
@@ -144,4 +147,4 @@ export const htmlQuestions: readonly Question[] = [
     explanation:
       "Without it, mobile browsers lay the page out at a desktop width (about 980px) and shrink it to fit.",
   },
-]
+];

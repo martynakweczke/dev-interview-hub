@@ -1,25 +1,25 @@
-import type { Metadata, Viewport } from "next"
-import { Inter, Space_Grotesk } from "next/font/google"
+import type { Metadata, Viewport } from "next";
+import { Inter, Space_Grotesk } from "next/font/google";
 
-import { InlineScript } from "@/features/theme/components/inline-script/inline-script"
-import { ThemeSync } from "@/features/theme/components/theme-sync/theme-sync"
-import { themeInitScript } from "@/features/theme/services/theme/theme"
-import { cn } from "@/utils/cn/cn.utils"
+import { InlineScript } from "@/features/theme/components/inline-script/inline-script";
+import { ThemeSync } from "@/features/theme/components/theme-sync/theme-sync";
+import { themeInitScript } from "@/features/theme/services/theme/theme";
+import { cn } from "@/utils/cn/cn.utils";
 
-import "./globals.css"
+import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
-})
+});
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["500", "600", "700"],
   variable: "--font-space-grotesk",
   display: "swap",
-})
+});
 
 export const metadata: Metadata = {
   title: {
@@ -28,11 +28,11 @@ export const metadata: Metadata = {
   },
   description:
     "Junior interview drills in CSS, HTML, JavaScript and TypeScript. Ten questions per round — under five minutes each.",
-}
+};
 
 export const viewport: Viewport = {
   colorScheme: "dark light",
-}
+};
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -55,5 +55,5 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
       </body>
     </html>
-  )
+  );
 }

@@ -1,24 +1,27 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import { redirect } from "next/navigation"
+import * as React from "react";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 
-import { useQuiz } from "@/features/quiz/components/quiz-provider/quiz-provider"
-import { BreakdownTable } from "@/features/quiz/components/breakdown-table/breakdown-table"
-import { ScoreRing } from "@/features/quiz/components/score-ring/score-ring"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { getProgressSnapshot, recordProgressAttempt } from "@/features/progress/services/progress-store/progress-store"
-import { getTopic } from "@/lib/questions"
+import { useQuiz } from "@/features/quiz/components/quiz-provider/quiz-provider";
+import { BreakdownTable } from "@/features/quiz/components/breakdown-table/breakdown-table";
+import { ScoreRing } from "@/features/quiz/components/score-ring/score-ring";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  getProgressSnapshot,
+  recordProgressAttempt,
+} from "@/features/progress/services/progress-store/progress-store";
+import { getTopic } from "@/lib/questions";
 import {
   getImprovement,
   getNextTopicId,
   getResultsCopy,
   isNewPersonalBest,
-} from "@/features/quiz/services/results/results"
-import { cn } from "@/utils/cn/cn.utils"
-import { formatDuration, formatDurationLabel } from "@/utils/date/date.utils"
+} from "@/features/quiz/services/results/results";
+import { cn } from "@/utils/cn/cn.utils";
+import { formatDuration, formatDurationLabel } from "@/utils/date/date.utils";
 
 function StatTile({
   value,
@@ -26,10 +29,10 @@ function StatTile({
   valueLabel,
   className,
 }: {
-  value: string
-  label: string
-  valueLabel?: string
-  className?: string
+  value: string;
+  label: string;
+  valueLabel?: string;
+  className?: string;
 }) {
   return (
     <div className="flex flex-col gap-0.75 rounded-control-sm border border-line bg-glass-strong px-4.5 py-3 max-sm:flex-1">
@@ -45,38 +48,46 @@ function StatTile({
         )}
       </dd>
     </div>
-  )
+  );
 }
 
 export function ResultsView() {
-  const { state, timing } = useQuiz()
-  const { result } = state
+  const { state, timing } = useQuiz();
+  const { result } = state;
 
   const [previous] = React.useState(() =>
     result === null ? null : getProgressSnapshot().topics[result.topicId]
-  )
-  const recordedRef = React.useRef<typeof result>(null)
+  );
+  const recordedRef = React.useRef<typeof result>(null);
 
   React.useEffect(() => {
-    if (result === null || timing === null) return
-    if (recordedRef.current === result) return
-    recordedRef.current = result
+    if (result === null || timing === null) {
+      return;
+    }
+
+    if (recordedRef.current === result) {
+      return;
+    }
+
+    recordedRef.current = result;
     recordProgressAttempt({
       topicId: result.topicId,
       score: result.score,
       completedAt: timing.completedAt,
-    })
-  }, [result, timing])
+    });
+  }, [result, timing]);
 
-  if (result === null || timing === null || previous === null) redirect("/")
+  if (result === null || timing === null || previous === null) {
+    redirect("/");
+  }
 
-  const topic = getTopic(result.topicId)
-  const nextTopic = getTopic(getNextTopicId(result.topicId))
-  const total = result.answers.length
-  const missed = total - result.score
-  const copy = getResultsCopy(result.score, total)
-  const personalBest = isNewPersonalBest(result.score, previous)
-  const improvement = getImprovement(result.score, previous)
+  const topic = getTopic(result.topicId);
+  const nextTopic = getTopic(getNextTopicId(result.topicId));
+  const total = result.answers.length;
+  const missed = total - result.score;
+  const copy = getResultsCopy(result.score, total);
+  const personalBest = isNewPersonalBest(result.score, previous);
+  const improvement = getImprovement(result.score, previous);
 
   return (
     <div className="mx-auto flex w-full max-w-257 flex-col gap-7 px-gutter-compact pt-6 pb-10 sm:gap-8.5 sm:px-gutter sm:pt-12 sm:pb-14">
@@ -134,7 +145,10 @@ export function ResultsView() {
         </div>
       </section>
 
-      <section aria-labelledby="breakdown-heading" className="flex flex-col gap-3.5">
+      <section
+        aria-labelledby="breakdown-heading"
+        className="flex flex-col gap-3.5"
+      >
         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
           <h2
             id="breakdown-heading"
@@ -170,5 +184,5 @@ export function ResultsView() {
         </p>
       </div>
     </div>
-  )
+  );
 }

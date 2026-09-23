@@ -9,6 +9,6 @@ export const toneClasses = {
   streak: "tone-streak",
   neutral: "tone-neutral",
   glass: "tone-glass",
-} as const
+} as const;
 
-export type Tone = keyof typeof toneClasses
+export type Tone = keyof typeof toneClasses;

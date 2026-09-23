@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest"
+import { describe, expect, it } from "vitest";
 
 import {
   calendarDaysBetween,
@@ -7,15 +7,15 @@ import {
   formatDurationLabel,
   isDateString,
   startOfDay,
-} from "@/utils/date/date.utils"
+} from "@/utils/date/date.utils";
 
-const at = (date: number, hour = 10) => new Date(2026, 8, date, hour)
+const at = (date: number, hour = 10) => new Date(2026, 8, date, hour);
 
 describe("startOfDay", () => {
   it("drops the time of day", () => {
-    expect(startOfDay(at(12, 23))).toBe(at(12, 0).getTime())
-  })
-})
+    expect(startOfDay(at(12, 23))).toBe(at(12, 0).getTime());
+  });
+});
 
 describe("calendarDaysBetween", () => {
   it.each([
@@ -24,9 +24,9 @@ describe("calendarDaysBetween", () => {
     [at(13), at(12), -1],
     [at(1), at(30), 29],
   ])("counts calendar days, not elapsed hours", (from, to, expected) => {
-    expect(calendarDaysBetween(from, to)).toBe(expected)
-  })
-})
+    expect(calendarDaysBetween(from, to)).toBe(expected);
+  });
+});
 
 describe("isDateString", () => {
   it.each([
@@ -36,9 +36,9 @@ describe("isDateString", () => {
     [null, false],
     [Date.now(), false],
   ])("accepts %s as a date string: %s", (value, expected) => {
-    expect(isDateString(value)).toBe(expected)
-  })
-})
+    expect(isDateString(value)).toBe(expected);
+  });
+});
 
 describe("formatDaysAgo", () => {
   it.each([
@@ -46,9 +46,9 @@ describe("formatDaysAgo", () => {
     [1, "yesterday"],
     [2, "2 days ago"],
   ])("formats %i as %s", (daysAgo, expected) => {
-    expect(formatDaysAgo(daysAgo)).toBe(expected)
-  })
-})
+    expect(formatDaysAgo(daysAgo)).toBe(expected);
+  });
+});
 
 describe("formatDuration", () => {
   it.each([
@@ -60,8 +60,8 @@ describe("formatDuration", () => {
     [3_725_000, "62:05"],
     [-5, "0:00"],
   ])("formats %i ms as %s", (ms, expected) => {
-    expect(formatDuration(ms)).toBe(expected)
-  })
+    expect(formatDuration(ms)).toBe(expected);
+  });
 
   it.each([
     [1_000, "1 second"],
@@ -70,6 +70,6 @@ describe("formatDuration", () => {
     [252_000, "4 minutes 12 seconds"],
     [61_000, "1 minute 1 second"],
   ])("labels %i ms as %s", (ms, expected) => {
-    expect(formatDurationLabel(ms)).toBe(expected)
-  })
-})
+    expect(formatDurationLabel(ms)).toBe(expected);
+  });
+});

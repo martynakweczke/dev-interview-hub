@@ -33,7 +33,7 @@ and per-topic best scores. Glassmorphic dark and light themes at full parity.
 ## Stack
 
 Next.js (App Router) · TypeScript · Tailwind CSS v4 · shadcn/ui (Radix) ·
-Vitest + React Testing Library
+Vitest + React Testing Library · ESLint + Prettier
 
 ## Pages
 
@@ -53,15 +53,18 @@ npm run dev
 
 ## Scripts
 
-| Command              | What it does                        |
-| -------------------- | ----------------------------------- |
-| `npm run dev`        | Dev server on http://localhost:3000 |
-| `npm run build`      | Production build                    |
-| `npm start`          | Serve the production build          |
-| `npm run typecheck`  | `next typegen && tsc --noEmit`      |
-| `npm run lint`       | ESLint                              |
-| `npm test`           | Vitest (single run)                 |
-| `npm run test:watch` | Vitest in watch mode                |
+| Command                | What it does                        |
+| ---------------------- | ----------------------------------- |
+| `npm run dev`          | Dev server on http://localhost:3000 |
+| `npm run build`        | Production build                    |
+| `npm start`            | Serve the production build          |
+| `npm run typecheck`    | `next typegen && tsc --noEmit`      |
+| `npm run lint`         | ESLint                              |
+| `npm run lint:fix`     | ESLint, autofixing what it can      |
+| `npm run format`       | Prettier over JS/TS files           |
+| `npm run format:check` | Prettier check — writes nothing     |
+| `npm test`             | Vitest (single run)                 |
+| `npm run test:watch`   | Vitest in watch mode                |
 
 ## Project structure
 
@@ -128,6 +131,10 @@ src/
   uses `theme`); `lib/` depends on nothing above it.
 - **`app/` holds routes only** — no `_components/` folders; a route composes
   pieces from `features/`.
+- **Style is enforced, not argued.** Prettier owns JS/TS formatting —
+  semicolons, indentation, line breaks. ESLint owns what a formatter cannot
+  express: braces on every block body, a blank line around each block, and
+  `===` over `==`. `npm run lint:fix` then `npm run format` fixes all of it.
 
 ## Deployment
 

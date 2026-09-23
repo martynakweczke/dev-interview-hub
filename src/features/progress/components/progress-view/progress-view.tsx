@@ -1,26 +1,26 @@
-"use client"
+"use client";
 
-import { useProgress } from "@/features/progress/hooks/use-progress/use-progress"
-import { useToday } from "@/hooks/use-today/use-today"
-import { TopicCard } from "@/features/progress/components/topic-card/topic-card"
-import { Badge } from "@/components/ui/badge"
-import { Card } from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
+import { useProgress } from "@/features/progress/hooks/use-progress/use-progress";
+import { useToday } from "@/hooks/use-today/use-today";
+import { TopicCard } from "@/features/progress/components/topic-card/topic-card";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 import {
   formatAccuracyCaption,
   formatStreak,
   getOverallAccuracy,
   getTopicHistory,
   getTopicStatus,
-} from "@/features/progress/services/progress-summary/progress-summary"
-import { topics } from "@/lib/questions"
+} from "@/features/progress/services/progress-summary/progress-summary";
+import { topics } from "@/lib/questions";
 
 export function ProgressView() {
-  const progress = useProgress()
-  const today = useToday()
+  const progress = useProgress();
+  const today = useToday();
 
-  const streak = formatStreak(progress, today)
-  const accuracy = getOverallAccuracy(progress)
+  const streak = formatStreak(progress, today);
+  const accuracy = getOverallAccuracy(progress);
 
   return (
     <>
@@ -85,7 +85,7 @@ export function ProgressView() {
         </div>
         <ul className="grid gap-3.5 px-gutter-compact pt-1.5 pb-6 sm:grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] sm:gap-5 sm:px-gutter sm:pt-0 sm:pb-13">
           {topics.map((topic) => {
-            const topicProgress = progress.topics[topic.id]
+            const topicProgress = progress.topics[topic.id];
             return (
               <li key={topic.id} className="flex flex-col gap-2.5">
                 <TopicCard
@@ -108,10 +108,10 @@ export function ProgressView() {
                   ))}
                 </dl>
               </li>
-            )
+            );
           })}
         </ul>
       </section>
     </>
-  )
+  );
 }

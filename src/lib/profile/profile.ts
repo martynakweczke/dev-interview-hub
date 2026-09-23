@@ -2,4 +2,4 @@
 export const learner = {
   name: "Lexi",
   initials: "LX",
-} as const
+} as const;

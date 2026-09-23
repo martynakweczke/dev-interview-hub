@@ -1,12 +1,12 @@
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "@/utils/cn/cn.utils"
+import { cn } from "@/utils/cn/cn.utils";
 
 type ScoreRingProps = React.ComponentProps<"div"> & {
-  score: number
-  total: number
-  percentage: number
-}
+  score: number;
+  total: number;
+  percentage: number;
+};
 
 export function ScoreRing({
   score,
@@ -46,5 +46,5 @@ export function ScoreRing({
         </p>
       </div>
     </div>
-  )
+  );
 }

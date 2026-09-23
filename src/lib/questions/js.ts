@@ -1,4 +1,4 @@
-import type { Question } from "@/lib/questions/types"
+import type { Question } from "@/lib/questions/types";
 
 export const jsQuestions: readonly Question[] = [
   {
@@ -6,9 +6,9 @@ export const jsQuestions: readonly Question[] = [
     topicId: "js",
     prompt: "What does `typeof null` evaluate to in JavaScript?",
     options: [
-      { id: "a", label: "The string `\"null\"`" },
-      { id: "b", label: "The string `\"object\"`" },
-      { id: "c", label: "The string `\"undefined\"`" },
+      { id: "a", label: 'The string `"null"`' },
+      { id: "b", label: 'The string `"object"`' },
+      { id: "c", label: 'The string `"undefined"`' },
       { id: "d", label: "It throws a `TypeError`" },
     ],
     correctOptionId: "b",
@@ -46,12 +46,12 @@ export const jsQuestions: readonly Question[] = [
   {
     id: "js-string-plus-number",
     topicId: "js",
-    prompt: "What does `\"5\" + 3` evaluate to?",
+    prompt: 'What does `"5" + 3` evaluate to?',
     options: [
       { id: "a", label: "`8`" },
-      { id: "b", label: "`\"8\"`" },
+      { id: "b", label: '`"8"`' },
       { id: "c", label: "`NaN`" },
-      { id: "d", label: "`\"53\"`" },
+      { id: "d", label: '`"53"`' },
     ],
     correctOptionId: "d",
     explanation:
@@ -100,7 +100,7 @@ export const jsQuestions: readonly Question[] = [
     ],
     correctOptionId: "a",
     explanation:
-      "`==` converts both operands to a common type first (`0 == \"\"` is `true`); `===` also requires the same type.",
+      '`==` converts both operands to a common type first (`0 == ""` is `true`); `===` also requires the same type.',
   },
   {
     id: "js-promise-all",
@@ -144,4 +144,4 @@ export const jsQuestions: readonly Question[] = [
     explanation:
       "Arrow functions don't bind their own `this`; they use the `this` of the code they were defined in.",
   },
-]
+];

@@ -1,8 +1,7 @@
-import * as React from "react"
-import { cva } from "class-variance-authority"
+import * as React from "react";
+import { cva } from "class-variance-authority";
 
-import { parseInlineCode } from "@/lib/inline-code/inline-code"
-
+import { parseInlineCode } from "@/lib/inline-code/inline-code";
 
 const codeVariants = cva("tone-js font-mono", {
   variants: {
@@ -15,12 +14,12 @@ const codeVariants = cva("tone-js font-mono", {
       cell: "text-code-cell",
     },
   },
-})
+});
 
 type InlineCodeTextProps = {
-  text: string
-  variant: "prompt" | "option" | "row" | "cell"
-}
+  text: string;
+  variant: "prompt" | "option" | "row" | "cell";
+};
 
 export function InlineCodeText({ text, variant }: InlineCodeTextProps) {
   return (
@@ -35,5 +34,5 @@ export function InlineCodeText({ text, variant }: InlineCodeTextProps) {
         )
       )}
     </>
-  )
+  );
 }

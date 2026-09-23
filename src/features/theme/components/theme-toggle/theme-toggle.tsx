@@ -1,22 +1,21 @@
-"use client"
+"use client";
 
-import { useTheme } from "@/features/theme/hooks/use-theme/use-theme"
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
-import type { ResolvedTheme } from "@/features/theme/services/theme/theme"
+import { useTheme } from "@/features/theme/hooks/use-theme/use-theme";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import type { ResolvedTheme } from "@/features/theme/services/theme/theme";
 
 const OPTIONS: { value: ResolvedTheme; label: string; glyph: string }[] = [
   { value: "dark", label: "Dark theme", glyph: "☾" },
   { value: "light", label: "Light theme", glyph: "☀" },
-]
+];
 
 type ThemeToggleProps = {
-  className?: string
-  forceItemState?: "hover" | "focus"
-}
-
+  className?: string;
+  forceItemState?: "hover" | "focus";
+};
 
 export function ThemeToggle({ className, forceItemState }: ThemeToggleProps) {
-  const { snapshot, setPreference } = useTheme()
+  const { snapshot, setPreference } = useTheme();
 
   return (
     <ToggleGroup
@@ -45,5 +44,5 @@ export function ThemeToggle({ className, forceItemState }: ThemeToggleProps) {
         </ToggleGroupItem>
       ))}
     </ToggleGroup>
-  )
+  );
 }

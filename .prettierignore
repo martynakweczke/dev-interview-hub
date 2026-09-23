@@ -1,0 +1,12 @@
+.next
+out
+build
+node_modules
+next-env.d.ts
+tsconfig.tsbuildinfo
+package-lock.json
+
+# Formatting is scoped to JS/TS. Delete these two lines to bring CSS and
+# Markdown in too, then run `npm run format`.
+*.css
+*.md

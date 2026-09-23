@@ -1,50 +1,56 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import { InlineCodeText } from "@/components/inline-code-text/inline-code-text"
-import { AnswerOptions } from "@/features/quiz/components/answer-options/answer-options"
-import { useQuiz } from "@/features/quiz/components/quiz-provider/quiz-provider"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
-import { toneClasses } from "@/lib/tones/tones"
-import { getTopic } from "@/lib/questions"
-import { getCurrentQuestion } from "@/features/quiz/services/quiz/quiz"
-import { cn } from "@/utils/cn/cn.utils"
+import { InlineCodeText } from "@/components/inline-code-text/inline-code-text";
+import { AnswerOptions } from "@/features/quiz/components/answer-options/answer-options";
+import { useQuiz } from "@/features/quiz/components/quiz-provider/quiz-provider";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { toneClasses } from "@/lib/tones/tones";
+import { getTopic } from "@/lib/questions";
+import { getCurrentQuestion } from "@/features/quiz/services/quiz/quiz";
+import { cn } from "@/utils/cn/cn.utils";
 
 export function QuizView() {
-  const { state, select, advance, skip, restart } = useQuiz()
-  const headingId = React.useId()
-  const hintId = React.useId()
-  const headingRef = React.useRef<HTMLHeadingElement>(null)
-  const focusQuestionRef = React.useRef(false)
-  const restartOnEntryRef = React.useRef(state.result !== null)
+  const { state, select, advance, skip, restart } = useQuiz();
+  const headingId = React.useId();
+  const hintId = React.useId();
+  const headingRef = React.useRef<HTMLHeadingElement>(null);
+  const focusQuestionRef = React.useRef(false);
+  const restartOnEntryRef = React.useRef(state.result !== null);
 
   React.useLayoutEffect(() => {
-    if (!restartOnEntryRef.current) return
-    restartOnEntryRef.current = false
-    restart()
-  }, [restart])
+    if (!restartOnEntryRef.current) {
+      return;
+    }
+
+    restartOnEntryRef.current = false;
+    restart();
+  }, [restart]);
 
   React.useEffect(() => {
-    if (!focusQuestionRef.current) return
-    focusQuestionRef.current = false
-    headingRef.current?.focus()
-  }, [state.index])
+    if (!focusQuestionRef.current) {
+      return;
+    }
 
-  const question = getCurrentQuestion(state)
-  const topic = getTopic(state.topicId)
-  const finished = state.result !== null
+    focusQuestionRef.current = false;
+    headingRef.current?.focus();
+  }, [state.index]);
+
+  const question = getCurrentQuestion(state);
+  const topic = getTopic(state.topicId);
+  const finished = state.result !== null;
   const selection = finished
     ? (state.answers[question.id] ?? null)
-    : state.selection
-  const total = state.questions.length
-  const number = state.index + 1
+    : state.selection;
+  const total = state.questions.length;
+  const number = state.index + 1;
 
   function moveOn(action: () => void) {
-    focusQuestionRef.current = true
-    action()
+    focusQuestionRef.current = true;
+    action();
   }
 
   return (
@@ -128,5 +134,5 @@ export function QuizView() {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
-import { Toggle as TogglePrimitive } from "radix-ui"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { Toggle as TogglePrimitive } from "radix-ui";
 
-import { cn } from "@/utils/cn/cn.utils"
+import { cn } from "@/utils/cn/cn.utils";
 
 const toggleVariants = cva(
   "group/toggle relative inline-grid shrink-0 place-items-center rounded-pill text-ink-muted transition-colors duration-160 ease-ui hovered:text-ink-primary disabled:cursor-not-allowed disabled:text-ink-disabled",
@@ -17,7 +17,8 @@ const toggleVariants = cva(
           "[font-variant-emoji:text] theme-lit:bg-toggle-active theme-lit:text-ink-primary",
       },
       size: {
-        default: "size-7 text-toggle after:absolute after:-inset-x-px after:-inset-y-2",
+        default:
+          "size-7 text-toggle after:absolute after:-inset-x-px after:-inset-y-2",
       },
     },
     defaultVariants: {
@@ -25,7 +26,7 @@ const toggleVariants = cva(
       size: "default",
     },
   }
-)
+);
 
 function Toggle({
   className,
@@ -40,7 +41,7 @@ function Toggle({
       className={cn(toggleVariants({ variant, size, className }))}
       {...props}
     />
-  )
+  );
 }
 
-export { Toggle, toggleVariants }
+export { Toggle, toggleVariants };

@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import Link from "next/link"
+import Link from "next/link";
 
-import { useProgress } from "@/features/progress/hooks/use-progress/use-progress"
-import { useToday } from "@/hooks/use-today/use-today"
-import { TopicCard } from "@/features/progress/components/topic-card/topic-card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
+import { useProgress } from "@/features/progress/hooks/use-progress/use-progress";
+import { useToday } from "@/hooks/use-today/use-today";
+import { TopicCard } from "@/features/progress/components/topic-card/topic-card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 import {
   formatAccuracyCaption,
   formatStreak,
@@ -17,18 +17,18 @@ import {
   getResumeTopicId,
   getTopicStatus,
   sortTopicsByWeakest,
-} from "@/features/progress/services/progress-summary/progress-summary"
-import { getTopic, topics } from "@/lib/questions"
+} from "@/features/progress/services/progress-summary/progress-summary";
+import { getTopic, topics } from "@/lib/questions";
 
 export function HomeView() {
-  const progress = useProgress()
-  const today = useToday()
+  const progress = useProgress();
+  const today = useToday();
 
-  const streak = formatStreak(progress, today)
-  const accuracy = getOverallAccuracy(progress)
-  const focusTopicId = getFocusTopicId(progress)
-  const resumeTopicId = getResumeTopicId(progress)
-  const orderedTopics = sortTopicsByWeakest(topics, progress)
+  const streak = formatStreak(progress, today);
+  const accuracy = getOverallAccuracy(progress);
+  const focusTopicId = getFocusTopicId(progress);
+  const resumeTopicId = getResumeTopicId(progress);
+  const orderedTopics = sortTopicsByWeakest(topics, progress);
 
   return (
     <>
@@ -51,8 +51,7 @@ export function HomeView() {
             id="home-heading"
             className="font-display text-hero-compact font-bold text-pretty text-ink-primary sm:text-hero"
           >
-            Sharpen your frontend skills,{" "}
-            <br className="max-sm:hidden" />
+            Sharpen your frontend skills, <br className="max-sm:hidden" />
             <span className="text-accent-link">one question at a time.</span>
           </h1>
           <p className="text-lede-compact text-ink-muted sm:hidden">
@@ -127,5 +126,5 @@ export function HomeView() {
         </div>
       )}
     </>
-  )
+  );
 }
