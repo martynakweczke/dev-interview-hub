@@ -3,11 +3,7 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 
-import {
-  getQuestionsForTopic,
-  type OptionId,
-  type TopicId,
-} from "@/lib/questions";
+import type { OptionId, Question, TopicId } from "@/lib/questions";
 import {
   createQuizState,
   quizReducer,
@@ -31,21 +27,28 @@ type QuizContextValue = {
 
 const QuizContext = React.createContext<QuizContextValue | null>(null);
 
-function initQuizState(topicId: TopicId): QuizState {
-  return createQuizState(topicId, getQuestionsForTopic(topicId));
+type QuizInit = {
+  topicId: TopicId;
+  questions: readonly Question[];
+};
+
+function initQuizState({ topicId, questions }: QuizInit): QuizState {
+  return createQuizState(topicId, questions);
 }
 
 export function QuizProvider({
   topicId,
+  questions,
   children,
 }: {
   topicId: TopicId;
+  questions: readonly Question[];
   children: React.ReactNode;
 }) {
   const router = useRouter();
   const [state, dispatch] = React.useReducer(
     quizReducer,
-    topicId,
+    { topicId, questions },
     initQuizState
   );
   const [timing, setTiming] = React.useState<QuizTiming | null>(null);

@@ -33,6 +33,6 @@ export function getTopic(id: TopicId): Topic {
   return topicsById[id];
 }
 
-export function getQuestionsForTopic(id: TopicId): readonly Question[] {
+export function getSeedQuestionsForTopic(id: TopicId): readonly Question[] {
   return questionsByTopic[id];
 }

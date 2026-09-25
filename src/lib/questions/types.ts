@@ -19,7 +19,9 @@ export type Topic = {
   tone: Tone;
 };
 
-export type OptionId = "a" | "b" | "c" | "d";
+export const OPTION_IDS = ["a", "b", "c", "d"] as const;
+
+export type OptionId = (typeof OPTION_IDS)[number];
 
 export type Option = {
   id: OptionId;
