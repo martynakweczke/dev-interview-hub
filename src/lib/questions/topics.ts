@@ -1,4 +1,4 @@
-import type { Topic, TopicId } from "@/lib/questions/types";
+import { TOPIC_IDS, type Topic, type TopicId } from "@/lib/questions/types";
 
 export const topicsById: Record<TopicId, Topic> = {
   css: {
@@ -30,3 +30,13 @@ export const topicsById: Record<TopicId, Topic> = {
     tone: "ts",
   },
 };
+
+export const topics: readonly Topic[] = TOPIC_IDS.map((id) => topicsById[id]);
+
+export function isTopicId(value: unknown): value is TopicId {
+  return (TOPIC_IDS as readonly unknown[]).includes(value);
+}
+
+export function getTopic(id: TopicId): Topic {
+  return topicsById[id];
+}

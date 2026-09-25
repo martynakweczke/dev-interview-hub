@@ -9,7 +9,6 @@ import {
 
 import { OPTION_IDS, TOPIC_IDS, type Option } from "@/lib/questions/types";
 
-
 export const topicIdEnum = pgEnum("topic_id", TOPIC_IDS);
 export const optionIdEnum = pgEnum("option_id", OPTION_IDS);
 

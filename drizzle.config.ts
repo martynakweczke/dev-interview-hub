@@ -1,6 +1,5 @@
 import { defineConfig } from "drizzle-kit";
 
-
 try {
   process.loadEnvFile(".env.local");
 } catch {}

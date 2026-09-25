@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { toneClasses } from "@/lib/tones/tones";
-import { getTopic } from "@/lib/questions";
+import { getTopic } from "@/lib/questions/topics";
 import { getCurrentQuestion } from "@/features/quiz/services/quiz/quiz";
 import { cn } from "@/utils/cn/cn.utils";
 

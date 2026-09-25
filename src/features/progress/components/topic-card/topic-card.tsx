@@ -11,7 +11,7 @@ import {
   formatTopicStatus,
   type TopicStatus,
 } from "@/features/progress/services/progress-summary/progress-summary";
-import { QUESTIONS_PER_ROUND, type Topic } from "@/lib/questions";
+import { QUESTIONS_PER_ROUND, type Topic } from "@/lib/questions/types";
 import { cn } from "@/utils/cn/cn.utils";
 
 const topicCardVariants = cva(

@@ -13,7 +13,7 @@ import {
   getProgressSnapshot,
   recordProgressAttempt,
 } from "@/features/progress/services/progress-store/progress-store";
-import { getTopic } from "@/lib/questions";
+import { getTopic } from "@/lib/questions/topics";
 import {
   getImprovement,
   getNextTopicId,

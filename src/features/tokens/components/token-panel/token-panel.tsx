@@ -12,7 +12,7 @@ import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { toneClasses, type Tone } from "@/lib/tones/tones";
 import type { TopicProgress } from "@/features/progress/services/progress/progress";
-import { getTopic } from "@/lib/questions";
+import { getTopic } from "@/lib/questions/topics";
 import { cn } from "@/utils/cn/cn.utils";
 
 const surfaceSwatches = [
