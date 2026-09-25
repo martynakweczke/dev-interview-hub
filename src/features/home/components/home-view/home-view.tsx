@@ -18,7 +18,7 @@ import {
   getTopicStatus,
   sortTopicsByWeakest,
 } from "@/features/progress/services/progress-summary/progress-summary";
-import { getTopic, topics } from "@/lib/questions";
+import { getTopic, topics } from "@/lib/questions/topics";
 
 export function HomeView() {
   const progress = useProgress();

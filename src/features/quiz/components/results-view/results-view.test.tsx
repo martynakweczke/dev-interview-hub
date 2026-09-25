@@ -15,7 +15,7 @@ import {
   serializeProgress,
   type TopicProgress,
 } from "@/features/progress/services/progress/progress";
-import { getQuestionsForTopic, type OptionId } from "@/lib/questions";
+import { getSeedQuestionsForTopic, type OptionId } from "@/lib/questions";
 
 const { push, redirect } = vi.hoisted(() => ({
   push: vi.fn(),
@@ -29,7 +29,7 @@ vi.mock("next/navigation", () => ({
   redirect,
 }));
 
-const questions = getQuestionsForTopic("js");
+const questions = getSeedQuestionsForTopic("js");
 const OPTION_ORDER: OptionId[] = ["a", "b", "c", "d"];
 const START = new Date(2026, 8, 16, 10, 0, 0);
 
@@ -57,7 +57,7 @@ function storedJs() {
 async function play(picks: (OptionId | null)[], durationMs = 60_000) {
   const user = userEvent.setup();
   render(
-    <QuizProvider topicId="js">
+    <QuizProvider topicId="js" questions={questions}>
       <Screen />
     </QuizProvider>,
     { reactStrictMode: true }
@@ -107,7 +107,7 @@ describe("ResultsView", () => {
 
     expect(() =>
       render(
-        <QuizProvider topicId="js">
+        <QuizProvider topicId="js" questions={questions}>
           <ResultsView />
         </QuizProvider>
       )

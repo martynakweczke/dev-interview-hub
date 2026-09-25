@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { toneClasses } from "@/lib/tones/tones";
 import {
-  getQuestionsForTopic,
+  getSeedQuestionsForTopic,
   getTopic,
   isTopicId,
   questions,
@@ -45,7 +45,7 @@ describe("topics", () => {
 
 describe("question set", () => {
   it.each(TOPIC_IDS)("has %s questions for a full round", (topicId) => {
-    const topicQuestions = getQuestionsForTopic(topicId);
+    const topicQuestions = getSeedQuestionsForTopic(topicId);
     expect(topicQuestions).toHaveLength(QUESTIONS_PER_ROUND);
     expect(topicQuestions.every((q) => q.topicId === topicId)).toBe(true);
   });
@@ -57,7 +57,7 @@ describe("question set", () => {
   });
 
   it("includes the README's JavaScript set", () => {
-    expect(getQuestionsForTopic("js").map((q) => q.id)).toEqual([
+    expect(getSeedQuestionsForTopic("js").map((q) => q.id)).toEqual([
       "js-typeof-null",
       "js-block-scope",
       "js-array-map",

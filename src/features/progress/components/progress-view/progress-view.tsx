@@ -13,7 +13,7 @@ import {
   getTopicHistory,
   getTopicStatus,
 } from "@/features/progress/services/progress-summary/progress-summary";
-import { topics } from "@/lib/questions";
+import { topics } from "@/lib/questions/topics";
 
 export function ProgressView() {
   const progress = useProgress();

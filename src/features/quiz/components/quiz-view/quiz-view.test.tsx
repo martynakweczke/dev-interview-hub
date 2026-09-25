@@ -7,7 +7,7 @@ import {
   useQuiz,
 } from "@/features/quiz/components/quiz-provider/quiz-provider";
 import { QuizView } from "@/features/quiz/components/quiz-view/quiz-view";
-import { getQuestionsForTopic, type OptionId } from "@/lib/questions";
+import { getSeedQuestionsForTopic, type OptionId } from "@/lib/questions";
 
 const { push } = vi.hoisted(() => ({ push: vi.fn() }));
 
@@ -15,7 +15,7 @@ vi.mock("next/navigation", () => ({
   useRouter: () => ({ push }),
 }));
 
-const questions = getQuestionsForTopic("js");
+const questions = getSeedQuestionsForTopic("js");
 const OPTION_ORDER: OptionId[] = ["a", "b", "c", "d"];
 
 function ResultProbe() {
@@ -35,7 +35,7 @@ function ResultProbe() {
 
 function Harness({ showQuiz = true }: { showQuiz?: boolean }) {
   return (
-    <QuizProvider topicId="js">
+    <QuizProvider topicId="js" questions={questions}>
       {showQuiz && <QuizView />}
       <ResultProbe />
     </QuizProvider>
