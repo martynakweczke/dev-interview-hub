@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { getQuestionsForTopic, type OptionId } from "@/lib/questions";
+import { getSeedQuestionsForTopic, type OptionId } from "@/lib/questions";
 import {
   createQuizState,
   getCurrentQuestion,
@@ -10,7 +10,7 @@ import {
   type QuizState,
 } from "@/features/quiz/services/quiz/quiz";
 
-const questions = getQuestionsForTopic("js");
+const questions = getSeedQuestionsForTopic("js");
 
 function start(): QuizState {
   return createQuizState("js", questions);
