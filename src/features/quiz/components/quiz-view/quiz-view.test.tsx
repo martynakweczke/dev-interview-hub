@@ -130,6 +130,43 @@ describe("QuizView", () => {
     expect(nextButton()).toBeDisabled();
   });
 
+  it("picks with A–D or 1–4 and continues with Enter", async () => {
+    const user = userEvent.setup();
+    render(<Harness />);
+
+    await user.keyboard("{Enter}");
+    expect(screen.getByText("Question 1 of 10")).toBeInTheDocument();
+
+    await user.keyboard("2");
+    expect(radios()[1]).toBeChecked();
+    await user.keyboard("d");
+    expect(radios()[3]).toBeChecked();
+    await user.keyboard("{Control>}a{/Control}");
+    expect(radios()[3]).toBeChecked();
+
+    await user.keyboard("{Enter}");
+    expect(screen.getByText("Question 2 of 10")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1 })).toHaveFocus();
+
+    await user.keyboard("C{Enter}");
+    expect(screen.getByText("Question 3 of 10")).toBeInTheDocument();
+  });
+
+  it("continues with Enter on the already selected option", async () => {
+    const user = userEvent.setup();
+    render(<Harness />);
+
+    await user.click(radios()[2]);
+    expect(radios()[2]).toHaveFocus();
+    await user.keyboard("{Enter}");
+
+    expect(screen.getByText("Question 2 of 10")).toBeInTheDocument();
+
+    for (const radio of radios()) {
+      expect(radio).not.toBeChecked();
+    }
+  });
+
   it("plays a full round and opens the results with the answers in context", async () => {
     const user = userEvent.setup();
     render(<Harness />);

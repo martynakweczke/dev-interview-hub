@@ -23,6 +23,7 @@ type AnswerOptionsProps = Omit<
   value: OptionId | null;
   onValueChange: (optionId: OptionId) => void;
   correctOptionId?: OptionId | null;
+  onConfirm?: () => void;
 };
 
 export function AnswerOptions({
@@ -30,6 +31,7 @@ export function AnswerOptions({
   value,
   onValueChange,
   correctOptionId = null,
+  onConfirm,
   ...props
 }: AnswerOptionsProps) {
   function getVerdict(optionId: OptionId): Verdict | null {
@@ -68,7 +70,13 @@ export function AnswerOptions({
             value={option.id}
             data-verdict={verdict ?? undefined}
             onKeyDown={(event) => {
-              if (event.key === "Enter") {
+              if (event.key !== "Enter" || event.repeat) {
+                return;
+              }
+
+              if (option.id === value) {
+                onConfirm?.();
+              } else {
                 onValueChange(option.id);
               }
             }}

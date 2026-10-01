@@ -321,13 +321,16 @@ describe("ResultsView", () => {
       plain(second.prompt)
     );
 
-    await user.click(
-      screen.getAllByRole("radio")[OPTION_ORDER.indexOf(second.correctOptionId)]
-    );
+    await user.keyboard("{Enter}");
+    expect(screen.getByText("Mistake 2 of 2")).toBeInTheDocument();
 
+    await user.keyboard(second.correctOptionId);
     expect(screen.getByText("Correct")).toBeInTheDocument();
 
-    await user.click(screen.getByRole("button", { name: "Back to results" }));
+    await user.keyboard(wrong(second.correctOptionId));
+    expect(screen.getByText("Correct")).toBeInTheDocument();
+
+    await user.keyboard("{Enter}");
 
     expect(
       screen.getByRole("img", { name: "Score: 8 out of 10, 80%" })
