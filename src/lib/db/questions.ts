@@ -1,11 +1,14 @@
 import "server-only";
 
 import { asc, eq } from "drizzle-orm";
+import { cacheLife, cacheTag } from "next/cache";
 
 import { db } from "@/lib/db/db";
 import { questions } from "@/lib/db/schema";
 import { QUESTIONS_PER_ROUND } from "@/lib/questions/types";
 import type { Option, Question, TopicId } from "@/lib/questions/types";
+
+export const QUESTIONS_CACHE_TAG = "questions";
 
 type QuestionRow = typeof questions.$inferSelect;
 
@@ -33,6 +36,10 @@ function toQuestion(row: QuestionRow): Question {
 export async function getQuestionsForTopic(
   topicId: TopicId
 ): Promise<readonly Question[]> {
+  "use cache";
+  cacheLife("max");
+  cacheTag(QUESTIONS_CACHE_TAG);
+
   const rows = await db
     .select()
     .from(questions)
