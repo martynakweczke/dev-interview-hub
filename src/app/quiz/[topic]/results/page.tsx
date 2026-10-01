@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -24,7 +25,9 @@ export default async function ResultsPage({
   return (
     <PageShell ambient="results">
       <main id="main" className="page-enter flex-1">
-        <ResultsView />
+        <Suspense>
+          <ResultsView />
+        </Suspense>
       </main>
     </PageShell>
   );
