@@ -5,6 +5,8 @@ import * as React from "react";
 import { InlineCodeText } from "@/components/inline-code-text/inline-code-text";
 import { AnswerOptions } from "@/features/quiz/components/answer-options/answer-options";
 import { useQuiz } from "@/features/quiz/components/quiz-provider/quiz-provider";
+import { ShortcutHint } from "@/features/quiz/components/shortcut-hint/shortcut-hint";
+import { useAnswerShortcuts } from "@/features/quiz/hooks/use-answer-shortcuts/use-answer-shortcuts";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -53,6 +55,14 @@ export function QuizView() {
     action();
   }
 
+  function confirm() {
+    if (selection !== null && !finished) {
+      moveOn(advance);
+    }
+  }
+
+  useAnswerShortcuts({ onSelect: select, onConfirm: confirm });
+
   return (
     <div
       className={cn(
@@ -99,16 +109,20 @@ export function QuizView() {
         options={question.options}
         value={selection}
         onValueChange={select}
+        onConfirm={confirm}
         disabled={finished}
         aria-labelledby={headingId}
       />
 
       <div className="sticky bottom-0 z-10 -mx-gutter-compact mt-auto flex items-center gap-3 bg-scrim-quiz px-gutter-compact pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] sm:static sm:mx-0 sm:mt-8 sm:flex-wrap sm:justify-between sm:gap-x-6 sm:gap-y-3 sm:bg-none sm:px-0 sm:pt-2 sm:pb-0">
-        <p id={hintId} className="text-hint text-ink-faint max-sm:sr-only">
-          {selection === null
-            ? "Pick one answer to continue"
-            : `Option ${selection.toUpperCase()} selected · you can still change it`}
-        </p>
+        <div className="flex flex-col gap-2 max-sm:contents">
+          <p id={hintId} className="text-hint text-ink-faint max-sm:sr-only">
+            {selection === null
+              ? "Pick one answer to continue"
+              : `Option ${selection.toUpperCase()} selected · you can still change it`}
+          </p>
+          <ShortcutHint />
+        </div>
         <div className="flex flex-1 items-center gap-3 sm:ml-auto sm:flex-none sm:gap-3.5">
           <Button
             variant="secondary"

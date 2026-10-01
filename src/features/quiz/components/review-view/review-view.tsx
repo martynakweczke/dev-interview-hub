@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { AnswerOptions } from "@/features/quiz/components/answer-options/answer-options";
+import { ShortcutHint } from "@/features/quiz/components/shortcut-hint/shortcut-hint";
+import { useAnswerShortcuts } from "@/features/quiz/hooks/use-answer-shortcuts/use-answer-shortcuts";
 import type { QuizAnswer } from "@/features/quiz/services/quiz/quiz";
 import type { OptionId } from "@/lib/questions";
 import { getTopic } from "@/lib/questions/topics";
@@ -52,6 +54,19 @@ export function ReviewView({
     setPick(null);
     setIndex(index + 1);
   }
+
+  useAnswerShortcuts({
+    onSelect: (optionId) => {
+      if (pick === null) {
+        setPick(optionId);
+      }
+    },
+    onConfirm: () => {
+      if (pick !== null) {
+        moveOn();
+      }
+    },
+  });
 
   return (
     <div
@@ -124,6 +139,7 @@ export function ReviewView({
         <Button variant="secondary" size="compact" onClick={onDone}>
           Exit review
         </Button>
+        <ShortcutHint className="ml-auto" />
         <Button
           size="compact"
           disabled={pick === null}
