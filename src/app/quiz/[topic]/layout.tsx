@@ -2,7 +2,11 @@ import { notFound } from "next/navigation";
 
 import { QuizProvider } from "@/features/quiz/components/quiz-provider/quiz-provider";
 import { getQuestionsForTopic } from "@/lib/db/questions";
-import { isTopicId } from "@/lib/questions";
+import { isTopicId, TOPIC_IDS } from "@/lib/questions";
+
+export function generateStaticParams() {
+  return TOPIC_IDS.map((topic) => ({ topic }));
+}
 
 export default async function QuizLayout({
   children,
