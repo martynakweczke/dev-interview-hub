@@ -222,6 +222,9 @@ describe("ResultsView", () => {
     expect(
       rows().every((row) => row.getAttribute("data-result") === "correct")
     ).toBe(true);
+    expect(
+      screen.queryByRole("button", { name: "Review mistakes" })
+    ).not.toBeInTheDocument();
     expect(storedJs()).toMatchObject({
       bestScore: 10,
       attempts: 1,
@@ -261,5 +264,78 @@ describe("ResultsView", () => {
       attempts: 2,
       lastScore: 0,
     });
+  });
+
+  it("reviews only the missed questions and returns to the same results", async () => {
+    const missedIndexes = [3, 7];
+    const picks = questions.map((question, index): OptionId | null => {
+      if (index === 3) {
+        return wrong(question.correctOptionId);
+      }
+
+      return index === 7 ? null : question.correctOptionId;
+    });
+
+    await play(picks);
+
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: "Review mistakes" }));
+
+    const [first, second] = missedIndexes.map((index) => questions[index]);
+    const plain = (text: string) => text.replaceAll("`", "");
+
+    expect(screen.getByText("Mistake 1 of 2")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
+      plain(first.prompt)
+    );
+    expect(screen.getByRole("heading", { level: 1 })).toHaveFocus();
+    expect(screen.getByRole("button", { name: "Next mistake" })).toBeDisabled();
+
+    const wrongPick = wrong(first.correctOptionId);
+    await user.click(
+      screen.getAllByRole("radio")[OPTION_ORDER.indexOf(wrongPick)]
+    );
+
+    const radios = screen.getAllByRole("radio");
+    expect(radios.map((radio) => radio.getAttribute("data-verdict"))).toEqual(
+      OPTION_ORDER.map((id) =>
+        id === first.correctOptionId
+          ? "correct"
+          : id === wrongPick
+            ? "incorrect"
+            : null
+      )
+    );
+    expect(radios.every((radio) => radio.hasAttribute("disabled"))).toBe(true);
+
+    const feedback = screen.getByText(
+      `Not quite — the answer is ${first.correctOptionId.toUpperCase()}`
+    ).parentElement;
+    expect(feedback).toHaveFocus();
+    expect(feedback).toHaveTextContent(plain(first.explanation ?? ""));
+
+    await user.click(screen.getByRole("button", { name: "Next mistake" }));
+
+    expect(screen.getByText("Mistake 2 of 2")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(
+      plain(second.prompt)
+    );
+
+    await user.click(
+      screen.getAllByRole("radio")[OPTION_ORDER.indexOf(second.correctOptionId)]
+    );
+
+    expect(screen.getByText("Correct")).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Back to results" }));
+
+    expect(
+      screen.getByRole("img", { name: "Score: 8 out of 10, 80%" })
+    ).toBeInTheDocument();
+    expect(screen.getByText("New personal best")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Review mistakes" })
+    ).toHaveFocus();
+    expect(storedJs()).toMatchObject({ bestScore: 8, attempts: 1 });
   });
 });

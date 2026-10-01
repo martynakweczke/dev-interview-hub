@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 
 import { useQuiz } from "@/features/quiz/components/quiz-provider/quiz-provider";
 import { BreakdownTable } from "@/features/quiz/components/breakdown-table/breakdown-table";
+import { ReviewView } from "@/features/quiz/components/review-view/review-view";
 import { ScoreRing } from "@/features/quiz/components/score-ring/score-ring";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -59,6 +60,18 @@ export function ResultsView() {
     result === null ? null : getProgressSnapshot().topics[result.topicId]
   );
   const recordedRef = React.useRef<typeof result>(null);
+  const [reviewing, setReviewing] = React.useState(false);
+  const reviewButtonRef = React.useRef<HTMLButtonElement>(null);
+  const restoreFocusRef = React.useRef(false);
+
+  React.useEffect(() => {
+    if (reviewing || !restoreFocusRef.current) {
+      return;
+    }
+
+    restoreFocusRef.current = false;
+    reviewButtonRef.current?.focus();
+  }, [reviewing]);
 
   React.useEffect(() => {
     if (result === null || timing === null) {
@@ -88,6 +101,18 @@ export function ResultsView() {
   const copy = getResultsCopy(result.score, total);
   const personalBest = isNewPersonalBest(result.score, previous);
   const improvement = getImprovement(result.score, previous);
+
+  if (reviewing) {
+    return (
+      <ReviewView
+        answers={result.answers.filter((answer) => !answer.isCorrect)}
+        onDone={() => {
+          restoreFocusRef.current = true;
+          setReviewing(false);
+        }}
+      />
+    );
+  }
 
   return (
     <div className="mx-auto flex w-full max-w-257 flex-col gap-7 px-gutter-compact pt-6 pb-10 sm:gap-8.5 sm:px-gutter sm:pt-12 sm:pb-14">
@@ -170,6 +195,16 @@ export function ResultsView() {
         <Button asChild size="lg">
           <Link href={`/quiz/${result.topicId}`}>Retry quiz</Link>
         </Button>
+        {missed > 0 && (
+          <Button
+            ref={reviewButtonRef}
+            variant="secondary"
+            size="lg"
+            onClick={() => setReviewing(true)}
+          >
+            Review mistakes
+          </Button>
+        )}
         <Button asChild variant="secondary" size="lg">
           <Link href="/">Back to topics</Link>
         </Button>
