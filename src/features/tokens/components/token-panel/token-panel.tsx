@@ -8,6 +8,7 @@ import { TopicIconTile } from "@/components/topic-icon-tile/topic-icon-tile";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Kbd, KbdGroup } from "@/components/ui/kbd";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { toneClasses, type Tone } from "@/lib/tones/tones";
@@ -365,6 +366,14 @@ export function TokenPanel({
               <code className="tone-js rounded-code border border-code-line bg-code-fill px-2.5 py-0.5 font-mono text-answer text-tone-ink">
                 typeof null
               </code>
+            </Specimen>
+            <Specimen label="kbd">
+              <Kbd>Enter</Kbd>
+            </Specimen>
+            <Specimen label="kbd group">
+              <KbdGroup className="text-caption text-ink-faint">
+                <Kbd>A</Kbd>–<Kbd>D</Kbd>
+              </KbdGroup>
             </Specimen>
           </div>
         </Section>

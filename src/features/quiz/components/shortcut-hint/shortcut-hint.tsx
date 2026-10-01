@@ -1,12 +1,5 @@
+import { Kbd, KbdGroup } from "@/components/ui/kbd";
 import { cn } from "@/utils/cn/cn.utils";
-
-function Key({ children }: { children: React.ReactNode }) {
-  return (
-    <kbd className="rounded-chip border border-line-strong bg-neutral-fill px-1.5 py-0.5 font-mono text-caption text-ink-tertiary">
-      {children}
-    </kbd>
-  );
-}
 
 export function ShortcutHint({ className }: { className?: string }) {
   return (
@@ -16,8 +9,15 @@ export function ShortcutHint({ className }: { className?: string }) {
         className
       )}
     >
-      <Key>A</Key>–<Key>D</Key> or <Key>1</Key>–<Key>4</Key> to pick ·{" "}
-      <Key>Enter</Key> to continue
+      <KbdGroup>
+        <Kbd>A</Kbd>–<Kbd>D</Kbd>
+      </KbdGroup>
+      or
+      <KbdGroup>
+        <Kbd>1</Kbd>–<Kbd>4</Kbd>
+      </KbdGroup>
+      to pick ·<Kbd>Enter</Kbd>
+      to continue
     </p>
   );
 }
