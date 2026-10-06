@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 import { InlineCodeText } from "@/components/inline-code-text/inline-code-text";
 import { Badge } from "@/components/ui/badge";
@@ -23,21 +23,11 @@ export function ReviewView({
   answers: readonly QuizAnswer[];
   onDone: () => void;
 }) {
-  const [index, setIndex] = React.useState(0);
-  const [pick, setPick] = React.useState<OptionId | null>(null);
-  const headingId = React.useId();
-  const headingRef = React.useRef<HTMLHeadingElement>(null);
-  const feedbackRef = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    headingRef.current?.focus();
-  }, [index]);
-
-  React.useEffect(() => {
-    if (pick !== null) {
-      feedbackRef.current?.focus();
-    }
-  }, [pick]);
+  const [index, setIndex] = useState(0);
+  const [pick, setPick] = useState<OptionId | null>(null);
+  const headingId = useId();
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const feedbackRef = useRef<HTMLDivElement>(null);
 
   const { question } = answers[index];
   const topic = getTopic(question.topicId);
@@ -56,7 +46,7 @@ export function ReviewView({
     setIndex(index + 1);
   }
 
-  function choose(optionId: OptionId) {
+  function chooseOption(optionId: OptionId) {
     if (pick === null) {
       setPick(optionId);
       playSelectSound();
@@ -64,13 +54,23 @@ export function ReviewView({
   }
 
   useAnswerShortcuts({
-    onSelect: choose,
+    onSelect: chooseOption,
     onConfirm: () => {
       if (pick !== null) {
         moveOn();
       }
     },
   });
+
+  useEffect(() => {
+    headingRef.current?.focus();
+  }, [index]);
+
+  useEffect(() => {
+    if (pick !== null) {
+      feedbackRef.current?.focus();
+    }
+  }, [pick]);
 
   return (
     <div
@@ -114,7 +114,7 @@ export function ReviewView({
         key={question.id}
         options={question.options}
         value={pick}
-        onValueChange={choose}
+        onValueChange={chooseOption}
         correctOptionId={pick === null ? null : question.correctOptionId}
         disabled={pick !== null}
         aria-labelledby={headingId}
