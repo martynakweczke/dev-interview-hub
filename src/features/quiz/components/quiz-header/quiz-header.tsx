@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { TopicIconTile } from "@/components/topic-icon-tile/topic-icon-tile";
 import { Button } from "@/components/ui/button";
+import { SoundToggle } from "@/features/sound/components/sound-toggle/sound-toggle";
 import type { Topic } from "@/lib/questions";
 
 export function QuizHeader({ topic }: { topic: Topic }) {
@@ -19,9 +20,12 @@ export function QuizHeader({ topic }: { topic: Topic }) {
             <span className="max-sm:hidden"> round</span>
           </p>
         </div>
-        <Button asChild variant="pill" size="pill">
-          <Link href="/">Exit round</Link>
-        </Button>
+        <div className="flex shrink-0 items-center gap-3">
+          <SoundToggle />
+          <Button asChild variant="pill" size="pill">
+            <Link href="/">Exit round</Link>
+          </Button>
+        </div>
       </div>
     </header>
   );

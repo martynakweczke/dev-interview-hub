@@ -9,6 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { AnswerOptions } from "@/features/quiz/components/answer-options/answer-options";
 import { ShortcutHint } from "@/features/quiz/components/shortcut-hint/shortcut-hint";
 import { useAnswerShortcuts } from "@/features/quiz/hooks/use-answer-shortcuts/use-answer-shortcuts";
+import { playSelectSound } from "@/features/sound/services/sound-player/sound-player";
 import type { QuizAnswer } from "@/features/quiz/services/quiz/quiz";
 import type { OptionId } from "@/lib/questions";
 import { getTopic } from "@/lib/questions/topics";
@@ -55,12 +56,15 @@ export function ReviewView({
     setIndex(index + 1);
   }
 
+  function choose(optionId: OptionId) {
+    if (pick === null) {
+      setPick(optionId);
+      playSelectSound();
+    }
+  }
+
   useAnswerShortcuts({
-    onSelect: (optionId) => {
-      if (pick === null) {
-        setPick(optionId);
-      }
-    },
+    onSelect: choose,
     onConfirm: () => {
       if (pick !== null) {
         moveOn();
@@ -110,7 +114,7 @@ export function ReviewView({
         key={question.id}
         options={question.options}
         value={pick}
-        onValueChange={setPick}
+        onValueChange={choose}
         correctOptionId={pick === null ? null : question.correctOptionId}
         disabled={pick !== null}
         aria-labelledby={headingId}

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { AvatarPill } from "@/features/shell/components/avatar-pill/avatar-pill";
 import { LogoTile } from "@/features/shell/components/logo-tile/logo-tile";
 import { NavLink } from "@/features/shell/components/nav-link/nav-link";
+import { SoundToggle } from "@/features/sound/components/sound-toggle/sound-toggle";
 import { ThemeToggle } from "@/features/theme/components/theme-toggle/theme-toggle";
 import { cn } from "@/utils/cn/cn.utils";
 
@@ -49,7 +50,10 @@ export function SiteHeader({
               </li>
             </ul>
           </nav>
-          {showThemeToggle && <ThemeToggle />}
+          <div className="flex items-center gap-2">
+            <SoundToggle className="hidden min-[42rem]:inline-flex" />
+            {showThemeToggle && <ThemeToggle />}
+          </div>
           <AvatarPill className="hidden min-[42rem]:flex" />
         </div>
       </div>

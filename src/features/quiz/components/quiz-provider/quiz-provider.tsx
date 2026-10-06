@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 
+import { playSelectSound } from "@/features/sound/services/sound-player/sound-player";
 import type { OptionId, Question, TopicId } from "@/lib/questions";
 import {
   createQuizState,
@@ -58,10 +59,10 @@ export function QuizProvider({
     startedAtRef.current = Date.now();
   }, []);
 
-  const select = React.useCallback(
-    (optionId: OptionId) => dispatch({ type: "select", optionId }),
-    []
-  );
+  const select = React.useCallback((optionId: OptionId) => {
+    dispatch({ type: "select", optionId });
+    playSelectSound();
+  }, []);
   const restart = React.useCallback(() => {
     startedAtRef.current = Date.now();
     setTiming(null);
