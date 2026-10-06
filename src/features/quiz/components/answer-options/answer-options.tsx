@@ -86,8 +86,6 @@ export function AnswerOptions({
             ref={(node) => {
               if (node) {
                 itemRefs.current.set(option.id, node);
-              } else {
-                itemRefs.current.delete(option.id);
               }
             }}
             data-verdict={verdict ?? undefined}
