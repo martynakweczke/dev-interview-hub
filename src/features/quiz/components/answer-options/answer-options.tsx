@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import type { ComponentProps } from "react";
 import { RadioGroup } from "radix-ui";
 
 import { InlineCodeText } from "@/components/inline-code-text/inline-code-text";
@@ -16,7 +16,7 @@ const verdictLabels: Record<Verdict, string> = {
 };
 
 type AnswerOptionsProps = Omit<
-  React.ComponentProps<typeof RadioGroup.Root>,
+  ComponentProps<typeof RadioGroup.Root>,
   "value" | "onValueChange" | "children"
 > & {
   options: readonly Option[];

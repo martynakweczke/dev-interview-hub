@@ -1,6 +1,15 @@
 "use client";
 
-import * as React from "react";
+import {
+  createContext,
+  type ReactNode,
+  use,
+  useCallback,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from "react";
 import { useRouter } from "next/navigation";
 
 import { playSelectSound } from "@/features/sound/services/sound-player/sound-player";
@@ -26,7 +35,7 @@ type QuizContextValue = {
   restart: () => void;
 };
 
-const QuizContext = React.createContext<QuizContextValue | null>(null);
+const QuizContext = createContext<QuizContextValue | null>(null);
 
 type QuizInit = {
   topicId: TopicId;
@@ -44,26 +53,22 @@ export function QuizProvider({
 }: {
   topicId: TopicId;
   questions: readonly Question[];
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   const router = useRouter();
-  const [state, dispatch] = React.useReducer(
+  const [state, dispatch] = useReducer(
     quizReducer,
     { topicId, questions },
     initQuizState
   );
-  const [timing, setTiming] = React.useState<QuizTiming | null>(null);
-  const startedAtRef = React.useRef(0);
+  const [timing, setTiming] = useState<QuizTiming | null>(null);
+  const startedAtRef = useRef(0);
 
-  React.useEffect(() => {
-    startedAtRef.current = Date.now();
-  }, []);
-
-  const select = React.useCallback((optionId: OptionId) => {
+  const select = useCallback((optionId: OptionId) => {
     dispatch({ type: "select", optionId });
     playSelectSound();
   }, []);
-  const restart = React.useCallback(() => {
+  const restart = useCallback(() => {
     startedAtRef.current = Date.now();
     setTiming(null);
     dispatch({ type: "restart" });
@@ -93,11 +98,15 @@ export function QuizProvider({
     restart,
   };
 
+  useEffect(() => {
+    startedAtRef.current = Date.now();
+  }, []);
+
   return <QuizContext value={value}>{children}</QuizContext>;
 }
 
 export function useQuiz(): QuizContextValue {
-  const context = React.use(QuizContext);
+  const context = use(QuizContext);
 
   if (context === null) {
     throw new Error("useQuiz must be used inside <QuizProvider>");

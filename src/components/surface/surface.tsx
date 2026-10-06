@@ -1,4 +1,4 @@
-import * as React from "react";
+import type { ComponentProps } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/utils/cn/cn.utils";
@@ -20,7 +20,7 @@ function Surface({
   className,
   ambient,
   ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof surfaceVariants>) {
+}: ComponentProps<"div"> & VariantProps<typeof surfaceVariants>) {
   return (
     <div
       data-slot="surface"

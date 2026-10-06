@@ -1,4 +1,4 @@
-import * as React from "react";
+import type { ReactNode } from "react";
 
 import { SiteHeader } from "@/features/shell/components/site-header/site-header";
 import { Surface } from "@/components/surface/surface";
@@ -192,13 +192,7 @@ const shadows = [
   ["progress-glow", "shadow-progress-glow"],
 ] as const;
 
-function Section({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="flex flex-col gap-4">
       <h3 className="font-mono text-eyebrow uppercase tracking-label text-ink-faint">
@@ -218,7 +212,7 @@ function Specimen({
   label: string;
   pinned?: boolean;
   className?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <figure className={cn("flex flex-col items-start gap-2", className)}>

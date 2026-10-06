@@ -1,9 +1,9 @@
-import * as React from "react";
+import type { ComponentProps } from "react";
 
 import { SiteHeader } from "@/features/shell/components/site-header/site-header";
 import { Surface } from "@/components/surface/surface";
 
-type PageShellProps = React.ComponentProps<typeof Surface> & {
+type PageShellProps = ComponentProps<typeof Surface> & {
   showThemeToggle?: boolean;
 };
 

@@ -1,4 +1,4 @@
-import * as React from "react";
+import type { ComponentProps } from "react";
 import Link from "next/link";
 import { cva } from "class-variance-authority";
 
@@ -43,10 +43,7 @@ const statusVariants = cva("text-caption [grid-area:status] max-sm:hidden", {
 const pillClassName =
   "self-center [grid-area:pill] sm:self-start sm:px-2.75 sm:text-pill";
 
-type TopicCardProps = Omit<
-  React.ComponentProps<typeof Link>,
-  "href" | "children"
-> & {
+type TopicCardProps = Omit<ComponentProps<typeof Link>, "href" | "children"> & {
   topic: Topic;
   progress: TopicProgress;
   status: TopicStatus;

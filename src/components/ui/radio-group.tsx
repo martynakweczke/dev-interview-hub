@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import type { ComponentProps } from "react";
 import { RadioGroup as RadioGroupPrimitive } from "radix-ui";
 
 import { cn } from "@/utils/cn/cn.utils";
@@ -8,7 +8,7 @@ import { cn } from "@/utils/cn/cn.utils";
 function RadioGroup({
   className,
   ...props
-}: React.ComponentProps<typeof RadioGroupPrimitive.Root>) {
+}: ComponentProps<typeof RadioGroupPrimitive.Root>) {
   return (
     <RadioGroupPrimitive.Root
       data-slot="radio-group"
@@ -21,7 +21,7 @@ function RadioGroup({
 function RadioGroupItem({
   className,
   ...props
-}: React.ComponentProps<typeof RadioGroupPrimitive.Item>) {
+}: ComponentProps<typeof RadioGroupPrimitive.Item>) {
   return (
     <RadioGroupPrimitive.Item
       data-slot="radio-group-item"

@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 import { InlineCodeText } from "@/components/inline-code-text/inline-code-text";
 import { toneClasses } from "@/lib/tones/tones";
 import type { Option, OptionId, Question } from "@/lib/questions";
@@ -18,7 +20,7 @@ function AnswerCell({
 }: {
   label: string;
   className?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <div

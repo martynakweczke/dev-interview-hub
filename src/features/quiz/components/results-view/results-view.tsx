@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -56,15 +56,15 @@ export function ResultsView() {
   const { state, timing } = useQuiz();
   const { result } = state;
 
-  const [previous] = React.useState(() =>
+  const [previous] = useState(() =>
     result === null ? null : getProgressSnapshot().topics[result.topicId]
   );
-  const recordedRef = React.useRef<typeof result>(null);
-  const [reviewing, setReviewing] = React.useState(false);
-  const reviewButtonRef = React.useRef<HTMLButtonElement>(null);
-  const restoreFocusRef = React.useRef(false);
+  const [reviewing, setReviewing] = useState(false);
+  const recordedRef = useRef<typeof result>(null);
+  const reviewButtonRef = useRef<HTMLButtonElement>(null);
+  const restoreFocusRef = useRef(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (reviewing || !restoreFocusRef.current) {
       return;
     }
@@ -73,7 +73,7 @@ export function ResultsView() {
     reviewButtonRef.current?.focus();
   }, [reviewing]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (result === null || timing === null) {
       return;
     }
