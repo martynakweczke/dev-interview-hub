@@ -10,7 +10,10 @@ import { AnswerOptions } from "@/features/quiz/components/answer-options/answer-
 import { ShortcutHint } from "@/features/quiz/components/shortcut-hint/shortcut-hint";
 import { useAnswerShortcuts } from "@/features/quiz/hooks/use-answer-shortcuts/use-answer-shortcuts";
 import type { QuizAnswer } from "@/features/quiz/services/quiz/quiz";
-import { playSelectSound } from "@/features/sound/services/sound-player/sound-player";
+import {
+  playCorrectSound,
+  playIncorrectSound,
+} from "@/features/sound/services/sound-player/sound-player";
 import type { OptionId } from "@/lib/questions";
 import { getTopic } from "@/lib/questions/topics";
 import { toneClasses } from "@/lib/tones/tones";
@@ -47,9 +50,16 @@ export function ReviewView({
   }
 
   function chooseOption(optionId: OptionId) {
-    if (pick === null) {
-      setPick(optionId);
-      playSelectSound();
+    if (pick !== null) {
+      return;
+    }
+
+    setPick(optionId);
+
+    if (optionId === question.correctOptionId) {
+      playCorrectSound();
+    } else {
+      playIncorrectSound();
     }
   }
 
