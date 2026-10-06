@@ -1,8 +1,8 @@
-import * as React from "react";
+import type { ComponentProps, CSSProperties } from "react";
 
 import { cn } from "@/utils/cn/cn.utils";
 
-type ScoreRingProps = React.ComponentProps<"div"> & {
+type ScoreRingProps = ComponentProps<"div"> & {
   score: number;
   total: number;
   percentage: number;
@@ -29,7 +29,7 @@ export function ScoreRing({
         {
           ...style,
           "--score-ring-progress": `${percentage}%`,
-        } as React.CSSProperties
+        } as CSSProperties
       }
       {...props}
     >

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { Surface } from "@/components/surface/surface";
 import { QuizHeader } from "@/features/quiz/components/quiz-header/quiz-header";
 import { QuizView } from "@/features/quiz/components/quiz-view/quiz-view";
-import { Surface } from "@/components/surface/surface";
 import { getTopic, isTopicId } from "@/lib/questions";
 
 export async function generateMetadata({

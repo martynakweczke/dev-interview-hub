@@ -1,6 +1,6 @@
-import * as React from "react";
-import Link from "next/link";
+import type { ComponentProps } from "react";
 import { cva } from "class-variance-authority";
+import Link from "next/link";
 
 import { TopicIconTile } from "@/components/topic-icon-tile/topic-icon-tile";
 import { Badge } from "@/components/ui/badge";
@@ -43,10 +43,7 @@ const statusVariants = cva("text-caption [grid-area:status] max-sm:hidden", {
 const pillClassName =
   "self-center [grid-area:pill] sm:self-start sm:px-2.75 sm:text-pill";
 
-type TopicCardProps = Omit<
-  React.ComponentProps<typeof Link>,
-  "href" | "children"
-> & {
+type TopicCardProps = Omit<ComponentProps<typeof Link>, "href" | "children"> & {
   topic: Topic;
   progress: TopicProgress;
   status: TopicStatus;

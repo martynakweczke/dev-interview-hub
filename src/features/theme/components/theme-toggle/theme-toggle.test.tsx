@@ -2,8 +2,8 @@ import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { ThemeToggle } from "@/features/theme/components/theme-toggle/theme-toggle";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/features/theme/components/theme-toggle/theme-toggle";
 import { THEME_STORAGE_KEY } from "@/features/theme/services/theme/theme";
 import { installMatchMedia } from "@/test/match-media/match-media";
 

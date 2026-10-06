@@ -1,8 +1,9 @@
 "use client";
 
+import type { ComponentProps } from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/utils/cn/cn.utils";
 
@@ -21,7 +22,7 @@ const navLinkVariants = cva(
   }
 );
 
-type NavLinkProps = React.ComponentProps<typeof Link> &
+type NavLinkProps = ComponentProps<typeof Link> &
   VariantProps<typeof navLinkVariants>;
 
 export function NavLink({ href, emphasis, className, ...props }: NavLinkProps) {

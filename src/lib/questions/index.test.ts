@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
 
-import { toneClasses } from "@/lib/tones/tones";
 import {
   getSeedQuestionsForTopic,
   getTopic,
@@ -10,6 +9,7 @@ import {
   TOPIC_IDS,
   topics,
 } from "@/lib/questions";
+import { toneClasses } from "@/lib/tones/tones";
 
 function hasWellFormedCodeSpans(text: string) {
   return text.split("`").length % 2 === 1 && !text.includes("``");

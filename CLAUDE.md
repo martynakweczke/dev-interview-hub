@@ -43,6 +43,10 @@ Every module gets its own directory named after it, holding the module and its t
 
 Source files carry essentially no comments; keep it that way.
 
+Import from `react` by name — `import { useEffect, useState } from "react"`, `import type { ComponentProps } from "react"` — never `import * as React` and never `React.useState` / `React.ComponentProps`. `shadcn add` generates the namespace form; convert the new file before committing.
+
+Inside a component or hook the order is: state → refs → derived values → handler functions → custom hooks → effects → `return`. Effects go last, directly above the `return`; the only exception is a conditional exit such as `redirect()`, which effects must precede (`results-view.tsx`). `review-view.tsx` is the reference.
+
 ### Questions: static TS is the seed, Postgres is the runtime source
 
 - `src/lib/questions/{css,html,js,ts}.ts` are the seed data and the test fixtures, reached through `getSeedQuestionsForTopic`. Tests never touch the database.
@@ -82,7 +86,7 @@ Tailwind v4 with no config file; everything is in `src/app/globals.css`.
 - Use the custom `hovered:` variant instead of `hover:` — it is gated on `(hover: hover)` and can be pinned with `data-force-state` on the `/tokens` sheet. `dark:` is keyed on `[data-theme="dark"]`, not the media query.
 - `/tokens` (404 in production) renders every primitive in every state in both themes — check it after touching tokens or `components/ui/`.
 
-Prettier ignores `*.css` and `*.md`. ESLint adds three rules on top of the Next config: braces on every block (`curly: all`), a blank line before and after every block-like statement, and `===` only.
+Prettier ignores `*.css` and `*.md`. ESLint adds five rules on top of the Next config: braces on every block (`curly: all`), a blank line before and after every block-like statement, `===` only, and sorted imports (`import/order`: packages with `react` first, a blank line, `@/` paths alphabetically, a blank line, relative paths) — `lint:fix` sorts them — and no `import * as React` / `import React` (`no-restricted-syntax`, not auto-fixable).
 
 ## Tests
 

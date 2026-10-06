@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import type { ComponentProps } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Progress as ProgressPrimitive } from "radix-ui";
 
@@ -59,7 +59,7 @@ function Progress({
   track,
   fill,
   ...props
-}: React.ComponentProps<typeof ProgressPrimitive.Root> &
+}: ComponentProps<typeof ProgressPrimitive.Root> &
   VariantProps<typeof progressVariants> &
   VariantProps<typeof indicatorVariants>) {
   return (

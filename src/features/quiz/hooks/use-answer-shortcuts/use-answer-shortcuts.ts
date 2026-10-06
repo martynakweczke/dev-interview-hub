@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useEffect, useEffectEvent } from "react";
 
 import { OPTION_IDS, type OptionId } from "@/lib/questions/types";
 
@@ -23,7 +23,7 @@ export function useAnswerShortcuts({
   onSelect: (optionId: OptionId) => void;
   onConfirm: () => void;
 }) {
-  const onKeyDown = React.useEffectEvent((event: KeyboardEvent) => {
+  const onKeyDown = useEffectEvent((event: KeyboardEvent) => {
     if (
       event.defaultPrevented ||
       event.repeat ||
@@ -50,7 +50,7 @@ export function useAnswerShortcuts({
     }
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     function listener(event: KeyboardEvent) {
       onKeyDown(event);
     }

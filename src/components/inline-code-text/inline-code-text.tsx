@@ -1,4 +1,4 @@
-import * as React from "react";
+import { Fragment } from "react";
 import { cva } from "class-variance-authority";
 
 import { parseInlineCode } from "@/lib/inline-code/inline-code";
@@ -30,7 +30,7 @@ export function InlineCodeText({ text, variant }: InlineCodeTextProps) {
             {segment.value}
           </code>
         ) : (
-          <React.Fragment key={index}>{segment.value}</React.Fragment>
+          <Fragment key={index}>{segment.value}</Fragment>
         )
       )}
     </>

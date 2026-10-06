@@ -1,7 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { ProgressView } from "./progress-view";
 import {
   createEmptyProgress,
   PROGRESS_STORAGE_KEY,
@@ -9,6 +8,8 @@ import {
   type ProgressSnapshot,
   type TopicProgress,
 } from "@/features/progress/services/progress/progress";
+
+import { ProgressView } from "./progress-view";
 
 const day = (date: number, hour = 10) => new Date(2026, 8, date, hour);
 

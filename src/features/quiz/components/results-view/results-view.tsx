@@ -1,26 +1,26 @@
 "use client";
 
-import * as React from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { useQuiz } from "@/features/quiz/components/quiz-provider/quiz-provider";
-import { BreakdownTable } from "@/features/quiz/components/breakdown-table/breakdown-table";
-import { ReviewView } from "@/features/quiz/components/review-view/review-view";
-import { ScoreRing } from "@/features/quiz/components/score-ring/score-ring";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   getProgressSnapshot,
   recordProgressAttempt,
 } from "@/features/progress/services/progress-store/progress-store";
-import { getTopic } from "@/lib/questions/topics";
+import { BreakdownTable } from "@/features/quiz/components/breakdown-table/breakdown-table";
+import { useQuiz } from "@/features/quiz/components/quiz-provider/quiz-provider";
+import { ReviewView } from "@/features/quiz/components/review-view/review-view";
+import { ScoreRing } from "@/features/quiz/components/score-ring/score-ring";
 import {
   getImprovement,
   getNextTopicId,
   getResultsCopy,
   isNewPersonalBest,
 } from "@/features/quiz/services/results/results";
+import { getTopic } from "@/lib/questions/topics";
 import { cn } from "@/utils/cn/cn.utils";
 import { formatDuration, formatDurationLabel } from "@/utils/date/date.utils";
 
@@ -56,15 +56,15 @@ export function ResultsView() {
   const { state, timing } = useQuiz();
   const { result } = state;
 
-  const [previous] = React.useState(() =>
+  const [previous] = useState(() =>
     result === null ? null : getProgressSnapshot().topics[result.topicId]
   );
-  const recordedRef = React.useRef<typeof result>(null);
-  const [reviewing, setReviewing] = React.useState(false);
-  const reviewButtonRef = React.useRef<HTMLButtonElement>(null);
-  const restoreFocusRef = React.useRef(false);
+  const [reviewing, setReviewing] = useState(false);
+  const recordedRef = useRef<typeof result>(null);
+  const reviewButtonRef = useRef<HTMLButtonElement>(null);
+  const restoreFocusRef = useRef(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (reviewing || !restoreFocusRef.current) {
       return;
     }
@@ -73,7 +73,7 @@ export function ResultsView() {
     reviewButtonRef.current?.focus();
   }, [reviewing]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (result === null || timing === null) {
       return;
     }

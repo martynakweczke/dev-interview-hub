@@ -1,7 +1,7 @@
 "use client";
 
-import { useTheme } from "@/features/theme/hooks/use-theme/use-theme";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { useTheme } from "@/features/theme/hooks/use-theme/use-theme";
 import type { ResolvedTheme } from "@/features/theme/services/theme/theme";
 
 const OPTIONS: { value: ResolvedTheme; label: string; glyph: string }[] = [

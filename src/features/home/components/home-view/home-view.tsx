@@ -2,13 +2,12 @@
 
 import Link from "next/link";
 
-import { useProgress } from "@/features/progress/hooks/use-progress/use-progress";
-import { useToday } from "@/hooks/use-today/use-today";
-import { TopicCard } from "@/features/progress/components/topic-card/topic-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { TopicCard } from "@/features/progress/components/topic-card/topic-card";
+import { useProgress } from "@/features/progress/hooks/use-progress/use-progress";
 import {
   formatAccuracyCaption,
   formatStreak,
@@ -18,6 +17,7 @@ import {
   getTopicStatus,
   sortTopicsByWeakest,
 } from "@/features/progress/services/progress-summary/progress-summary";
+import { useToday } from "@/hooks/use-today/use-today";
 import { getTopic, topics } from "@/lib/questions/topics";
 
 export function HomeView() {
