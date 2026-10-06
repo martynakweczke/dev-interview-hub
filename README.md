@@ -13,11 +13,17 @@ and per-topic best scores. Glassmorphic dark and light themes at full parity.
 - **Four topic rounds** — CSS, HTML, JavaScript and TypeScript, ten
   single-choice questions each, with code fragments in the prompts and answers
   rendered as inline code.
-- **Scored results** — score ring, correct/incorrect tally and a per-question
-  breakdown, with retry and back-to-topics actions.
+- **Scored results** — score ring, correct/missed tally, round time and a
+  per-question breakdown, with retry and back-to-topics actions.
+- **Review mistakes** — replay only the questions you missed, with the right
+  answer and a one-line explanation after each pick.
+- **Keyboard shortcuts** — `A`–`D` or `1`–`4` pick an answer, `Enter`
+  continues.
+- **Answer sounds** — a short tone on each pick, generated with the Web Audio
+  API; the header toggle turns it off and the choice is remembered.
 - **Progress that sticks** — best score, rounds played, last score and last
   played date per topic, plus a day streak and overall accuracy, kept in
-  `localStorage` so nothing needs a backend or an account.
+  `localStorage` so no account is needed.
 - **Guidance, not just numbers** — topics are sorted weakest-first, the weakest
   topic is highlighted, cards say how many questions are left to review, and on
   mobile a sticky button resumes the most recent round.
@@ -33,7 +39,8 @@ and per-topic best scores. Glassmorphic dark and light themes at full parity.
 ## Stack
 
 Next.js (App Router) · TypeScript · Tailwind CSS v4 · shadcn/ui (Radix) ·
-Vitest + React Testing Library · ESLint + Prettier
+Neon Postgres + Drizzle ORM · Vitest + React Testing Library · ESLint +
+Prettier
 
 ## Pages
 
@@ -46,25 +53,36 @@ Vitest + React Testing Library · ESLint + Prettier
 
 ## Getting started
 
+Questions are stored in a [Neon](https://neon.tech) Postgres database, so the
+app needs a connection string before it can show a quiz.
+
 ```bash
 npm install
+cp .env.example .env.local   # then paste your Neon connection string into DATABASE_URL
+npm run db:migrate           # create the tables
+npm run db:seed              # load the 40 questions
 npm run dev
 ```
 
 ## Scripts
 
-| Command                | What it does                        |
-| ---------------------- | ----------------------------------- |
-| `npm run dev`          | Dev server on http://localhost:3000 |
-| `npm run build`        | Production build                    |
-| `npm start`            | Serve the production build          |
-| `npm run typecheck`    | `next typegen && tsc --noEmit`      |
-| `npm run lint`         | ESLint                              |
-| `npm run lint:fix`     | ESLint, autofixing what it can      |
-| `npm run format`       | Prettier over JS/TS files           |
-| `npm run format:check` | Prettier check — writes nothing     |
-| `npm test`             | Vitest (single run)                 |
-| `npm run test:watch`   | Vitest in watch mode                |
+| Command                | What it does                                              |
+| ---------------------- | --------------------------------------------------------- |
+| `npm run dev`          | Dev server on http://localhost:3000                       |
+| `npm run build`        | Production build — needs `DATABASE_URL`                   |
+| `npm start`            | Serve the production build                                |
+| `npm run typecheck`    | `next typegen && tsc --noEmit`                            |
+| `npm run lint`         | ESLint                                                    |
+| `npm run lint:fix`     | ESLint, autofixing what it can                            |
+| `npm run format`       | Prettier over JS/TS files                                 |
+| `npm run format:check` | Prettier check — writes nothing                           |
+| `npm test`             | Vitest (single run)                                       |
+| `npm run test:watch`   | Vitest in watch mode                                      |
+| `npm run db:generate`  | Turn schema changes into a SQL migration in `drizzle/`    |
+| `npm run db:migrate`   | Apply pending migrations                                  |
+| `npm run db:push`      | Push the schema straight to the database, no migration    |
+| `npm run db:seed`      | Delete every question row, then reinsert the seed set     |
+| `npm run db:studio`    | Drizzle Studio, a browser UI for the database             |
 
 ## Project structure
 
@@ -93,13 +111,19 @@ src/
                            progress-store (localStorage) ·
                            progress-summary (accuracy, status copy, ordering)
     quiz/
-      components/          quiz-view · results-view · quiz-provider ·
-                           quiz-header · answer-options · breakdown-table ·
-                           score-ring
+      components/          quiz-view · results-view · review-view ·
+                           quiz-provider · quiz-header · answer-options ·
+                           breakdown-table · score-ring · shortcut-hint
+      hooks/               use-answer-shortcuts
       services/            quiz (round reducer) · results (scoring + copy)
     shell/
       components/          page-shell · site-header · nav-link · logo-tile ·
                            avatar-pill
+    sound/
+      components/          sound-toggle
+      hooks/               use-sound
+      services/            sound · sound-store (localStorage) ·
+                           sound-player (Web Audio)
     theme/
       components/          theme-toggle · theme-sync · inline-script
       hooks/               use-theme
@@ -107,10 +131,12 @@ src/
     tokens/
       components/          token-panel (the dev-only /tokens sheet)
   hooks/                   App-wide hooks — use-today
-  lib/                     Feature-agnostic core — questions/ (content + types) ·
+  lib/                     Feature-agnostic core — questions/ (seed content +
+                           types) · db/ (schema, query, seed script) ·
                            inline-code · tones · design-tokens · profile
   test/                    Shared test helpers and repo-wide checks
   utils/                   cn.utils.ts · date.utils.ts
+drizzle/                   Generated SQL migrations
 ```
 
 ### Conventions
@@ -127,8 +153,8 @@ src/
   from another `components/` subdirectory (`components/ui/*` is the sole
   exception), and never from `features/` or `hooks/`.
 - **Dependencies point one way:** `app/ → features/ → components/, lib/,
-  utils/`. Features may depend on each other (`home` uses `progress`, `shell`
-  uses `theme`); `lib/` depends on nothing above it.
+  utils/`. Features may depend on each other (`home` uses `progress`, `quiz`
+  uses `sound`, `shell` uses `theme`); `lib/` depends on nothing above it.
 - **`app/` holds routes only** — no `_components/` folders; a route composes
   pieces from `features/`.
 - **Style is enforced, not argued.** Prettier owns JS/TS formatting —
@@ -136,11 +162,26 @@ src/
   express: braces on every block body, a blank line around each block, and
   `===` over `==`. `npm run lint:fix` then `npm run format` fixes all of it.
 
+## Data
+
+- **Questions live in Postgres.** The schema is
+  [`src/lib/db/schema.ts`](src/lib/db/schema.ts); the TypeScript files under
+  `src/lib/questions/` are the seed source for `npm run db:seed` and the
+  fixtures the tests run against, so tests never touch the database.
+- **The query is cached.** `getQuestionsForTopic` uses `"use cache"` with the
+  `questions` tag and the quiz routes are prerendered at build time. Nothing
+  invalidates the tag yet, so reseeded questions appear after the next deploy.
+- **Topics are static** — the four topic definitions stay in
+  `src/lib/questions/topics.ts`.
+- **Progress, theme and sound stay in the browser** (`localStorage` keys
+  `progress`, `theme`, `sound`).
+
 ## Deployment
 
 The app is deployed on [Vercel](https://vercel.com) at
-<https://dev-interview-hub.vercel.app/>. No environment variables are needed —
-Vercel detects Next.js and runs `npm run build`.
+<https://dev-interview-hub.vercel.app/>. Vercel detects Next.js and runs
+`npm run build`; the project needs one environment variable, `DATABASE_URL`
+(the Neon connection string), because the build reads the questions.
 
 ## Design tokens & theming
 
