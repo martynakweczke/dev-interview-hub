@@ -35,7 +35,7 @@ export function AnswerOptions({
   onConfirm,
   ...props
 }: AnswerOptionsProps) {
-  const rootRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef(new Map<OptionId, HTMLButtonElement>());
 
   function getVerdict(optionId: OptionId): Verdict | null {
     if (correctOptionId === null) {
@@ -58,15 +58,15 @@ export function AnswerOptions({
   }
 
   useEffect(() => {
-    const root = rootRef.current;
-
-    if (value === null || !root?.contains(document.activeElement)) {
+    if (value === null) {
       return;
     }
 
-    root
-      .querySelector<HTMLElement>('[role="radio"][data-state="checked"]')
-      ?.focus();
+    const items = [...itemRefs.current.values()];
+
+    if (items.some((item) => item === document.activeElement)) {
+      itemRefs.current.get(value)?.focus();
+    }
   }, [value]);
 
   return (
@@ -75,7 +75,6 @@ export function AnswerOptions({
       onValueChange={handleValueChange}
       className="flex flex-col gap-3 sm:gap-3.5"
       {...props}
-      ref={rootRef}
     >
       {options.map((option) => {
         const verdict = getVerdict(option.id);
@@ -84,6 +83,13 @@ export function AnswerOptions({
           <RadioGroup.Item
             key={option.id}
             value={option.id}
+            ref={(node) => {
+              if (node) {
+                itemRefs.current.set(option.id, node);
+              } else {
+                itemRefs.current.delete(option.id);
+              }
+            }}
             data-verdict={verdict ?? undefined}
             onKeyDown={(event) => {
               if (event.key !== "Enter" || event.repeat) {
