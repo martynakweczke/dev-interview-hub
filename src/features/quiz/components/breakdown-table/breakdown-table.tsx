@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
 
 import { InlineCodeText } from "@/components/inline-code-text/inline-code-text";
-import { toneClasses } from "@/lib/tones/tones";
-import type { Option, OptionId, Question } from "@/lib/questions";
 import type { QuizAnswer } from "@/features/quiz/services/quiz/quiz";
+import type { Option, OptionId, Question } from "@/lib/questions";
+import { toneClasses } from "@/lib/tones/tones";
 import { cn } from "@/utils/cn/cn.utils";
 
 const rowGrid =

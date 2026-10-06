@@ -4,23 +4,23 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { useQuiz } from "@/features/quiz/components/quiz-provider/quiz-provider";
-import { BreakdownTable } from "@/features/quiz/components/breakdown-table/breakdown-table";
-import { ReviewView } from "@/features/quiz/components/review-view/review-view";
-import { ScoreRing } from "@/features/quiz/components/score-ring/score-ring";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   getProgressSnapshot,
   recordProgressAttempt,
 } from "@/features/progress/services/progress-store/progress-store";
-import { getTopic } from "@/lib/questions/topics";
+import { BreakdownTable } from "@/features/quiz/components/breakdown-table/breakdown-table";
+import { useQuiz } from "@/features/quiz/components/quiz-provider/quiz-provider";
+import { ReviewView } from "@/features/quiz/components/review-view/review-view";
+import { ScoreRing } from "@/features/quiz/components/score-ring/score-ring";
 import {
   getImprovement,
   getNextTopicId,
   getResultsCopy,
   isNewPersonalBest,
 } from "@/features/quiz/services/results/results";
+import { getTopic } from "@/lib/questions/topics";
 import { cn } from "@/utils/cn/cn.utils";
 import { formatDuration, formatDurationLabel } from "@/utils/date/date.utils";
 

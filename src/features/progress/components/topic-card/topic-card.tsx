@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
-import Link from "next/link";
 import { cva } from "class-variance-authority";
+import Link from "next/link";
 
 import { TopicIconTile } from "@/components/topic-icon-tile/topic-icon-tile";
 import { Badge } from "@/components/ui/badge";

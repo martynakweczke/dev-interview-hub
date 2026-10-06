@@ -12,14 +12,14 @@ import {
 } from "react";
 import { useRouter } from "next/navigation";
 
-import { playSelectSound } from "@/features/sound/services/sound-player/sound-player";
-import type { OptionId, Question, TopicId } from "@/lib/questions";
 import {
   createQuizState,
   quizReducer,
   type QuizAction,
   type QuizState,
 } from "@/features/quiz/services/quiz/quiz";
+import { playSelectSound } from "@/features/sound/services/sound-player/sound-player";
+import type { OptionId, Question, TopicId } from "@/lib/questions";
 
 type QuizTiming = {
   completedAt: Date;

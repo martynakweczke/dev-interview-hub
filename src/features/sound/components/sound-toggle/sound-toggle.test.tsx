@@ -3,8 +3,8 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { SoundToggle } from "@/features/sound/components/sound-toggle/sound-toggle";
-import { playSelectSound } from "@/features/sound/services/sound-player/sound-player";
 import { SOUND_STORAGE_KEY } from "@/features/sound/services/sound/sound";
+import { playSelectSound } from "@/features/sound/services/sound-player/sound-player";
 
 const start = vi.fn();
 

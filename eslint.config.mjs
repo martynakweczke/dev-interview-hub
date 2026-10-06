@@ -1,8 +1,8 @@
 import stylistic from "@stylistic/eslint-plugin";
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
-import prettier from "eslint-config-prettier/flat";
 import nextTs from "eslint-config-next/typescript";
+import prettier from "eslint-config-prettier/flat";
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -25,6 +25,41 @@ const eslintConfig = defineConfig([
       ],
 
       eqeqeq: ["error", "always"],
+
+      "import/order": [
+        "error",
+        {
+          groups: [
+            ["builtin", "external"],
+            "internal",
+            ["parent", "sibling", "index"],
+          ],
+          pathGroups: [
+            { pattern: "react", group: "external", position: "before" },
+            { pattern: "@/**", group: "internal" },
+          ],
+          pathGroupsExcludedImportTypes: [],
+          distinctGroup: false,
+          "newlines-between": "always",
+          alphabetize: { order: "asc", caseInsensitive: true },
+        },
+      ],
+
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector:
+            "ImportDeclaration[source.value='react'] > ImportNamespaceSpecifier",
+          message:
+            'Import from "react" by name, e.g. import { useState } from "react".',
+        },
+        {
+          selector:
+            "ImportDeclaration[source.value='react'] > ImportDefaultSpecifier",
+          message:
+            'Import from "react" by name, e.g. import { useState } from "react".',
+        },
+      ],
     },
   },
 

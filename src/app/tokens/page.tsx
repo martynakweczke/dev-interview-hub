@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { PageShell } from "@/features/shell/components/page-shell/page-shell";
-
 import { TokenPanel } from "@/features/tokens/components/token-panel/token-panel";
 
 export const metadata: Metadata = {

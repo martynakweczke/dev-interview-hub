@@ -1,6 +1,5 @@
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
-
 import { expect, it } from "vitest";
 
 const SRC = path.join(process.cwd(), "src");

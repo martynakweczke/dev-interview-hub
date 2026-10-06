@@ -3,18 +3,18 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
-  QuizProvider,
-  useQuiz,
-} from "@/features/quiz/components/quiz-provider/quiz-provider";
-import { QuizView } from "@/features/quiz/components/quiz-view/quiz-view";
-import { ResultsView } from "@/features/quiz/components/results-view/results-view";
-import {
   createEmptyProgress,
   parseProgress,
   PROGRESS_STORAGE_KEY,
   serializeProgress,
   type TopicProgress,
 } from "@/features/progress/services/progress/progress";
+import {
+  QuizProvider,
+  useQuiz,
+} from "@/features/quiz/components/quiz-provider/quiz-provider";
+import { QuizView } from "@/features/quiz/components/quiz-view/quiz-view";
+import { ResultsView } from "@/features/quiz/components/results-view/results-view";
 import { getSeedQuestionsForTopic, type OptionId } from "@/lib/questions";
 
 const { push, redirect } = vi.hoisted(() => ({

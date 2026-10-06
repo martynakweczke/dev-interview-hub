@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
 
-import { getSeedQuestionsForTopic, type OptionId } from "@/lib/questions";
 import {
   createQuizState,
   getCurrentQuestion,
@@ -9,6 +8,7 @@ import {
   type QuizAction,
   type QuizState,
 } from "@/features/quiz/services/quiz/quiz";
+import { getSeedQuestionsForTopic, type OptionId } from "@/lib/questions";
 
 const questions = getSeedQuestionsForTopic("js");
 

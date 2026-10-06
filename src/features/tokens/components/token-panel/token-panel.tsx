@@ -1,9 +1,6 @@
 import type { ReactNode } from "react";
 
-import { SiteHeader } from "@/features/shell/components/site-header/site-header";
 import { Surface } from "@/components/surface/surface";
-import { ThemeToggle } from "@/features/theme/components/theme-toggle/theme-toggle";
-import { TopicCard } from "@/features/progress/components/topic-card/topic-card";
 import { TopicIconTile } from "@/components/topic-icon-tile/topic-icon-tile";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -11,9 +8,12 @@ import { Card } from "@/components/ui/card";
 import { Kbd, KbdGroup } from "@/components/ui/kbd";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
-import { toneClasses, type Tone } from "@/lib/tones/tones";
+import { TopicCard } from "@/features/progress/components/topic-card/topic-card";
 import type { TopicProgress } from "@/features/progress/services/progress/progress";
+import { SiteHeader } from "@/features/shell/components/site-header/site-header";
+import { ThemeToggle } from "@/features/theme/components/theme-toggle/theme-toggle";
 import { getTopic } from "@/lib/questions/topics";
+import { toneClasses, type Tone } from "@/lib/tones/tones";
 import { cn } from "@/utils/cn/cn.utils";
 
 const surfaceSwatches = [
