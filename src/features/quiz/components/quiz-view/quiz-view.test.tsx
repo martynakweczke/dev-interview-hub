@@ -152,6 +152,18 @@ describe("QuizView", () => {
     expect(screen.getByText("Question 3 of 10")).toBeInTheDocument();
   });
 
+  it("moves focus to the option picked with a shortcut after a click", async () => {
+    const user = userEvent.setup();
+    render(<Harness />);
+
+    await user.click(radios()[1]);
+    expect(radios()[1]).toHaveFocus();
+
+    await user.keyboard("1");
+    expect(radios()[0]).toBeChecked();
+    expect(radios()[0]).toHaveFocus();
+  });
+
   it("continues with Enter on the already selected option", async () => {
     const user = userEvent.setup();
     render(<Harness />);

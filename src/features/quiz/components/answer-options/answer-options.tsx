@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import type { ComponentProps } from "react";
 import { RadioGroup } from "radix-ui";
 
@@ -34,6 +35,8 @@ export function AnswerOptions({
   onConfirm,
   ...props
 }: AnswerOptionsProps) {
+  const itemRefs = useRef(new Map<OptionId, HTMLButtonElement>());
+
   function getVerdict(optionId: OptionId): Verdict | null {
     if (correctOptionId === null) {
       return null;
@@ -54,6 +57,18 @@ export function AnswerOptions({
     }
   }
 
+  useEffect(() => {
+    if (value === null) {
+      return;
+    }
+
+    const items = [...itemRefs.current.values()];
+
+    if (items.some((item) => item === document.activeElement)) {
+      itemRefs.current.get(value)?.focus();
+    }
+  }, [value]);
+
   return (
     <RadioGroup.Root
       value={value ?? ""}
@@ -68,6 +83,11 @@ export function AnswerOptions({
           <RadioGroup.Item
             key={option.id}
             value={option.id}
+            ref={(node) => {
+              if (node) {
+                itemRefs.current.set(option.id, node);
+              }
+            }}
             data-verdict={verdict ?? undefined}
             onKeyDown={(event) => {
               if (event.key !== "Enter" || event.repeat) {
