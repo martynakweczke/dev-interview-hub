@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import type { ComponentProps } from "react";
 import { RadioGroup } from "radix-ui";
 
@@ -34,6 +35,8 @@ export function AnswerOptions({
   onConfirm,
   ...props
 }: AnswerOptionsProps) {
+  const rootRef = useRef<HTMLDivElement>(null);
+
   function getVerdict(optionId: OptionId): Verdict | null {
     if (correctOptionId === null) {
       return null;
@@ -54,12 +57,25 @@ export function AnswerOptions({
     }
   }
 
+  useEffect(() => {
+    const root = rootRef.current;
+
+    if (value === null || !root?.contains(document.activeElement)) {
+      return;
+    }
+
+    root
+      .querySelector<HTMLElement>('[role="radio"][data-state="checked"]')
+      ?.focus();
+  }, [value]);
+
   return (
     <RadioGroup.Root
       value={value ?? ""}
       onValueChange={handleValueChange}
       className="flex flex-col gap-3 sm:gap-3.5"
       {...props}
+      ref={rootRef}
     >
       {options.map((option) => {
         const verdict = getVerdict(option.id);
