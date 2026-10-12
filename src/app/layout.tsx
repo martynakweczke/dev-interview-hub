@@ -1,3 +1,4 @@
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 
@@ -45,14 +46,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <InlineScript html={themeInitScript} />
       </head>
       <body>
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-pill focus:bg-panel-top focus:px-4 focus:py-2 focus:text-nav focus:font-semibold focus:text-ink-primary"
-        >
-          Skip to content
-        </a>
-        <ThemeSync />
-        {children}
+        <ClerkProvider>
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-pill focus:bg-panel-top focus:px-4 focus:py-2 focus:text-nav focus:font-semibold focus:text-ink-primary"
+          >
+            Skip to content
+          </a>
+          <ThemeSync />
+          {children}
+        </ClerkProvider>
       </body>
     </html>
   );
