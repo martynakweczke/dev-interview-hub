@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { AvatarPill } from "@/features/shell/components/avatar-pill/avatar-pill";
+import { AuthControls } from "@/features/auth/components/auth-controls/auth-controls";
 import { LogoTile } from "@/features/shell/components/logo-tile/logo-tile";
 import { NavLink } from "@/features/shell/components/nav-link/nav-link";
 import { SoundToggle } from "@/features/sound/components/sound-toggle/sound-toggle";
@@ -32,7 +32,7 @@ export function SiteHeader({
           className="flex items-center gap-2.5 rounded-tile sm:gap-3"
         >
           <LogoTile />
-          <span className="font-display text-brand-compact font-bold whitespace-nowrap text-ink-primary sm:text-brand">
+          <span className="sr-only font-display text-brand-compact font-bold text-ink-primary min-[42rem]:not-sr-only min-[42rem]:whitespace-nowrap sm:text-brand">
             Dev Interview Hub
           </span>
         </Link>
@@ -54,7 +54,7 @@ export function SiteHeader({
             <SoundToggle className="hidden min-[42rem]:inline-flex" />
             {showThemeToggle && <ThemeToggle />}
           </div>
-          <AvatarPill className="hidden min-[42rem]:flex" />
+          <AuthControls />
         </div>
       </div>
     </header>
