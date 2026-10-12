@@ -8,6 +8,8 @@ import { Card } from "@/components/ui/card";
 import { Kbd, KbdGroup } from "@/components/ui/kbd";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
+import { SignInLink } from "@/features/auth/components/sign-in-link/sign-in-link";
+import { UserMenu } from "@/features/auth/components/user-menu/user-menu";
 import { TopicCard } from "@/features/progress/components/topic-card/topic-card";
 import type { TopicProgress } from "@/features/progress/services/progress/progress";
 import { SiteHeader } from "@/features/shell/components/site-header/site-header";
@@ -427,6 +429,33 @@ export function TokenPanel({
             </Specimen>
             <Specimen label="focus" pinned>
               <ThemeToggle forceItemState="focus" />
+            </Specimen>
+          </div>
+        </Section>
+
+        <Section title="Account">
+          <div className="flex flex-wrap items-end gap-8">
+            <Specimen label="signed out">
+              <SignInLink />
+            </Specimen>
+            <Specimen label="signed in · live">
+              <UserMenu name="Lexi" initials="LX" email="lexi@example.com" />
+            </Specimen>
+            <Specimen label="signed in · hover" pinned>
+              <UserMenu
+                name="Lexi"
+                initials="LX"
+                email="lexi@example.com"
+                data-force-state="hover"
+              />
+            </Specimen>
+            <Specimen label="signed in · focus" pinned>
+              <UserMenu
+                name="Lexi"
+                initials="LX"
+                email="lexi@example.com"
+                data-force-state="focus"
+              />
             </Specimen>
           </div>
         </Section>
