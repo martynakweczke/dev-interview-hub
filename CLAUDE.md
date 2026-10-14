@@ -21,7 +21,7 @@ Database (Neon Postgres + Drizzle). Copy `.env.example` to `.env.local` and set 
 ```bash
 npm run db:generate    # schema.ts -> SQL migration in drizzle/
 npm run db:migrate     # apply migrations
-npm run db:seed        # DELETES all question rows, reinserts from src/lib/questions/*
+npm run db:seed        # fills an EMPTY questions table from src/lib/questions/*; skips otherwise
 npm run db:studio
 ```
 
@@ -47,14 +47,22 @@ Import from `react` by name — `import { useEffect, useState } from "react"`, `
 
 Inside a component or hook the order is: state → refs → derived values → handler functions → custom hooks → effects → `return`. Effects go last, directly above the `return`; the only exception is a conditional exit such as `redirect()`, which effects must precede (`results-view.tsx`). `review-view.tsx` is the reference.
 
-### Questions: static TS is the seed, Postgres is the runtime source
+### Questions: Postgres is the source of truth, static TS is only the seed
 
-- `src/lib/questions/{css,html,js,ts}.ts` are the seed data and the test fixtures, reached through `getSeedQuestionsForTopic`. Tests never touch the database.
-- At runtime questions come from `getQuestionsForTopic` in `src/lib/db/questions.ts` — `server-only`, `"use cache"` with `cacheLife("max")` and `cacheTag("questions")`. Nothing invalidates that tag yet, so reseeding only shows up after a redeploy.
+- The database owns the questions. New ones are added through the admin panel, not by editing TS files.
+- `src/lib/questions/{css,html,js,ts}.ts` fill an empty database (`db:seed` skips once the table has rows) and are the test fixtures, reached through `getSeedQuestionsForTopic`. They are expected to drift from production. Tests never touch the database.
+- `validateQuestion` (`lib/questions/validate-question`) holds the rules a question must pass; the seed-data tests and the admin form both go through it.
+- At runtime questions come from `getQuestionsForTopic` in `src/lib/db/questions.ts` — `server-only`, `"use cache"` with `cacheLife("max")` and `cacheTag("questions")`. Nothing invalidates that tag yet, so database changes only show up after a redeploy.
 - `topics` (`lib/questions/topics.ts`) is still static TS because client components read it directly.
 - `TOPIC_IDS` and `OPTION_IDS` in `lib/questions/types.ts` feed the Postgres enums in `lib/db/schema.ts`; changing either needs a migration.
-- Rows have no inherent order — the seed stores the array index in `position` and the query sorts on it.
+- Rows have no inherent order — the seed stores the array index in `position` and the query sorts on it. The quiz takes the first `QUESTIONS_PER_ROUND` by position.
 - Drizzle uses `casing: "snake_case"` in both `drizzle.config.ts` and `lib/db/db.ts`; keep them in step. `db` is a lazy proxy, so importing it does not require `DATABASE_URL` until the first query.
+
+### Auth (Clerk)
+
+- `proxy.ts` is bare `clerkMiddleware()`: it identifies the user and nothing else. Clerk deprecated route matching in middleware, so never add access checks there.
+- Every protected page, route handler and server action checks access itself. Admin-only code calls `requireAdmin()` (`features/auth/services/require-admin`) first; on a page it must sit inside `<Suspense>` because it reads the session.
+- The admin role is `publicMetadata.role = "admin"` in Clerk, exposed to the session token as the custom claim `metadata`. `isAdmin` (`features/auth/services/admin-role`) reads it.
 
 ### Quiz flow
 
