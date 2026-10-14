@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import { parseInlineCode } from "@/lib/inline-code/inline-code";
+import {
+  hasWellFormedInlineCode,
+  parseInlineCode,
+} from "@/lib/inline-code/inline-code";
 
 describe("parseInlineCode", () => {
   it("returns plain text as a single segment", () => {
@@ -35,5 +38,25 @@ describe("parseInlineCode", () => {
     expect(parseInlineCode("a `broken span")).toEqual([
       { kind: "text", value: "a `broken span" },
     ]);
+  });
+});
+
+describe("hasWellFormedInlineCode", () => {
+  it("accepts text with no code spans", () => {
+    expect(hasWellFormedInlineCode("What is a closure?")).toBe(true);
+  });
+
+  it("accepts closed code spans", () => {
+    expect(hasWellFormedInlineCode("`===` vs `==`")).toBe(true);
+  });
+
+  it("rejects an unclosed backtick", () => {
+    expect(hasWellFormedInlineCode("What does `typeof null evaluate to?")).toBe(
+      false
+    );
+  });
+
+  it("rejects an empty code span", () => {
+    expect(hasWellFormedInlineCode("Empty `` span")).toBe(false);
   });
 });
