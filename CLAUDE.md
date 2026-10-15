@@ -52,7 +52,7 @@ Inside a component or hook the order is: state → refs → derived values → h
 - The database owns the questions. New ones are added through the admin panel, not by editing TS files.
 - `src/lib/questions/{css,html,js,ts}.ts` fill an empty database (`db:seed` skips once the table has rows) and are the test fixtures, reached through `getSeedQuestionsForTopic`. They are expected to drift from production. Tests never touch the database.
 - `validateQuestion` (`lib/questions/validate-question`) holds the rules a question must pass; the seed-data tests and the admin form both go through it.
-- At runtime questions come from `getQuestionsForTopic` in `src/lib/db/questions.ts` — `server-only`, `"use cache"` with `cacheLife("max")` and `cacheTag("questions")`. Nothing invalidates that tag yet, so database changes only show up after a redeploy.
+- At runtime questions come from `getQuestionsForTopic` in `src/lib/db/questions.ts` — `server-only`, `"use cache"` with `cacheLife("max")` and `cacheTag("questions")`. The admin `createQuestion` action calls `updateTag("questions")` after inserting; changes made outside the panel (Drizzle Studio, SQL) only show up after a redeploy.
 - `topics` (`lib/questions/topics.ts`) is still static TS because client components read it directly.
 - `TOPIC_IDS` and `OPTION_IDS` in `lib/questions/types.ts` feed the Postgres enums in `lib/db/schema.ts`; changing either needs a migration.
 - Rows have no inherent order — the seed stores the array index in `position` and the query sorts on it. The quiz takes the first `QUESTIONS_PER_ROUND` by position.
@@ -61,7 +61,7 @@ Inside a component or hook the order is: state → refs → derived values → h
 ### Auth (Clerk)
 
 - `proxy.ts` is bare `clerkMiddleware()`: it identifies the user and nothing else. Clerk deprecated route matching in middleware, so never add access checks there.
-- Every protected page, route handler and server action checks access itself. Admin-only code calls `requireAdmin()` (`features/auth/services/require-admin`) first; on a page it must sit inside `<Suspense>` because it reads the session.
+- Every protected page, route handler and server action checks access itself — server actions are reachable by a direct POST, so `createQuestion` calls `requireAdmin()` before touching the form data. Admin-only code calls `requireAdmin()` (`features/auth/services/require-admin`) first; on a page it must sit inside `<Suspense>` because it reads the session.
 - The admin role is `publicMetadata.role = "admin"` in Clerk, exposed to the session token as the custom claim `metadata`. `isAdmin` (`features/auth/services/admin-role`) reads it.
 
 ### Quiz flow
