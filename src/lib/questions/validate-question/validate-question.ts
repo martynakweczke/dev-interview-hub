@@ -1,6 +1,11 @@
 import { hasWellFormedInlineCode } from "@/lib/inline-code/inline-code";
 import { isTopicId } from "@/lib/questions/topics";
-import { OPTION_IDS, type OptionId } from "@/lib/questions/types";
+import {
+  OPTION_IDS,
+  type OptionId,
+  type Question,
+  type TopicId,
+} from "@/lib/questions/types";
 
 export type QuestionDraft = {
   topicId: string;
@@ -19,6 +24,11 @@ export type QuestionErrorKey =
   | "explanation";
 
 export type QuestionErrors = Partial<Record<QuestionErrorKey, string>>;
+
+export type QuestionInput = Omit<Question, "id">;
+
+export type QuestionParseResult =
+  { ok: true; question: QuestionInput } | { ok: false; errors: QuestionErrors };
 
 function textError(text: string, label: string): string | undefined {
   if (text.trim() === "") {
@@ -87,4 +97,26 @@ export function validateQuestion(draft: QuestionDraft): QuestionErrors {
   }
 
   return errors;
+}
+
+export function parseQuestion(draft: QuestionDraft): QuestionParseResult {
+  const errors = validateQuestion(draft);
+
+  if (Object.keys(errors).length > 0) {
+    return { ok: false, errors };
+  }
+
+  return {
+    ok: true,
+    question: {
+      topicId: draft.topicId as TopicId,
+      prompt: draft.prompt.trim(),
+      options: draft.options.map((option) => ({
+        id: option.id as OptionId,
+        label: option.label.trim(),
+      })) as unknown as Question["options"],
+      correctOptionId: draft.correctOptionId as OptionId,
+      explanation: draft.explanation.trim(),
+    },
+  };
 }
