@@ -14,3 +14,7 @@ export function parseInlineCode(text: string): InlineSegment[] {
     value === "" ? [] : [{ kind: index % 2 === 1 ? "code" : "text", value }]
   );
 }
+
+export function hasWellFormedInlineCode(text: string): boolean {
+  return text.split("`").length % 2 === 1 && !text.includes("``");
+}

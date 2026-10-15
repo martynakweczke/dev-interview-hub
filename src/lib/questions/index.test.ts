@@ -9,11 +9,8 @@ import {
   TOPIC_IDS,
   topics,
 } from "@/lib/questions";
+import { validateQuestion } from "@/lib/questions/validate-question/validate-question";
 import { toneClasses } from "@/lib/tones/tones";
-
-function hasWellFormedCodeSpans(text: string) {
-  return text.split("`").length % 2 === 1 && !text.includes("``");
-}
 
 describe("topics", () => {
   it("lists every topic once, in order", () => {
@@ -75,40 +72,18 @@ describe("question set", () => {
 describe.each(questions.map((question) => [question.id, question] as const))(
   "%s",
   (_id, question) => {
-    it("has exactly four options with unique ids and labels", () => {
-      expect(question.options).toHaveLength(4);
-      expect(new Set(question.options.map((o) => o.id)).size).toBe(4);
-      expect(new Set(question.options.map((o) => o.label)).size).toBe(4);
-    });
-
-    it("has exactly one correct option", () => {
-      const matches = question.options.filter(
-        (option) => option.id === question.correctOptionId
-      );
-      expect(matches).toHaveLength(1);
+    it("passes the question rules", () => {
+      expect(
+        validateQuestion({
+          ...question,
+          explanation: question.explanation ?? "",
+        })
+      ).toEqual({});
     });
 
     it("is namespaced by a real topic", () => {
       expect(isTopicId(question.topicId)).toBe(true);
       expect(question.id.startsWith(`${question.topicId}-`)).toBe(true);
-    });
-
-    it("has a one-line explanation", () => {
-      expect(question.explanation?.trim()).toBeTruthy();
-      expect(question.explanation).not.toMatch(/\n/);
-    });
-
-    it("has non-empty text with well-formed code spans", () => {
-      const texts = [
-        question.prompt,
-        question.explanation ?? "",
-        ...question.options.map((option) => option.label),
-      ];
-
-      for (const text of texts) {
-        expect(text.trim(), text).not.toBe("");
-        expect(hasWellFormedCodeSpans(text), text).toBe(true);
-      }
     });
   }
 );

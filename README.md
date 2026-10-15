@@ -60,7 +60,7 @@ app needs a connection string before it can show a quiz.
 npm install
 cp .env.example .env.local   # then paste your Neon connection string into DATABASE_URL
 npm run db:migrate           # create the tables
-npm run db:seed              # load the 40 questions
+npm run db:seed              # load the 40 starter questions into an empty database
 npm run dev
 ```
 
@@ -81,7 +81,7 @@ npm run dev
 | `npm run db:generate`  | Turn schema changes into a SQL migration in `drizzle/`    |
 | `npm run db:migrate`   | Apply pending migrations                                  |
 | `npm run db:push`      | Push the schema straight to the database, no migration    |
-| `npm run db:seed`      | Delete every question row, then reinsert the seed set     |
+| `npm run db:seed`      | Fill an empty questions table; skips if it has rows       |
 | `npm run db:studio`    | Drizzle Studio, a browser UI for the database             |
 
 ## Project structure
@@ -102,6 +102,11 @@ src/
     surface/
     topic-icon-tile/
   features/                One self-contained module per domain
+    admin/
+      components/          admin-view (the /admin page)
+    auth/
+      components/          auth-controls · sign-in-link · user-menu
+      services/            user-display · admin-role · require-admin
     home/
       components/          home-view
     progress/
@@ -132,8 +137,8 @@ src/
       components/          token-panel (the dev-only /tokens sheet)
   hooks/                   App-wide hooks — use-today
   lib/                     Feature-agnostic core — questions/ (seed content +
-                           types) · db/ (schema, query, seed script) ·
-                           inline-code · tones · design-tokens · profile
+                           types, validation) · db/ (schema, query, seed
+                           script) · inline-code · tones · design-tokens
   test/                    Shared test helpers and repo-wide checks
   utils/                   cn.utils.ts · date.utils.ts
 drizzle/                   Generated SQL migrations
@@ -164,13 +169,14 @@ drizzle/                   Generated SQL migrations
 
 ## Data
 
-- **Questions live in Postgres.** The schema is
-  [`src/lib/db/schema.ts`](src/lib/db/schema.ts); the TypeScript files under
-  `src/lib/questions/` are the seed source for `npm run db:seed` and the
-  fixtures the tests run against, so tests never touch the database.
+- **Questions live in Postgres, and the database is the source of truth.** The
+  schema is [`src/lib/db/schema.ts`](src/lib/db/schema.ts). The TypeScript
+  files under `src/lib/questions/` only fill an empty database through
+  `npm run db:seed` and serve as the fixtures the tests run against, so tests
+  never touch the database. They are allowed to drift from production.
 - **The query is cached.** `getQuestionsForTopic` uses `"use cache"` with the
   `questions` tag and the quiz routes are prerendered at build time. Nothing
-  invalidates the tag yet, so reseeded questions appear after the next deploy.
+  invalidates the tag yet, so database changes appear after the next deploy.
 - **Topics are static** — the four topic definitions stay in
   `src/lib/questions/topics.ts`.
 - **Progress, theme and sound stay in the browser** (`localStorage` keys

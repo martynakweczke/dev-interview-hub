@@ -15,7 +15,16 @@ const rows = TOPIC_IDS.flatMap((topicId) =>
 );
 
 async function seed() {
-  await db.delete(questions);
+  const existing = await db.$count(questions);
+
+  if (existing > 0) {
+    console.log(
+      `The questions table already has ${existing} rows, skipping. The seed only fills an empty database.`
+    );
+
+    return;
+  }
+
   await db.insert(questions).values(rows);
 
   console.log(`Seeded ${rows.length} questions`);
