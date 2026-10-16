@@ -5,9 +5,12 @@ import { TopicIconTile } from "@/components/topic-icon-tile/topic-icon-tile";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Kbd, KbdGroup } from "@/components/ui/kbd";
+import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
+import { Textarea } from "@/components/ui/textarea";
 import { SignInLink } from "@/features/auth/components/sign-in-link/sign-in-link";
 import { UserMenu } from "@/features/auth/components/user-menu/user-menu";
 import { TopicCard } from "@/features/progress/components/topic-card/topic-card";
@@ -553,6 +556,33 @@ export function TokenPanel({
               <Button variant="pill" size="pill" data-force-state="hover">
                 Exit round
               </Button>
+            </Specimen>
+          </div>
+        </Section>
+
+        <Section title="Fields">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] gap-x-5 gap-y-6">
+            <Specimen label="input · rest" className="items-stretch">
+              <Label>Explanation</Label>
+              <Input placeholder="One line" />
+            </Specimen>
+            <Specimen label="input · hover" pinned className="items-stretch">
+              <Input defaultValue="`em` is relative" data-force-state="hover" />
+            </Specimen>
+            <Specimen label="input · focus" pinned className="items-stretch">
+              <Input defaultValue="`em` is relative" data-force-state="focus" />
+            </Specimen>
+            <Specimen label="input · invalid" className="items-stretch">
+              <Input aria-invalid defaultValue="Unclosed `code" />
+            </Specimen>
+            <Specimen label="input · disabled" className="items-stretch">
+              <Input disabled defaultValue="Read only" />
+            </Specimen>
+            <Specimen label="textarea · rest" className="items-stretch">
+              <Textarea defaultValue="What does `typeof null` evaluate to?" />
+            </Specimen>
+            <Specimen label="textarea · invalid" className="items-stretch">
+              <Textarea aria-invalid />
             </Specimen>
           </div>
         </Section>

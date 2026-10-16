@@ -103,7 +103,10 @@ src/
     topic-icon-tile/
   features/                One self-contained module per domain
     admin/
-      components/          admin-view (the /admin page)
+      components/          admin-view (the /admin page) · question-form ·
+                           question-list
+      services/            create-question (server action) ·
+                           question-form-state
     auth/
       components/          auth-controls · sign-in-link · user-menu
       services/            user-display · admin-role · require-admin
@@ -175,8 +178,9 @@ drizzle/                   Generated SQL migrations
   `npm run db:seed` and serve as the fixtures the tests run against, so tests
   never touch the database. They are allowed to drift from production.
 - **The query is cached.** `getQuestionsForTopic` uses `"use cache"` with the
-  `questions` tag and the quiz routes are prerendered at build time. Nothing
-  invalidates the tag yet, so database changes appear after the next deploy.
+  `questions` tag and the quiz routes are prerendered at build time. Adding a
+  question in the admin panel invalidates the tag; edits made straight in the
+  database appear after the next deploy.
 - **Topics are static** — the four topic definitions stay in
   `src/lib/questions/topics.ts`.
 - **Progress, theme and sound stay in the browser** (`localStorage` keys

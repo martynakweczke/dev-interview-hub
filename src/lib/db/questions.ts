@@ -1,12 +1,13 @@
 import "server-only";
 
-import { asc, eq } from "drizzle-orm";
+import { asc, eq, max } from "drizzle-orm";
 import { cacheLife, cacheTag } from "next/cache";
 
 import { db } from "@/lib/db/db";
 import { questions } from "@/lib/db/schema";
 import { QUESTIONS_PER_ROUND } from "@/lib/questions/types";
 import type { Option, Question, TopicId } from "@/lib/questions/types";
+import type { QuestionInput } from "@/lib/questions/validate-question/validate-question";
 
 export const QUESTIONS_CACHE_TAG = "questions";
 
@@ -48,4 +49,38 @@ export async function getQuestionsForTopic(
     .limit(QUESTIONS_PER_ROUND);
 
   return rows.map(toQuestion);
+}
+
+export async function getAllQuestions(): Promise<readonly Question[]> {
+  "use cache";
+  cacheLife("max");
+  cacheTag(QUESTIONS_CACHE_TAG);
+
+  const rows = await db
+    .select()
+    .from(questions)
+    .orderBy(asc(questions.topicId), asc(questions.position));
+
+  return rows.map(toQuestion);
+}
+
+export async function insertQuestion(input: QuestionInput): Promise<string> {
+  const [{ lastPosition }] = await db
+    .select({ lastPosition: max(questions.position) })
+    .from(questions)
+    .where(eq(questions.topicId, input.topicId));
+
+  const id = `${input.topicId}-${crypto.randomUUID().slice(0, 8)}`;
+
+  await db.insert(questions).values({
+    id,
+    topicId: input.topicId,
+    position: (lastPosition ?? -1) + 1,
+    prompt: input.prompt,
+    options: input.options,
+    correctOptionId: input.correctOptionId,
+    explanation: input.explanation ?? null,
+  });
+
+  return id;
 }

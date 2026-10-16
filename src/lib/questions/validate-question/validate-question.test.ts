@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  parseQuestion,
   validateQuestion,
   type QuestionDraft,
 } from "@/lib/questions/validate-question/validate-question";
@@ -123,5 +124,38 @@ describe("validateQuestion", () => {
       "correctOptionId",
       "explanation",
     ]);
+  });
+});
+
+describe("parseQuestion", () => {
+  it("returns a typed question with trimmed text", () => {
+    expect(
+      parseQuestion({
+        ...withOption("d", "  It throws  "),
+        prompt: "  What does `typeof null` evaluate to?  ",
+        explanation: " A legacy quirk. ",
+      })
+    ).toEqual({
+      ok: true,
+      question: {
+        topicId: "js",
+        prompt: "What does `typeof null` evaluate to?",
+        options: [
+          { id: "a", label: '`"null"`' },
+          { id: "b", label: '`"object"`' },
+          { id: "c", label: '`"undefined"`' },
+          { id: "d", label: "It throws" },
+        ],
+        correctOptionId: "b",
+        explanation: "A legacy quirk.",
+      },
+    });
+  });
+
+  it("returns the errors instead of a question", () => {
+    expect(parseQuestion({ ...valid, prompt: "" })).toEqual({
+      ok: false,
+      errors: { prompt: "Question is required." },
+    });
   });
 });
