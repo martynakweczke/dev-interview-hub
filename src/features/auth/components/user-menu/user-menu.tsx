@@ -2,8 +2,9 @@
 
 import type { ComponentProps } from "react";
 import { useClerk } from "@clerk/nextjs";
-import { LogOut } from "lucide-react";
+import { LogOut, ShieldCheck } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 import {
   DropdownMenu,
@@ -23,6 +24,7 @@ type UserMenuProps = Omit<
   initials: string;
   email: string | null;
   imageUrl?: string | null;
+  showAdminLink?: boolean;
 };
 
 export function UserMenu({
@@ -30,6 +32,7 @@ export function UserMenu({
   initials,
   email,
   imageUrl,
+  showAdminLink = false,
   className,
   ...props
 }: UserMenuProps) {
@@ -77,6 +80,14 @@ export function UserMenu({
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+        {showAdminLink && (
+          <DropdownMenuItem asChild>
+            <Link href="/admin">
+              <ShieldCheck aria-hidden="true" className="size-3.5" />
+              Admin
+            </Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem onSelect={handleSignOut}>
           <LogOut aria-hidden="true" className="size-3.5" />
           Sign out

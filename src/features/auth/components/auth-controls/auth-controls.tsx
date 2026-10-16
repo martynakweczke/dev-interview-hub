@@ -4,6 +4,7 @@ import { useUser } from "@clerk/nextjs";
 
 import { SignInLink } from "@/features/auth/components/sign-in-link/sign-in-link";
 import { UserMenu } from "@/features/auth/components/user-menu/user-menu";
+import { isAdmin } from "@/features/auth/services/admin-role/admin-role";
 import {
   getDisplayName,
   getInitials,
@@ -43,6 +44,7 @@ export function AuthControls({ className }: { className?: string }) {
       initials={getInitials(displayUser)}
       email={displayUser.email}
       imageUrl={user.hasImage ? user.imageUrl : null}
+      showAdminLink={isAdmin({ metadata: user.publicMetadata })}
       className={className}
     />
   );
