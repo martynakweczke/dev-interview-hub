@@ -4,7 +4,10 @@ import { describe, expect, it, vi } from "vitest";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
+import { Textarea } from "@/components/ui/textarea";
 
 describe("Button", () => {
   it("is truly non-interactive when disabled", async () => {
@@ -58,5 +61,39 @@ describe("Badge", () => {
 
     expect(badge.querySelector("[aria-hidden='true']")).not.toBeNull();
     expect(badge).toHaveClass("tone-streak");
+  });
+});
+
+describe("Input", () => {
+  it("is named by its label", () => {
+    render(
+      <>
+        <Label htmlFor="prompt">Question</Label>
+        <Input id="prompt" />
+      </>
+    );
+
+    expect(screen.getByRole("textbox", { name: "Question" })).toHaveAttribute(
+      "type",
+      "text"
+    );
+  });
+
+  it("switches to the incorrect tone when invalid", () => {
+    render(<Input aria-label="Question" aria-invalid />);
+
+    expect(screen.getByRole("textbox").className).toContain(
+      "aria-invalid:tone-incorrect"
+    );
+  });
+});
+
+describe("Textarea", () => {
+  it("shares the field styling and grows only vertically", () => {
+    render(<Textarea aria-label="Question" />);
+    const { className } = screen.getByRole("textbox");
+
+    expect(className).toContain("rounded-control");
+    expect(className).toContain("resize-y");
   });
 });

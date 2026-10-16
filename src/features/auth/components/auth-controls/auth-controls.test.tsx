@@ -26,6 +26,7 @@ const signedIn = {
     primaryEmailAddress: { emailAddress: "lexi@example.com" },
     hasImage: false,
     imageUrl: "https://img.clerk.com/default.png",
+    publicMetadata: {},
   },
 };
 
@@ -113,5 +114,34 @@ describe("AuthControls", () => {
     expect(signOut).toHaveBeenCalledWith({
       redirectUrl: window.location.pathname,
     });
+  });
+
+  it("links admins to the admin panel", async () => {
+    mockUser({
+      ...signedIn,
+      user: { ...signedIn.user, publicMetadata: { role: "admin" } },
+    });
+    render(<AuthControls />);
+
+    await userEvent.click(
+      screen.getByRole("button", { name: "Account menu for Lexi" })
+    );
+
+    expect(screen.getByRole("menuitem", { name: "Admin" })).toHaveAttribute(
+      "href",
+      "/admin"
+    );
+  });
+
+  it("hides the admin link from everyone else", async () => {
+    mockUser(signedIn);
+    render(<AuthControls />);
+
+    await userEvent.click(
+      screen.getByRole("button", { name: "Account menu for Lexi" })
+    );
+
+    expect(screen.getByRole("menuitem", { name: "Sign out" })).toBeVisible();
+    expect(screen.queryByRole("menuitem", { name: "Admin" })).toBeNull();
   });
 });
